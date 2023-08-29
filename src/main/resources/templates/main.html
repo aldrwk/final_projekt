@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="css/common_util.css">
     <link rel="stylesheet" href="css/mainpage.css">
     <script src="js/mainpage.js"></script>
+    <script src="js/header.js"></script>
     <title>Title</title>
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace="util/header :: header"></div>
+    <div th:replace="/util/header :: header"></div>
 <div class="recommend_area">
     <div class="recommend_bar">
         <button type="button" class="left-button left-area"><span class="blind">이전</span></button>
@@ -144,7 +145,7 @@
 
 
 
-<div th:replace="util/footer" ::footer></div>
+<div th:replace="/util/footer" ::footer></div>
 </div>
 </body>
 </html>
