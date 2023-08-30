@@ -10,6 +10,10 @@ $(function () {
             $(this).after(search_reset_bt)
             isCancleButton = true;
         }
+        if ($('.search-data').val() == ""){
+            $('.search-remove').remove();
+            isCancleButton = false;
+        }
     });
 
     $(document).on('click', '.search-remove', function () {
@@ -17,7 +21,6 @@ $(function () {
         $('.search-remove').remove();
         isCancleButton = false;
     });
-
     $(document).on('focus', '.search-data', function () {
         $('.search-box').css("display", "block");
     })

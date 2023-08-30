@@ -10,4 +10,9 @@ public class memberController {
     public String signUp(){
         return "member/signup";
     }
+
+    @GetMapping("login")
+    public String login() {
+        return "member/login";
+    }
 }

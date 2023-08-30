@@ -84,9 +84,11 @@ input[type="search"]::-webkit-search-cancel-button {
     gap: 16px;
 }
 .search-remove{
+    display: inherit;
     border-style: none;
     background: none;
 }
+
 .recommand-button{
     border: 1px solid #d2d2d2;
     border-radius: 30px;
@@ -119,9 +121,11 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 .footer-container{
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
     border-top: 0.0625rem solid #e1e1e1;
+    margin-top: 65px;
 }
 .footer-column{
     display: flex;
