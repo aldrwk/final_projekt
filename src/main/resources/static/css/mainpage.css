@@ -21,6 +21,7 @@
     width: 1080px;
     height: 400px;
     margin: 0 auto;
+    border-radius: 10px;
 }
 
 .recommend_cards {
@@ -33,7 +34,9 @@
     padding: 0;
     z-index: 3;
 }
-
+.slick-prev:before, .slick-next:before {
+    color: #444444;
+}
 .blind {
     position: absolute;
     overflow: hidden;
@@ -56,7 +59,7 @@
 }
 
 .card-view {
-    border-radius: 15px;
+    border-radius: 10px;
     height: 99%;
     width: 100%;
     overflow: hidden;

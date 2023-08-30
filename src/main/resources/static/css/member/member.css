@@ -1,0 +1,117 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-containner, .login-containner {
+    margin: 60px 0 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 45px;
+    /*border: 1px solid #cbcbcb;*/
+    /*border-radius: 5px;*/
+}
+
+.signup-title, .login-title {
+    margin: 0 0 40px 0;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.signup-main, .login-main {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+
+}
+
+.signnup-form, .login-form  {
+
+
+}
+
+.text-input {
+    border-radius: 5px;
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    border: 2px solid #a3a3a3;
+    box-shadow: none;
+    font-size: 1.2rem;
+    outline: none;
+    padding: 15px;
+}
+
+.text-input::placeholder {
+    color: #a3a3a3;
+    font-size: 1.2rem;
+}
+
+.title-input {
+    font-weight: bold;
+    font-size: 18px;
+    color: #393939;
+}
+
+.check-label {
+    width: fit-content;
+    margin: 10px;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/*.check-box,*/
+.custom-checkbox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+.check-label:before {
+    content: "";
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    top: 4px;
+    left: -10px;
+    background-color: #e1e1e1;
+    border: none;
+    border-radius: 2px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIGZpbGw9IiNFMUUxRTEiIHJ4PSIyIi8+PHBhdGggc3Ryb2tlPSIjRkZGIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIgZD0iTTUgOS4yMTlMOC4zIDEyLjVsNS44NjctNS44MzMiLz48L2c+PC9zdmc+);
+}
+
+/*.custom-checkbox .custom-control-input:checked~.custom-control-label:before*/
+.custom-checkbox .check-box:checked + .check-label:before {
+    content: "";
+    position: relative;
+    border: none;
+    background-color: transparent;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjU2Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZm9udC1mYW1pbHk9Im5vbmUiIGZvbnQtc2l6ZT0ibm9uZSIgZm9udC13ZWlnaHQ9Im5vbmUiIHN0eWxlPSJtaXgtYmxlbmQtbW9kZTpub3JtYWwiIHRleHQtYW5jaG9yPSJub25lIj48cGF0aCBmaWxsPSIjZmFmYmZiIiBkPSJNMjAwIDY0YTc5NzkgNzk3OSAwIDAgMS05NSAxMDEgMjM1IDIzNSAwIDAgMS0xNS0xNSAyMjM0IDIyMzQgMCAwIDEtMzAtMzNjLTMtMi04LTItMTEtMS03IDQtOCAxMi0zIDE3YTU3NzggNTc3OCAwIDAgMCA1MSA1NWM1IDUgMTIgNSAxNiAxbDYtN2ExMjMzIDEyMzMgMCAwIDAgMjMtMjYgMTAwODg1IDEwMDg4NSAwIDAgMSA2Ny03NGM0LTMgNC01IDQtOCAwLTgtNi0xMi0xMy0xMCIvPjxwYXRoIGZpbGw9IiM2MWM3ZmYiIGQ9Im01NCAwLTEgMWgtNGwtMSAxaC0zbC0xIDFoLTJsLTEgMWgtMWwtMSAxaC0xbC0zIDEtMSAxaC0xbC0xIDFoLTF2MWgtMWwtMSAxaC0xdjFoLTFsLTEgMS0xIDFoLTFsLTEgMS0xIDFhMzkgMzkgMCAwIDAtOSA5djFsLTEgMS0xIDF2MWgtMXYxbC0xIDF2MUg4djFsLTEgMXYxbC0xIDF2MmwtMSAyLTEgMXYxbC0xIDF2MmwtMSAxdjNsLTEgMXYybC0xIDJhODAwNCA4MDA0IDAgMCAwIDMgMTU5djJoMXYybDEgMSAxIDQgMSAxdjFsMSAxdjFoMXYxbDEgMXYxaDF2MWwxIDEgMSAxdjFsMSAxIDEgMWEzNyAzNyAwIDAgMCA5IDlsMiAxIDEgMWgxdjFoMWwxIDFoMXYxaDFsMSAxIDIgMSAyIDFoMmwxIDFoMnYxaDJsMSAxaDNsMSAxaDJsMiAxYTgwMDQgODAwNCAwIDAgMCAxNjAtM2gxdi0xaDJsMS0xIDItMWgybDEtMSAyLTFoMXYtMWgxbDEtMWgxdi0xaDFsMS0xIDEtMWgxbDEtMWMxLTEgMS0yIDItMWE0MiA0MiAwIDAgMCA4LTEwbDEtMSAxLTF2LTFoMXYtMWwxLTF2LTFoMXYtMWwxLTIgMS0xIDEtM3YtMWwxLTF2LTJoMXYtMmwxLTF2LTFsMS0zdi0ybDEtMmEyMzg4IDIzODggMCAwIDAtNS0xNjRsLTEtNC0xLTF2LTFsLTEtMXYtMWgtMXYtMWwtMS0xdi0xaC0xdi0xbC0xLTF2LTFhODcwIDg3MCAwIDAgMC0xOS0xNmwtMS0xLTItMS0xLTFoLTJsLTItMS0xLTFoLTJWM2gtMmwtMS0xaC0zbC0xLTFoLTJsLTItMUg1NG0xNTMgNjRjNCAyIDYgNSA2IDEwIDAgMyAwIDUtNCA4YTI3MzAgMjczMCAwIDAgMC03OSA4NyAxNDkxIDE0OTEgMCAwIDAtMTcgMjBjLTQgNC0xMSA0LTE2LTFhMTEzMyAxMTMzIDAgMCAwLTUxLTU1Yy01LTUtNC0xMyAzLTE3IDMtMSA4LTEgMTEgMWw4IDlhNTI3NSA1Mjc1IDAgMCAwIDM2IDM5bDUtNWE0Mzg1NCA0Mzg1NCAwIDAgMCA5MS05Nmg3Ii8+PC9nPjwvc3ZnPg==);
+}
+
+.btn-submit {
+    background-color: #61C7FF;
+    width: 100%;
+}
+
+.other-login {
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+}
+
+.kakao-login-btn, .naver-login-btn, .google-login-btn {
+    width: 100%;
+    margin: 10px 0;
+}
