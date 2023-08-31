@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace="/util/header :: header"></div>
+    <div th:replace=/util/header :: header></div>
     <div class="login-containner">
         <div class="login-title">프리 로그인</div>
         <div class="login-main">
@@ -19,7 +19,8 @@
                 <span class="title-input">이메일</span>
                 <input class="text-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">
                 <span class="title-input">비밀번호</span>
-                <input class="text-input" type="password" name="password" id="password" placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">
+                <input class="text-input" type="password" name="password" id="password"
+                       placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">
                 <button type="submit" class="btn btn-submit">로그인</button>
                 <hr>
                 <span class="other-login">다른 방법으로 로그인</span>
@@ -30,6 +31,7 @@
         </div>
 
     </div>
-    <div th:replace="/util/footer" ::footer></div>
+</div>
+<div th:replace=/util/footer :: footer></div>
 </body>
 </html>
