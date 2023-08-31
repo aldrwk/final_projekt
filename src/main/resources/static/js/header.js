@@ -28,4 +28,10 @@ $(function () {
         $('.search-box').css("display", "none");
     })
 
+    $(".search").submit(function (){
+        if($(".search-data").val() == ""){
+            return false;
+        }
+    })
+
 });

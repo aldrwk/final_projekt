@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace="/util/header :: header"></div>
+    <div th:replace=/util/header :: header></div>
     <div class="recommend_area">
         <div class="recommend_bar">
             <div class="slider">
@@ -137,7 +137,8 @@
         <div class="host-join">호스트 가입하자</div>
 
 
-        <div th:replace="/util/footer" ::footer></div>
     </div>
+</div>
+<div th:replace=/util/footer ::footer></div>
 </body>
 </html>
