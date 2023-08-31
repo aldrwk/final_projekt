@@ -14,7 +14,7 @@
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace="util/header :: header"></div>
+    <div th:replace=util/header :: header></div>
     <div class="signup-containner">
         <div class="signup-title">프리 간편 가입</div>
         <div class="signup-main">
@@ -24,20 +24,22 @@
                 <span class="title-input">이메일</span>
                 <input class="text-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">
                 <span class="title-input">비밀번호</span>
-                <input class="text-input" type="password" name="password" id="password" placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">
+                <input class="text-input" type="password" name="password" id="password"
+                       placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">
                 <div class="custom-checkbox">
-                <input class="check-box all-check" type="checkbox" name="all-check" id="check-control">
-                <label for="check-control" class="check-label">
-                    <span>전체 동의</span>
-                </label>
-                <input class="check-box service-check" type="checkbox" name="service-check" id="service-check">
-                <label for="service-check" class="check-label">
-                    <span>[필수] 이용약관 동의</span>
-                </label>
-                <input class="check-box privateinfo-check" type="checkbox" name="privateinfo-check" id="privateinfo-check">
-                <label for="privateinfo-check" class="check-label">
-                    <span>[필수] 개인정보 수집 및 이용 동의</span>
-                </label>
+                    <input class="check-box all-check" type="checkbox" name="all-check" id="check-control">
+                    <label for="check-control" class="check-label">
+                        <span>전체 동의</span>
+                    </label>
+                    <input class="check-box service-check" type="checkbox" name="service-check" id="service-check">
+                    <label for="service-check" class="check-label">
+                        <span>[필수] 이용약관 동의</span>
+                    </label>
+                    <input class="check-box privateinfo-check" type="checkbox" name="privateinfo-check"
+                           id="privateinfo-check">
+                    <label for="privateinfo-check" class="check-label">
+                        <span>[필수] 개인정보 수집 및 이용 동의</span>
+                    </label>
                 </div>
                 <button type="submit" class="btn btn-submit">회원 가입</button>
                 <hr>
@@ -49,12 +51,10 @@
         </div>
 
 
-
     </div>
 
 
-
-    <div th:replace="util/footer" ::footer></div>
 </div>
+<div th:replace=util/footer ::footer></div>
 </body>
 </html>
