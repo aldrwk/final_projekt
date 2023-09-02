@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/header.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/common_util.css">
+    <link rel="stylesheet" href="css/member/mypage.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="mainContainer">
+    <div th:replace=/util/header :: header></div>
+
+    <div class="mypage-container">
+        <div class="mypage-head">
+            <span class="head-title">마이 페이지</span>
+            <div class="mypage-profile">
+                <div class="mypage-profile-img">
+                    <img class="profile-img" src="image/util/profile.png"/>
+                </div>
+                <div class="mypage-profile-name">
+                    <span class="profile-name">이름</span>
+                    <span class="profile-email">이메일</span>
+                </div>
+            </div>
+        </div>
+        <div class="mypage-info horizon">
+            <div class="mypage-info-area">
+                <span class="mypage-title">내 활동</span>
+                <div class="mypage-info-payment">
+                    <a href="#" class="mypage-text">지난 프리 </a>
+                    <a href="#" class="mypage-text">결제내역</a>
+                </div>
+            </div>
+        </div>
+        <div class="mypage-host horizon">
+            <span class="mypage-title">호스트</span>
+            <a href="#" class="mypage-text">호스트 센터</a>
+            <a href="#" class="mypage-text">호스트 지원</a>
+        </div>
+        <div class="mypage-notice horizon">
+            <span class="mypage-title">고객센터</span>
+            <a href="#" class="mypage-text">공지사항</a>
+            <a href="#" class="mypage-text">FAQ</a>
+            <a href="#" class="mypage-text">약관 및 정책</a>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+    <div th:replace=/util/footer ::footer></div>
+</body>
+</html>
