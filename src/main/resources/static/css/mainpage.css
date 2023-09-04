@@ -71,7 +71,7 @@
 }
 
 .card_img {
-    height: 50%;
+    height: 100%;
     width: 100%;
 }
 
@@ -128,13 +128,13 @@
     background-size: 30%;
 }
 
-.category-container{
+.category-container,.beliebt-container, .bereich-container, .newfree-container{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.category-main{
+.category-main, .beliebt-main,.bereich-main, .newfree-main{
     width: 1080px;
     display: flex;
     flex-direction: row;
@@ -147,7 +147,7 @@
 
 }
 
-.beliebt-container{
+/*.beliebt-container{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -159,7 +159,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-}
+}*/
 .beliebt-cards{
     display: flex;
     flex-direction: row;
@@ -172,7 +172,7 @@
     margin: 20px 15px;
 }
 
-.bereich-container{
+/*.bereich-container{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -184,7 +184,7 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-}
+}*/
 .bereich-list{
     display: flex;
     flex-direction: row;
@@ -196,5 +196,6 @@
     width: 100px;
     margin: 20px 10px;
 }
+
 
 
