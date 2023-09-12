@@ -1,4 +1,4 @@
-package com.spring.final_project.controller;
+package com.spring.final_project.member;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
