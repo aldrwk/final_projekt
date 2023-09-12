@@ -1,4 +1,4 @@
-package com.spring.final_project.controller;
+package com.spring.final_project.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,8 @@ import javax.swing.plaf.PanelUI;
 public class mainController {
 
     @GetMapping("/")
-    public String root() {
+    public String root(Model model) {
+
         return "main";
     }
 

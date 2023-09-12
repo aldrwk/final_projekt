@@ -25,12 +25,15 @@
 
 }
 .regist-header-number {
-    background-color: #ADE2FF;
+    background-color: #a2a2a2;
     border-radius: 50%;
     width: 25px;
     height: 25px;
     color: #f5f5f5;
     margin-right: 10px;
+}
+.regist-header-active{
+    background-color: #ADE2FF;
 }
 .regist-main-title {
     font-size: 30px;
@@ -88,6 +91,39 @@ input[type="checkbox"] {
 }
 
 
+.text-input {
+    border-radius: 5px;
+    height: 45px;
+    width: 100%;
+    margin: 10px 0 30px 0;
+    border: 2px solid #a3a3a3;
+    box-shadow: none;
+    font-size: 1.1rem;
+    outline: none;
+    padding: 15px;
+}
+
+.text-input::placeholder {
+    color: #a3a3a3;
+    font-size: 1.1rem;
+}
+
+.title-input {
+    font-weight: bold;
+    font-size: 17px;
+    color: #393939;
+}
+.btn-submit {
+    background-color: #61C7FF;
+    width: 100%;
+    margin: 10px 0;
+    height: 45px;
+}
+
+.checked-email {
+    background-color: rgb(238, 238, 238);
+
+}
 
 .regist-main-btn {
     margin-top: 20px;
@@ -98,4 +134,9 @@ input[type="checkbox"] {
     color: #f5f5f5;
     font-weight: bolder;
     font-size: 17px;
+}
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
