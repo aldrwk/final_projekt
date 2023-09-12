@@ -18,7 +18,7 @@
 
 .signup-title, .login-title {
     margin: 0 0 40px 0;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bolder;
 }
 
@@ -36,24 +36,24 @@
 
 .text-input {
     border-radius: 5px;
-    height: 50px;
+    height: 45px;
     width: 100%;
     margin: 10px 0 30px 0;
     border: 2px solid #a3a3a3;
     box-shadow: none;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     outline: none;
     padding: 15px;
 }
 
 .text-input::placeholder {
     color: #a3a3a3;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .title-input {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 17px;
     color: #393939;
 }
 
