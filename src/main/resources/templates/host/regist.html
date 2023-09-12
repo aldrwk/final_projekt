@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="/js/host.js"></script>
+    <script src="/js/host_regist.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/regist.css">
@@ -16,7 +16,7 @@
     <div class="regist-container">
         <div class="regist-header">
             <div class="regist-header-area">
-                <div class="regist-header-number">
+                <div class="regist-header-number regist-header-active">
                     <span>1</span>
                 </div>
                 <div class="regist-header-title"><span>약관동의</span></div>
@@ -50,20 +50,19 @@
                     <input class="check-box privateinfo-check" type="checkbox" name="privateinfo-check"
                            id="privateinfo-check">
                     <label for="privateinfo-check" class="check-label">
-                        <span>개인정보 처리방침</span>
+                        <span>[필수] 개인정보 처리방침</span>
                     </label>
                     <input class="check-box service-check" type="checkbox" name="service-check" id="service-check">
                     <label for="service-check" class="check-label">
-                        <span>이용약관</span>
+                        <span>[필수] 이용약관</span>
                     </label>
                     <input class="check-box consumer-check" type="checkbox" name="service-check" id="consumer-check">
                     <label for="consumer-check" class="check-label">
-                        <span>이용약관(구매자)</span>
+                        <span>[필수] 이용약관(구매자)</span>
                     </label>
                 </div>
             </div>
-
-            <button class="btn regist-main-btn">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button>
+            <button class="btn regist-main-btn ">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button>
         </div>
 
     </div>
