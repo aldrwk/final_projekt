@@ -9,6 +9,13 @@ a {
     background-color: #61C7FF;
     width: 4em;
 }
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
 
 .header-container {
     display: flex;
@@ -16,6 +23,7 @@ a {
     width: 1080px;
     justify-content: center;
     margin: 0 auto;
+    height: 90px;
 }
 .host-header-container {
     display: flex;
@@ -31,7 +39,7 @@ a {
     justify-content: space-between;
     flex-direction: row;
     width: 100%;
-    padding-top: 10px;
+    align-items: center;
 }
 .navi-list{
     display: flex;

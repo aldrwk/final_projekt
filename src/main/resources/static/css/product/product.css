@@ -1,0 +1,119 @@
+.detail-container {
+    margin-top: 50px;
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.detail-header {
+    width: 800px;
+    height: 375px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.detail-header-img-area {
+    min-width: 375px;
+    height: 375px;
+    border: 1px solid black; /*임시*/
+}
+.detail-header-img {
+    width: inherit;
+
+}
+.detail-header-info {
+    padding-left: 50px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.detail-text-area {
+    height: 100%;
+}
+.detail-header-host-area {
+    position: relative;
+    height: 50px;
+    bottom: 0%;
+    display: flex;
+    flex-direction: row;
+}
+
+.detail-header-host {
+    font-size: 17px;
+    width: 250px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.img_arrow {
+    width: 20px;
+}
+
+.detail-header-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.detail-header-ort {
+    font-size: 15px;
+    color: #a6a6a6;
+    margin-bottom: 10px;
+}
+.detail-header-preis {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.detail-body {
+    width: 100%;
+    border-top: 1px solid #d2d2d2;
+}
+.detail-body-head {
+    margin: 20px 0;
+    font-weight: bolder;
+    font-size: 16px;
+}
+.detail-body-main {
+    height: 650px;
+}
+.detail-body-cover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.detail-body-cover-button {
+    border: 1.5px solid black;
+    width: 327px;
+    height: 56px;
+    font-weight: bold;
+}
+.detail-body-cover-button:focus {
+    box-shadow: none;
+}
+
+.teilnahme-area {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    bottom: 0%;
+    height: 100px;
+    border-top: 1px solid #d2d2d2;
+    width: 100%;
+    z-index: 5;
+    background-color: white;
+}
+.teilnahme-btn {
+    width: 500px;
+    height: 50px;
+    margin: 25px;
+    background-color: #61C7FF;
+    color: #f5f5f5;
+    font-weight: bold;
+
+}
