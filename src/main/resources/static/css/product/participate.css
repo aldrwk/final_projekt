@@ -1,0 +1,136 @@
+.participate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.participate-title {
+    margin: 30px 0px 40px;
+    font-size: 25px;
+    font-weight: bolder;
+    width: 1080px;
+}
+
+.participate-calender-area {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.participate-calender {
+    width: 700px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+.participate-date-table {
+    margin-left: 20px;
+    padding: 15px;
+    width: 360px;
+    height: 600px;
+    border: 1px solid black;
+}
+
+.date-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #e1e1e1;
+    height: 50px;
+    font-size: 17px;
+    font-weight: bold;
+}
+.option-title {
+    width: 60%;
+}
+.option-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.option-zeit {
+    font-size: 14px;
+    font-weight: bold;
+    color: #a6a6a6;
+}
+.option-popup-title {
+    display: inline-block;
+    font-size: 15px;
+}
+.option-popup-cnt-down {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.option-popup-cnt-up {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.option-popup-cnt {
+    font-size: 14px;
+    width: 30px;
+    height: 30px;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.option-popup {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+
+.total-price-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 110%;
+}
+.total-price-title, .total-price {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.participate-btn {
+    width: 200px;
+    height: 40px;
+    background-color: #61C7FF;
+    float: right;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 17px;
+    margin: 20px 0 0 30px;
+}
+.participate-btn:hover {
+    background-color: #61C7FF;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 17px;
+    opacity: 0.8;
+}
+.btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 100%;
+    float: right;
+}

@@ -16,4 +16,9 @@ public class hostController {
     public String registproc() {
         return "/";
     }
+
+    @GetMapping("/center")
+    public String center(){
+        return "host/managecenter";
+    }
 }

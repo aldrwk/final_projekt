@@ -41,6 +41,13 @@ a {
     width: 100%;
     align-items: center;
 }
+.host-navi-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+
 .navi-list{
     display: flex;
     flex-direction: row;
@@ -48,6 +55,11 @@ a {
     align-items: center;
     flex-wrap: nowrap;
     padding-top: 5px;
+}
+.navi-title {
+    font-size: 19px;
+    font-weight: bolder;
+    padding-left: 20px;
 }
 .navi-search{
     margin-top: 10px;
