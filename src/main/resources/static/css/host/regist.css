@@ -14,8 +14,6 @@
     flex-direction: row;
     align-items: center;
     text-align: center;
-
-
 }
 .regist-header-number {
     background-color: #a2a2a2;
@@ -111,6 +109,9 @@ input[type="checkbox"] {
     width: 100%;
     margin: 10px 0;
     height: 45px;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 17px;
 }
 
 .checked-email {
@@ -127,6 +128,14 @@ input[type="checkbox"] {
     color: #f5f5f5;
     font-weight: bolder;
     font-size: 17px;
+}
+.regist-main-btn:hover, .btn-submit:hover {
+    background-color: #61C7FF;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 17px;
+    opacity: 0.8;
+
 }
 .btn-container {
     display: flex;

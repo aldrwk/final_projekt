@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/js/header.js"></script>
+    <script src="/js/product.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/common_util.css">
+    <link rel="stylesheet" href="/css/product/participate.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="mainContainer">
+    <div th:replace=/common/header :: header></div>
+    <div class="participate-container">
+        <div class="participate-title">상품 제목</div>
+        <div class="participate-calender-area">
+            <div class="participate-calender">
+                달력
+            </div>
+            <div class="participate-date-table">
+                <div class="date-header">
+                    <div class="date-title">
+                        옵션을 선택해주세요
+                    </div>
+                    <div class="date-selected">선택한 날짜</div>
+                </div>
+                <div class="option-list">
+                    <div class="option-title">날짜 <br>
+                        <span class="option-zeit">오전 11:00 ~ 오후 1:30</span></div>
+                    <div class="option-price">10,000원</div>
+                    <div class="option-popup-title">인원 선택</div>
+                    <div class="option-popup">
+                        <div class="option-popup-cnt-down">-</div>
+                        <div class="option-popup-cnt">0</div>
+                        <div class="option-popup-cnt-up">+</div>
+                    </div>
+                </div>
+                <div class="total-price-area">
+                    <div class="total-price-title">총 액</div>
+                    <div class="total-price" th:with>~~~~~원</div>
+                </div>
+            </div>
+        </div>
+        <form action="/pay/1/pay-method" method="post">
+            <input type="hidden" name="totalPrice" th:value="total-price">
+            <div class="btn-container">
+                <button class="btn participate-btn before">취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</button>
+
+                <button class="btn participate-btn goToPay">결 제 하 기</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
