@@ -22,7 +22,7 @@
 
 }
 
-.signnup-form, .login-form  {
+.signnup-form, .login-form {
 
 
 }
@@ -69,6 +69,7 @@ input[type="checkbox"] {
     flex-wrap: wrap;
 
 }
+
 .check-label:before {
     content: "";
     position: relative;
@@ -100,6 +101,7 @@ input[type="checkbox"] {
     border-radius: 0.75rem;
     font-weight: 400;
 }
+
 .btn-submit:focus {
     box-shadow: none;
 }
@@ -118,16 +120,18 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
-.kakao-login-btn{
+.kakao-login-btn {
     background-color: #fee500;
     border-color: #fee500;
-    color: rgba(0,0,0,.85);
+    color: rgba(0, 0, 0, .85);
 }
-.naver-login-btn, .naver-login-btn:hover{
+
+.naver-login-btn, .naver-login-btn:hover {
     background-color: #03c75a;
     border-color: #03c75a;
     color: #fff;
 }
+
 .google-login-btn, .google-login-btn:hover {
     background-color: #eeeeee;
     border-color: #eeeeee;

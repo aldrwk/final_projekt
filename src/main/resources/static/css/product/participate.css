@@ -24,6 +24,8 @@
 }
 
 .participate-date-table {
+    display: flex;
+    flex-direction: column;
     margin-left: 20px;
     padding: 15px;
     width: 360px;
@@ -40,9 +42,11 @@
     font-size: 17px;
     font-weight: bold;
 }
+
 .option-title {
     width: 60%;
 }
+
 .option-list {
     padding: 10px;
     display: flex;
@@ -52,17 +56,38 @@
     align-items: center;
     font-weight: bolder;
     font-size: 18px;
+    cursor: pointer;
+}
+
+.select {
+    background-color: #f3f3f3;
+}
+
+.option-list:hover {
+    background-color: #f3f3f3;
 }
 
 .option-zeit {
     font-size: 14px;
     font-weight: bold;
-    color: #a6a6a6;
+    color: #8a8a8a;
 }
+
+.option-popup-container {
+    margin: 10px 0;
+    position: absolute;
+    top: 680px;
+    display: flex;
+    justify-content: space-between;
+    width: 330px;
+    font-weight: bold;
+}
+
 .option-popup-title {
     display: inline-block;
     font-size: 15px;
 }
+
 .option-popup-cnt-down {
     width: 30px;
     height: 30px;
@@ -73,6 +98,7 @@
     justify-content: center;
     cursor: pointer;
 }
+
 .option-popup-cnt-up {
     width: 30px;
     height: 30px;
@@ -83,6 +109,7 @@
     justify-content: center;
     cursor: pointer;
 }
+
 .option-popup-cnt {
     font-size: 14px;
     width: 30px;
@@ -93,6 +120,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .option-popup {
     display: flex;
     flex-direction: row;
@@ -103,8 +131,12 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 110%;
+    width: 330px;
+    position: absolute;
+    top: 740px;
+
 }
+
 .total-price-title, .total-price {
     font-size: 20px;
     font-weight: bolder;
@@ -120,6 +152,7 @@
     font-size: 17px;
     margin: 20px 0 0 30px;
 }
+
 .participate-btn:hover {
     background-color: #61C7FF;
     color: #f5f5f5;
@@ -127,6 +160,7 @@
     font-size: 17px;
     opacity: 0.8;
 }
+
 .btn-container {
     display: flex;
     flex-direction: row;

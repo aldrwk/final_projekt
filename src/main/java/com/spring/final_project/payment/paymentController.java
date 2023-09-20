@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("pay")
 public class paymentController {
 
-	@GetMapping("{productNum}/pay-method")
+	@PostMapping("{productNum}/pay-method")
 	public String payment(@PathVariable("productNum") int productNum, Model model,
 						  String totalPrice, String date, String time, String productName) {
 		model.addAttribute("productNum", productNum);
