@@ -27,24 +27,31 @@
                     <div class="date-selected">선택한 날짜</div>
                 </div>
                 <div class="option-list">
-                    <div class="option-title">날짜 <br>
-                        <span class="option-zeit">오전 11:00 ~ 오후 1:30</span></div>
+                    <div class="option-title">날짜</div>
+                    <span class="option-zeit">오전 11:00 ~ 오후 1:30</span>
                     <div class="option-price">10,000원</div>
-                    <div class="option-popup-title">인원 선택</div>
-                    <div class="option-popup">
-                        <div class="option-popup-cnt-down">-</div>
-                        <div class="option-popup-cnt">0</div>
-                        <div class="option-popup-cnt-up">+</div>
-                    </div>
+                </div>
+                <div class="option-list">
+                    <div class="option-title">날짜</div>
+                    <span class="option-zeit">오후 2:00 ~ 오후 4:00</span>
+                    <div class="option-price">100,000원</div>
+                </div>
+                <div class="option-list">
+                    <div class="option-title">날짜</div>
+                    <span class="option-zeit">오후 5:00 ~ 오후 7:00</span>
+                    <div class="option-price">1,000,000원</div>
                 </div>
                 <div class="total-price-area">
                     <div class="total-price-title">총 액</div>
-                    <div class="total-price" th:with>~~~~~원</div>
+                    <div class="total-price">0 원</div>
                 </div>
             </div>
         </div>
         <form action="/pay/1/pay-method" method="post">
-            <input type="hidden" name="totalPrice" th:value="total-price">
+            <input type="hidden" name="totalPrice" id="totalPrice">
+            <input type="hidden" name="date" id="date">
+            <input type="hidden" name="time" id="time">
+            <input type="hidden" name="productName" id="productName">
             <div class="btn-container">
                 <button class="btn participate-btn before">취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</button>
 

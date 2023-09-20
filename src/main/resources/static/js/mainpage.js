@@ -1,10 +1,10 @@
 $(function () {
-    $( '.slider' ).slick( {
+    $('.slider').slick({
         autoplay: true,
         autoplaySpeed: 10000,
         slidesToShow: 1,
         slidesToScroll: 1,
-    } );
+    });
 
     // card = $('.reco_card')
     // count = 1;

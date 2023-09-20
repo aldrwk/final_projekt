@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class mainController {
 
-    @GetMapping("/")
-    public String root(Model model) {
+	@GetMapping("/")
+	public String root(Model model) {
 
-        return "main";
-    }
+		return "main";
+	}
 
-    @GetMapping("/search")
-    public String search(String search_data, Model model){
+	@GetMapping("/search")
+	public String search(String search_data, Model model) {
 
-        return "common/search";
-    }
+		return "common/search";
+	}
 
 }

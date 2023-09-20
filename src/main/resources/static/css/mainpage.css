@@ -27,9 +27,11 @@
     padding: 0;
     z-index: 3;
 }
+
 .slick-prev:before, .slick-next:before {
     color: #444444;
 }
+
 .blind {
     position: absolute;
     overflow: hidden;
@@ -59,7 +61,8 @@
     display: inline-block;
     border: 1px solid #01273C;;
 }
-.card-body-font{
+
+.card-body-font {
     color: #353C42;
 }
 
@@ -121,64 +124,74 @@
     background-size: 30%;
 }
 
-.category-container,.beliebt-container, .bereich-container, .newfree-container{
+.category-container, .beliebt-container, .bereich-container, .newfree-container {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.category-main, .beliebt-main,.bereich-main, .newfree-main{
+
+.category-main, .beliebt-main, .bereich-main, .newfree-main {
     width: 1080px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
 }
-.category-item{
+
+.category-item {
     width: 240px;
     margin: 20px 15px;
 
 }
 
 
-.produkt-wrapper{
+.produkt-wrapper {
     width: 255px;
     height: 300px;
     margin: 0 20px 30px 0;
     border: 1px solid black; /*임시*/
 }
 
-.beliebt-cards > :nth-child(4n),.newfree-list > :nth-child(4n) {
+.beliebt-cards > :nth-child(4n), .newfree-list > :nth-child(4n) {
     margin-right: 0px;
 }
-.produkt-link{
+
+.produkt-link {
     display: inherit;
     height: 100%;
 }
-.produkt-karte{
+
+.produkt-karte {
     display: inherit;
     height: 100%;
 }
-.produkt-img-area{
+
+.produkt-img-area {
     display: inherit;
     height: 40%;
 }
-.produkt-img{
+
+.produkt-img {
     display: inherit;
     height: 100%;
 }
-.produkt-detail-area{
+
+.produkt-detail-area {
     height: 60%;
 }
-.produkt-detail{
+
+.produkt-detail {
 
 }
-.produkt-ort{
+
+.produkt-ort {
     display: inherit;
     width: 100%;
     font-size: 15px;
 }
-.produkt-title{
+
+.produkt-title {
     display: -webkit-box;
     -webkit-line-clamp: 2; /* 최대 줄 수 설정 */
     -webkit-box-orient: vertical;
@@ -188,26 +201,28 @@
 }
 
 
-.beliebt-cards, .newfree-list{
+.beliebt-cards, .newfree-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
 }
-.beliebt-card{
+
+.beliebt-card {
     display: inline-block;
     width: 240px;
     margin: 20px 15px;
 }
 
 
-.bereich-list{
+.bereich-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 
 }
-.bereich-item{
+
+.bereich-item {
     display: inline-block;
     width: 100px;
     margin: 20px 10px;

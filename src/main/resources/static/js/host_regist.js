@@ -12,11 +12,11 @@ $(function () {
     }))
 
     $(".regist-container").on('click', ".regist-main-btn", function () {
-        if($(".consumer-check, .privateinfo-check, .service-check").prop("checked") == true){
-        $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
+        if ($(".consumer-check, .privateinfo-check, .service-check").prop("checked") == true) {
+            $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             $(".regist-main").html("").html(account_email);
         }
-        if($(".email_check").hasClass("checked")){
+        if ($(".email_check").hasClass("checked")) {
             $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             let email = $("#email").val();
             $(".regist-main").html("").html(account_regist);
@@ -24,16 +24,15 @@ $(function () {
         }
     });
 
-    $(".regist-container").on("click", ".email_check",function (){
+    $(".regist-container").on("click", ".email_check", function () {
         $(this).addClass("checked");
     })
 
-    $(".regist-container").on("click", ".before",function (){
+    $(".regist-container").on("click", ".before", function () {
         if ($(".regist-main-title").text() == '호스트 정보') {
             $(".regist-header-active:last").removeClass("regist-header-active");
             $(".regist-main").html("").html(account_email);
-        }
-        else if ($(".regist-main-title").text() == '계정 정보') {
+        } else if ($(".regist-main-title").text() == '계정 정보') {
             $(".regist-header-active:last").removeClass("regist-header-active");
             $(".regist-main").html("").html(account_agree);
         }
@@ -65,17 +64,17 @@ $(function () {
         "</label></div></div>" +
         "<button class=\"btn regist-main-btn \">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button>"
 
-    const account_email ='<div class="regist-main-title">계정 정보</div>' +
-    '<div class="signnup-form">' +
-    '<span class="title-input">이메일</span>' +
-    '<input class="text-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">'+
-    '<button type="button" class="btn btn-submit email_check">이메일 확인</button>'+
-    '<div class="btn-container">' +
-    '<button class="btn regist-main-btn before">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>'+
-    '<button class="btn regist-main-btn">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button></div>';
+    const account_email = '<div class="regist-main-title">계정 정보</div>' +
+        '<div class="signnup-form">' +
+        '<span class="title-input">이메일</span>' +
+        '<input class="text-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">' +
+        '<button type="button" class="btn btn-submit email_check">이메일 확인</button>' +
+        '<div class="btn-container">' +
+        '<button class="btn regist-main-btn before">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
+        '<button class="btn regist-main-btn">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button></div>';
 
 
-    const account_regist ='<div class="regist-main-title">호스트 정보</div>' +
+    const account_regist = '<div class="regist-main-title">호스트 정보</div>' +
         '<form action="host/registproc" class="signnup-form">' +
         '<span class="title-input">이메일</span>' +
         '<input class="text-input checked-email" type="text" name="email" id="email" readonly>' +
@@ -88,8 +87,8 @@ $(function () {
         '<span class="title-input">호스트명</span>' +
         '<input class="text-input" type="text" name="hostname" id="hostname" placeholder="호스트명을 입력해주세요.">' +
         '<div class="btn-container">' +
-        '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>'+
-        '<button class="btn regist-main-btn">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>'+
+        '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
+        '<button class="btn regist-main-btn">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
         '</form>';
 
 })

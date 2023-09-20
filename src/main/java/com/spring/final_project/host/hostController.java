@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/host")
 public class hostController {
 
-    @GetMapping("/regist")
-    public String regist(){
-        return "host/regist";
-    }
+	@GetMapping("/regist")
+	public String regist() {
+		return "host/regist";
+	}
 
-    @PostMapping("/registproc")
-    public String registproc() {
-        return "/";
-    }
+	@PostMapping("/registproc")
+	public String registproc() {
+		return "/";
+	}
 
-    @GetMapping("/center")
-    public String center(){
-        return "host/managecenter";
-    }
+	@GetMapping("/center")
+	public String center() {
+		return "host/managecenter";
+	}
 }

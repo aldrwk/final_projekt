@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class productController {
 
-    @GetMapping("products/{productNum}")
-    public String productList(@PathVariable("productNum") int productNum, Model model) {
+	@GetMapping("products/{productNum}")
+	public String productList(@PathVariable("productNum") int productNum, Model model) {
 
-        return "product/detail";
-    }
+		return "product/detail";
+	}
 
-    @GetMapping("product/{productNum}/participate")
-    public String productCalender(@PathVariable("productNum") int productNum, Model model) {
-        return "product/participate";
-    }
+	@GetMapping("product/{productNum}/participate")
+	public String productCalender(@PathVariable("productNum") int productNum, Model model) {
+		return "product/participate";
+	}
 }

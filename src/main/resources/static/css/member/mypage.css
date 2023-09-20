@@ -5,34 +5,41 @@
     align-items: center;
     justify-content: center;
 }
-.mypage-container{
+
+.mypage-container {
     margin: 60px 0 60px 0;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     width: 720px;
 }
+
 .head-title {
     font-weight: bold;
     font-size: 30px;
     height: 100px;
     display: inline-block;
 }
+
 .mypage-head {
     margin-bottom: 30px;
 }
+
 .mypage-profile {
     display: flex;
     flex-direction: row;
     width: inherit;
 }
+
 .mypage-profile-img {
     width: 71px;
     height: 71px;
 }
+
 .profile-img {
     border-radius: 10px;
 }
+
 .mypage-profile-name {
     display: flex;
     flex-direction: column;
@@ -43,7 +50,9 @@
 .profile-name {
     font-size: 20px;
     font-weight: bold;
-}.profile-email {
+}
+
+.profile-email {
     font-size: 15px;
     color: #e1e1e1;
 }
@@ -59,6 +68,7 @@
     font-weight: bolder;
     font-family: "맑은 고딕";
 }
+
 .mypage-text {
     padding-left: 15px;
     display: inline-block;
@@ -68,6 +78,7 @@
     font-family: "맑은 고딕";
     line-height: 50px;
 }
+
 .mypage-text:hover {
     background-color: #e1e1e1;
 }
