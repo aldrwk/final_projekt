@@ -16,7 +16,11 @@ public class mainController {
 	@GetMapping("/search")
 	public String search(String search_data, Model model) {
 
-		return "common/search";
+		return "product/search";
 	}
 
+	@GetMapping("/calender")
+	public String calender(){
+		return "calendertest";
+	}
 }
