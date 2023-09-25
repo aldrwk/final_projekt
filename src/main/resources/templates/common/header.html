@@ -34,12 +34,21 @@
                 </section>
             </div>
         </div>
-        <div class="navi-list">
+        <div class="navi-list" th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
             <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
-
+            <a class="move-bt" href="/"><span class="navi-text">내 프리</span></a>
+            <div class="user-menu" style="margin: 0">
+                <img class="profile" th:src="${info.profile}">
+                <img data-v-35a09b99=""
+                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgxMnYxMkgweiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iIzg4OCIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTEwIDQgNiA4IDIgNCIvPgogICAgPC9nPgo8L3N2Zz4K">
+            </div>
+        </div>
+        <div class="navi-list" th:unless="${not #lists.isEmpty(session.user_info)}">
+            <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
             <a class="move-bt" href="/sign-up"><span class="navi-text">회원가입</span></a>
-            <a class="login-bt move-bt btn" href="/login"><span class="navi-text login-text">로그인</span></a>
+            <a class="login-bt btn " href=><span class="navi-text login-text">로그인</span></a>
         </div>
     </section>
+
 </header>
 

@@ -1,4 +1,4 @@
 package com.spring.final_project.host;
 
-public class hostDao {
+public class hostDomain {
 }

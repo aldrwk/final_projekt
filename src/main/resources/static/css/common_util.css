@@ -163,6 +163,61 @@ input[type="search"]::-webkit-search-cancel-button {
     font-family: "맑은 고딕";
 }
 
+.profile {
+    margin: 0 15px 0 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.user-menu {
+    cursor: pointer;
+}
+
+.menu-box-container {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 75px;
+    right: 410px;
+    z-index: 5;
+    background-color: #fff;
+    border: 0.0625rem solid #e1e1e1;
+    box-shadow: #e1e1e1;
+    box-shadow: 0 0 0.625rem 0 rgba(0,0,0,.1);
+}
+.menu-box-area {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.user-name-box   {
+    margin: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    height: 35px;
+}
+.menu-text-area {
+    margin: 10px;
+    height: 35px;
+}
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4b4b4b;
+}
+.logout-area {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    background-color: #eeeeee;
+    justify-content: center;
+}
+.menu-text {
+    font-size: 15px;
+    font-weight: bolder;
+    font-family: "맑은 고딕";
+    height: 20px;
+}
 .login-text {
     color: #e9ecef;
 

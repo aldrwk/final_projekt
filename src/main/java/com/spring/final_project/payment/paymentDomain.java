@@ -1,4 +1,4 @@
 package com.spring.final_project.payment;
 
-public class paymentDao {
+public class paymentDomain {
 }

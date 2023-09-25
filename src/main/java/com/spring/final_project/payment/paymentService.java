@@ -1,4 +1,4 @@
 package com.spring.final_project.payment;
 
-public class paymentService {
+public interface paymentService {
 }

@@ -10,4 +10,18 @@ $(function () {
 
 
     }))
+
+
+    $(".kakao-login-btn").click(function () {
+        window.location.href = 'api/login/kakaoauth';
+    });
+    $(".naver-login-btn").click(function () {
+        closePopup();
+    });
+    $(".google-login-btn").click(function () {
+        window.open("test", "카카오 로그인", "width=400,height=400");
+    });
+
+
 })
+

@@ -21,7 +21,7 @@ $(function () {
         $('.search-remove').remove();
         isCancleButton = false;
     });
-    $(document).on('focus', '.search-data', function () {
+    $(".").on('focus', '.search-data', function () {
         $('.search-box').css("display", "block");
     })
     $(document).on('blur', '.search-data', function () {
@@ -33,5 +33,30 @@ $(function () {
             return false;
         }
     })
+    var currentUrl = document.URL;
+    var urlObject = new URL(currentUrl);
+    var path = urlObject.pathname;
+    $(".login-bt").attr("href", "/login?redirectPath=" + path);
+
+    $(".navi-list").on("click", ".user-menu",function () {
+        console.log("test")
+        $(".box-area").after(menu_box);
+    });
+
+    var menu_box="    <div th:if=\"${not #lists.isEmpty(session.user_info)}\" th:with=\"info=${session.user_info}\">\n" +
+        "        <div class=\"menu-box-container\">\n" +
+        "            <div class=\"menu-box-area\">\n" +
+        "                <div class=\"user-name-box\">\n" +
+        "                    <span class=\"user-name\">[[${info.nickname}]] 님</span>\n" +
+        "                </div>\n" +
+        "                <div class=\"menu-text-area\">\n" +
+        "                    <a class=\"menu-text\" href=\"mypage\">마이 페이지</a>\n" +
+        "                </div>\n" +
+        "                <div class=\"logout-area\">\n" +
+        "                    <a class=\"menu-text\" href=\"logout\">로그아웃</a>\n" +
+        "                </div>\n" +
+        "            </div>\n" +
+        "        </div>\n" +
+        "    </div>";
 
 });
