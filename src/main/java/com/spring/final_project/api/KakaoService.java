@@ -90,7 +90,32 @@ public class KakaoService {
 		kakaoAcountDto.setNickname(nickname);
 		kakaoAcountDto.setProfile(profile);
 		kakaoAcountDto.setPhoneNumber(Phone_number);
+		kakaoAcountDto.setAccessToken(accessToken);
 
 		return kakaoAcountDto;
 	}
+	public void logoutProc(kakaoAcountDto kakaoAcountDto) {
+		String accessToken = kakaoAcountDto.getAccessToken();
+
+		// POST방식으로 key=value 데이터 요청
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-type", "application/x-www-form-urlencoded");
+		headers.add("Authorization", "Bearer "+accessToken);
+
+		// HttpHeader와 HttpBody를 하나의 오브젝트로 담는다
+		HttpEntity<String> kakaoTokenRequest = new HttpEntity<>(headers);
+
+		// 실제요청
+		ResponseEntity<String> response = restTemplate.exchange(
+				"https://kapi.kakao.com/v1/user/logout",
+				HttpMethod.POST,
+				kakaoTokenRequest,
+				String.class
+		);
+
+		System.out.println("response : ");
+		System.out.println(response);
+	}
+
 }

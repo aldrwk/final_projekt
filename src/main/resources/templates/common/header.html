@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="navi-search">
-            <form class="search" method="get" action="search">
+            <form class="search" method="get" action="/search">
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E %3Cpath stroke='%23AAA' stroke-width='2' d='M11 17c3.314 0 6-2.686 6-6s-2.686-6-6-6-6 2.686-6 6 2.686 6 6 6zM15 15l4.95 4.95'/%3E %3C/svg%3E"
                      alt="" class="search-icon">
                 <input type="search" class="search-data" name="search_data" placeholder="새로로운 취미를 찾아보세요."
@@ -36,6 +36,20 @@
         </div>
         <div class="navi-list" th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
             <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
+    <div th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
+        <div class="menu-box-container" style="display: none">
+            <div class="menu-box-area">
+                <div class="user-name-box">
+                    <span class="user-name">[[${info.nickname}]] 님</span>
+                </div>
+                <div class="menu-text-area">
+                    <a class="menu-text" href="/mypage">마이 페이지</a></div>
+                <div class="logout-area">
+                    <a class=\"menu-text\" href="/logout">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
             <a class="move-bt" href="/"><span class="navi-text">내 프리</span></a>
             <div class="user-menu" style="margin: 0">
                 <img class="profile" th:src="${info.profile}">
@@ -46,9 +60,8 @@
         <div class="navi-list" th:unless="${not #lists.isEmpty(session.user_info)}">
             <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
             <a class="move-bt" href="/sign-up"><span class="navi-text">회원가입</span></a>
-            <a class="login-bt btn " href=><span class="navi-text login-text">로그인</span></a>
+            <a class="login-bt btn" href=><span class="navi-text login-text">로그인</span></a>
         </div>
     </section>
-
 </header>
 

@@ -67,8 +67,9 @@ $(function () {
     const account_email = '<div class="regist-main-title">계정 정보</div>' +
         '<div class="signnup-form">' +
         '<span class="title-input">이메일</span>' +
-        '<input class="text-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">' +
-        '<button type="button" class="btn btn-submit email_check">이메일 확인</button>' +
+        '<div class="email-platz">' +
+        '<input class="text-input email-input" type="text" name="email" id="email" placeholder="이메일을 입력해주세요.">' +
+        '<button type="button" class="btn btn-submit email_check">이메일 확인</button></div>' +
         '<div class="btn-container">' +
         '<button class="btn regist-main-btn before">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
         '<button class="btn regist-main-btn">다&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;음</button></div>';

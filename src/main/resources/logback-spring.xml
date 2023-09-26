@@ -3,7 +3,6 @@
     <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
     <property name="LOG_PATTERN"
               value="[%d{yyyy-MM-dd} %d{hh:mm:ss} %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) - %msg%n"/>
-<!--    %green([%thread])-->
         <appender name="STOUT" class="ch.qos.logback.core.ConsoleAppender">
             <filter class="ch.qos.logback.classic.filter.LevelFilter">
             </filter>
@@ -11,14 +10,9 @@
                 <pattern>${LOG_PATTERN}</pattern>
             </encoder>
         </appender>
-<!--    <logger name="com.spring.boot.**">-->
-<!--        <level value="info"/>-->
-<!--        <appender-ref ref="STOUT"/>-->
-<!--    </logger>-->
-<!--    <logger name="org.springframework.**">-->
-<!--            <level value="info"/>-->
-<!--    </logger>-->
+    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>
     <logger name="org.springframework" level="INFO" additivity="true"/>
+<!--    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>-->
     <logger name="org.apache.ibatis.logging.jdbc">
         <level value="trace"/>
         <appender-ref ref="STOUT"/>
@@ -29,6 +23,7 @@
     </logger>
 
     <root>
+        <level value="info" />
         <appender-ref ref="STOUT"/>
     </root>
 </configuration>

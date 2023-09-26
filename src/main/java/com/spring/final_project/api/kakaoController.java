@@ -21,11 +21,6 @@ public class kakaoController {
 	private final KakaoService kakaoService;
 	private kakaoAcountDto kakaoAcountDto;
 
-//	@Autowired
-//	public kakaoController(KakaoService kakaoService) {
-//		this.kakaoService = kakaoService;
-//
-//	}
 @Autowired
 	public kakaoController(KakaoService kakaoService, com.spring.final_project.api.kakaoAcountDto kakaoAcountDto) {
 		this.kakaoService = kakaoService;
@@ -44,9 +39,12 @@ public class kakaoController {
 	}
 
 	@GetMapping("/kakao")
-	public String kakaoCallBack(@RequestParam String code, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	public String kakaoCallBack(@RequestParam String code, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String redirectPath = (String) session.getAttribute("redirectPath");
+//		if (redirectPath == "/login") {
+//			redirectPath = "/";
+//		}
 		// 인가 code를 통해 카카오 OAuth Token 발급 및 Access Token 추출
 		log.info("인가 code를 통해 카카오 OAuth Token 발급");
 		String accessToken = kakaoService.getKakaoAccessToken(code);
@@ -54,8 +52,8 @@ public class kakaoController {
 		log.info("추출한 Access Token을 통해 유저 정보 요청");
 		// 유저 정보를 기반으로 회원가입 & 로그인 처리
 		log.info("유저 정보를 기반으로 회원가입 & 로그인 처리");
-		System.out.println(kakaoService.getKakaoProfile(accessToken));
 		kakaoAcountDto = kakaoService.getKakaoProfile(accessToken);
+
 		session.setAttribute("user_info", kakaoAcountDto);
 
 		return "redirect:" +redirectPath;
