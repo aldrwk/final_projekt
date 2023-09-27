@@ -17,4 +17,10 @@ public class productController {
 	public String productCalender(@PathVariable("productNum") int productNum, Model model) {
 		return "product/participate";
 	}
+
+	@GetMapping("/search")
+	public String search(String search_data, Model model) {
+		model.addAttribute("search_data", search_data);
+		return "product/search";
+	}
 }

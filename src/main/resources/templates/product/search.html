@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="js/header.js"></script>
+    <script src="/js/header.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/common_util.css">
-    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="/css/common_util.css">
+    <link rel="stylesheet" href="/css/product/search.css">
 </head>
 <body>
 <div class="mainContainer">
     <div th:replace=/common/header :: header></div>
     <div class="search-container">
         <div class="search-title">
-            ?? 검색 결과 ?count?
+            [[${search_data}]] 검색 결과 ?count?
         </div>
         <div class="search-filter">
             <button class="btn btn-filter">최신순</button>
@@ -118,8 +118,6 @@
                 </div>
             </a>
             </div>
-
-
         </div>
     </div>
 

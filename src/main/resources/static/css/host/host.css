@@ -1,0 +1,108 @@
+.detail-host-container {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 0 20px 0;
+    width: 1080px;
+}
+.detail-header-host-area {
+    position: relative;
+    height: 50px;
+    bottom: 0%;
+    display: flex;
+    flex-direction: row;
+}
+.detail-header-host-profile {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+}
+.detail-header-host {
+    font-size: 18px;
+    width: 250px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.detail-host-info {
+    display: inline-block;
+    width: 500px;
+    height: 100px;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: pre-line;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+}
+.detail-host-freee-text {
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+.detail-host-free-area {
+    margin: 30px 0;
+}
+.detail-host-free {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.produkt-wrapper {
+    width: 255px;
+    height: 300px;
+    margin: 0 20px 30px 0;
+    border: 1px solid black; /*임시*/
+}
+
+.detail-host-free > :nth-child(4n) {
+    margin-right: 0px;
+}
+
+.produkt-link {
+    display: inherit;
+    height: 100%;
+}
+
+.produkt-karte {
+    display: inherit;
+    height: 100%;
+}
+
+.produkt-img-area {
+    display: inherit;
+    height: 40%;
+}
+
+.produkt-img {
+    display: inherit;
+    height: 100%;
+}
+
+.produkt-detail-area {
+    height: 60%;
+}
+
+.produkt-detail {
+
+}
+
+.produkt-ort {
+    display: inherit;
+    width: 100%;
+    font-size: 15px;
+}
+
+.produkt-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 최대 줄 수 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+}

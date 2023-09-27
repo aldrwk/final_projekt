@@ -1,4 +1,4 @@
 package com.spring.final_project.product;
 
-public class productDao {
+public class productDomain {
 }

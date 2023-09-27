@@ -21,8 +21,9 @@ $(function () {
         $('.search-remove').remove();
         isCancleButton = false;
     });
-    $(document).on('focus', '.search-data', function () {
+    $(".search").on('focus', '.search-data', function () {
         $('.search-box').css("display", "block");
+        console.log("search box")
     })
     $(document).on('blur', '.search-data', function () {
         $('.search-box').css("display", "none");
@@ -33,5 +34,22 @@ $(function () {
             return false;
         }
     })
+    var currentUrl = document.URL;
+    var urlObject = new URL(currentUrl);
+    var path = urlObject.pathname;
+    $(".login-bt").attr("href", "/login?redirectPath=" + path);
 
-});
+    $(".navi-list").on("click", ".user-menu", function () {
+        console.log("test")
+        $(".menu-box-container").css("display", "block");
+    })
+
+    $(document).on('click', document, function (event) {
+        const target = event.target;
+        if ($(target).hasClass("user-menu") || $(target).parent().hasClass("user-menu")) {
+            return false;
+        }
+        $('.menu-box-container').css("display", "none");
+    });
+
+})

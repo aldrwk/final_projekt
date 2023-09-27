@@ -71,59 +71,6 @@
     width: 100%;
 }
 
-.left-area {
-    display: block;
-    position: absolute;
-    z-index: 1010;
-    top: 0;
-    bottom: 0;
-    right: auto;
-    margin: auto 0;
-    opacity: 0.6;
-    transform: translateX(-50%);
-}
-
-.right-area {
-    display: block;
-    position: absolute;
-    z-index: 1010;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
-    right: 0;
-    opacity: 0.6;
-    transform: translateX(50%);
-}
-
-.left-area:hover,
-.right-area:hover {
-    opacity: 0.7;
-}
-
-.left-button {
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid lightgray;
-    width: 36px;
-    height: 36px;
-    background-image: url(../image/left-arrow.png);
-    background-repeat: no-repeat;
-    background-position: 42% 50%;
-    background-size: 30%;
-}
-
-.right-button {
-    border-radius: 50%;
-    cursor: pointer;
-    border: 1px solid lightgray;
-    width: 36px;
-    height: 36px;
-    background-image: url(../image/right-arrow.png);
-    background-repeat: no-repeat;
-    background-position: 60% 50%;
-    background-size: 30%;
-}
-
 .category-container, .beliebt-container, .bereich-container, .newfree-container {
     width: 100%;
     display: flex;

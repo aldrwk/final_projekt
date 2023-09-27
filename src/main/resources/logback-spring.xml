@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <timestamp key="BY_DATE" datePattern="yyyy-MM-dd"/>
+    <property name="LOG_PATTERN"
+              value="[%d{yyyy-MM-dd} %d{hh:mm:ss} %highlight(%-5level) %boldWhite([%C.%M:%yellow(%L)]) - %msg%n"/>
+        <appender name="STOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            </filter>
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>
+    <logger name="org.springframework" level="INFO" additivity="true"/>
+<!--    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>-->
+    <logger name="org.apache.ibatis.logging.jdbc">
+        <level value="trace"/>
+        <appender-ref ref="STOUT"/>
+    </logger>
+
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <level value="debug" />
+    </logger>
+
+    <root>
+        <level value="info" />
+        <appender-ref ref="STOUT"/>
+    </root>
+</configuration>

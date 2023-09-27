@@ -1,4 +1,4 @@
 package com.spring.final_project.payment;
 
-public interface paymentMapper {
+public class paymentMapperImpl {
 }

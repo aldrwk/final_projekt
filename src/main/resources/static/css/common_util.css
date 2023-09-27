@@ -36,7 +36,7 @@ a {
     flex-direction: row;
     margin: 10px 0 0 0;
     padding: 0 0 10px 40px;
-    border-bottom: 0.0625rem solid #e1e1e1;
+    border-bottom: 0.0625rem solid #9a9a9a;
 }
 
 .navi-bar {
@@ -163,6 +163,59 @@ input[type="search"]::-webkit-search-cancel-button {
     font-family: "맑은 고딕";
 }
 
+.profile {
+    margin: 0 15px 0 15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+.user-menu {
+    cursor: pointer;
+}
+
+.menu-box-container {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 75px;
+    z-index: 5;
+    background-color: #fff;
+    border: 0.0625rem solid #cdcdcd;
+    box-shadow: 0 0 0.625rem 0 rgba(0,0,0,.1);
+}
+.menu-box-area {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.user-name-box   {
+    margin: 10px;
+    border-bottom: 1px solid #9a9a9a;
+    height: 35px;
+}
+.menu-text-area {
+    margin: 10px;
+    height: 35px;
+}
+.user-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4b4b4b;
+}
+.logout-area {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    background-color: #cdcdcd;
+    justify-content: center;
+}
+.menu-text {
+    font-size: 15px;
+    font-weight: bolder;
+    font-family: "맑은 고딕";
+    height: 20px;
+}
 .login-text {
     color: #e9ecef;
 
@@ -173,8 +226,10 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 100%;
     align-items: center;
     justify-content: center;
-    border-top: 0.0625rem solid #e1e1e1;
+    border-top: 0.0625rem solid #9a9a9a;
     margin-top: 65px;
+    padding: 10px;
+    margin-bottom: 90px;
 }
 
 .footer-column {
