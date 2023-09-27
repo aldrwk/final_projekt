@@ -1,4 +1,4 @@
-package com.spring.final_project.api;
+package com.spring.final_project.api.kakao;
 
 import lombok.*;
 import org.springframework.stereotype.Repository;

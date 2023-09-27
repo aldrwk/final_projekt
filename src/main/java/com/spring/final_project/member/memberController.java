@@ -1,16 +1,14 @@
 package com.spring.final_project.member;
 
-import com.spring.final_project.api.KakaoService;
-import com.spring.final_project.api.kakaoAcountDto;
+import com.spring.final_project.api.kakao.KakaoService;
+import com.spring.final_project.api.kakao.kakaoAcountDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 
 @Controller
 public class memberController {
@@ -30,7 +28,7 @@ public class memberController {
 	@GetMapping("login")
 	public String login(@RequestParam(required = false) String redirectPath, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
-		if (redirectPath.equals("/login")) {
+		if (redirectPath.equals("/login") || redirectPath.equals("/sign-up")) {
 			redirectPath = "/";
 		}
 		session.setAttribute("redirectPath", redirectPath);

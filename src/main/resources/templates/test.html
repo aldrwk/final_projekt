@@ -14,6 +14,24 @@
     <span th:text="${session.user_info.email}"></span>
     <img th:src="${session.user_info.profile}">
 </div>
+<!--주소-->
+<div class="address-area">
+    <input type="text" name="address" class="address">
+    <button class="address-search">주소 찾기</button>
+    <input type="text" name="address_detail" class="address_detail">
+</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    $(".address-search").click(function () {
+
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                $(".address").val(data.address); // 주소 넣기
+            }
+        }).open();
+    });
+</script>
+
 
 
 </body>
