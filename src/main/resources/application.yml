@@ -7,13 +7,6 @@ server:
       force: true
       enabled: true
 
-#dbms
-#spring.datasource.url=jdbc:oracle:thin:@localhost:1521:XE
-#spring.datasource.driver-class-name=oracle.jdbc.OracleDriver
-#spring.datasource.username=scott
-#spring.datasource.password=1234
-#spring.jpa.show-sql=true
-#spring.jpa.hibernate.ddl-auto=none
 logging:
   file:
     path: "logback-spring.xml"
@@ -21,3 +14,11 @@ logging:
     org:
       thymeleaf: ERROR
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    각자 PC에 만들어놓은 Database이름을 써야 합니다.
+    url: jdbc:mysql://127.0.0.1:3306/free?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    #    mysql에 생성한 사용자 계정 정보를 써야 합니다.
+    username: root
+    password: admin123!

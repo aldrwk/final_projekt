@@ -35,8 +35,15 @@ a {
     width: 100%;
     flex-direction: row;
     margin: 10px 0 0 0;
-    padding: 0 0 10px 40px;
+    padding: 0 0 10px 20px;
     border-bottom: 0.0625rem solid #9a9a9a;
+}
+.host-header-container2 {
+    display: flex;
+    width: 100%;
+    /*margin: 10px 0 0 0;*/
+    padding: 25px 0 25px 250px;
+    /*border-bottom: 0.0625rem solid #9a9a9a;*/
 }
 
 .navi-bar {
@@ -53,7 +60,73 @@ a {
     width: 100%;
     align-items: center;
 }
+.navbar-left-container {
+    border-right: 1px solid #d2d2d2;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 20;
+    background-color: #ffffff;
+}
+.navi-left-logo {
+    padding: 10px 0 10px 20px;
+}
+.host-navi-left {
+    width: 100%;
+    height: 100%;
+}
+.free-regist {
+    background-color: #61C7FF;
+    width: 200px;
+    margin: 10px 25px 30px 25px;
+    height: 35px;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 13px;
+    border: none;
+    border-radius: 5px;
+}
 
+.navbar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 18px;
+}
+.host-info-toggle, .fee-info-toggle, .profit-info-toggle  {
+    border: none;
+    background-color: #ffffff;
+}
+.host-info, .free-info, .profit-info {
+    display: flex;
+    flex-direction: row;
+    margin: 5px 0;
+}
+.nav-left-link {
+    width: 200px;
+}
+.nav-left-link:after {
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-family: Font Awesome\ 5 Free;
+    font-weight: 700;
+    content: "\f105";
+    margin-left: auto;
+    color: #aaa;
+    float: right;
+    transition: all .15s ease;
+}
+
+.navbar-left-title {
+    color: rgba(0,0,0,.6);
+    font-size: .875rem;
+    font-weight: 500;
+}
 .navi-list {
     display: flex;
     flex-direction: row;
@@ -68,6 +141,7 @@ a {
     font-weight: bolder;
     padding-left: 20px;
 }
+
 
 .navi-search {
     margin-top: 10px;
@@ -230,6 +304,9 @@ input[type="search"]::-webkit-search-cancel-button {
     margin-top: 65px;
     padding: 10px;
     margin-bottom: 90px;
+    z-index: 50;
+    bottom: 0;
+    position: absolute;
 }
 
 .footer-column {
