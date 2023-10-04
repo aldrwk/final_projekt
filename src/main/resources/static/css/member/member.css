@@ -166,7 +166,14 @@ input[type="checkbox"] {
 }
 
 .message {
-    margin: 5px;
-    color: red;
+    margin: 0 5px;
     font-size: 13px;
+    margin-bottom: 8px;
+    display: block;
+}
+.ok {
+    color: green;
+}
+.fail {
+    color: red;
 }

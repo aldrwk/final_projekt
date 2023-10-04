@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class kakaoAcountDto {
 	long id;
-	String nickname, profile, email, phoneNumber, accessToken;
+	String name, profile, email, mobile_num, accessToken;
 }

@@ -14,10 +14,29 @@ server:
 #spring.datasource.password=1234
 #spring.jpa.show-sql=true
 #spring.jpa.hibernate.ddl-auto=none
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/free?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+    username: root
+    password: admin123!
+    mapper-locations=classpath: /mybatis/**/*.xml
+
+# mybatis
+mybatis:
+  type-aliases-package: com.spring.final_project
+  mapper-locations: static/mybatis/mapper/*.xml
+  config-location: classpath:/static/mybatis/config/mybatis-config.xml
+
+
+
 logging:
   file:
     path: "logback-spring.xml"
   level:
     org:
       thymeleaf: ERROR
+
+
+
 
