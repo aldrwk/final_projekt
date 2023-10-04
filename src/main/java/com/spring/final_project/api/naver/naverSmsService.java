@@ -2,6 +2,7 @@ package com.spring.final_project.api.naver;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -11,7 +12,9 @@ import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Random;
 
+@Service
 public class naverSmsService {
 	@SuppressWarnings("unchecked")
 	public void send_msg(String tel, String rand) {
@@ -22,11 +25,11 @@ public class naverSmsService {
 		// 요청 URL Type
 		String requestUrlType = "/messages";
 		// 개인 인증키
-		String accessKey = "";
+		String accessKey = "tBaczgc0CzXIagsA6uh4";
 		// 2차 인증을 위해 서비스마다 할당되는 service secret
-		String secretKey = "";
+		String secretKey = "w9V6Yo0i4D1HXLf3sZQYHP4OzgIdJEyaEJJp0Mlz";
 		// 프로젝트에 할당된 SMS 서비스 ID
-		String serviceId = "";
+		String serviceId = "ncp:sms:kr:316028741712:free_sms";
 		// 요청 method
 		String method = "POST";
 		// current timestamp (epoch)
@@ -49,8 +52,10 @@ public class naverSmsService {
 		bodyJson.put("contentType","COMM");
 		bodyJson.put("countryCode","82");
 
+		bodyJson.put("content","Free 핸드폰 인증 문자");
+
 		// 발신번호 * 사전에 인증/등록된 번호만 사용할 수 있습니다.
-		bodyJson.put("from","");
+		bodyJson.put("from","01085957675");
 		bodyJson.put("messages", toArr);
 
 		String body = bodyJson.toString();
@@ -135,6 +140,21 @@ public class naverSmsService {
 
 
 		return encodeBase64String;
+	}
+
+	public String sendRandomMessage(String tel) {
+		naverSmsService message = new naverSmsService();
+		Random rand = new Random();
+		String numStr = "";
+		for (int i = 0; i < 6; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			numStr += ran;
+		}
+		System.out.println("회원가입 문자 인증 => " + numStr);
+
+		message.send_msg(tel, numStr);
+
+		return numStr;
 	}
 }
 

@@ -78,14 +78,14 @@ public class KakaoService {
 		JSONObject body = new JSONObject(response.getBody());
 		long id = body.getLong("id");
 		String email = body.getJSONObject("kakao_account").getString("email");
-		String Phone_number = body.getJSONObject("kakao_account").getString("phone_number");
-		String nickname = body.getJSONObject("properties").getString("nickname");
+		String mobile_num = body.getJSONObject("kakao_account").getString("phone_number");
+		String name = body.getJSONObject("properties").getString("nickname");
 		String profile = body.getJSONObject("properties").getString("thumbnail_image");
 		kakaoAcountDto.setId(id);
 		kakaoAcountDto.setEmail(email);
-		kakaoAcountDto.setNickname(nickname);
+		kakaoAcountDto.setName(name);
 		kakaoAcountDto.setProfile(profile);
-		kakaoAcountDto.setPhoneNumber(Phone_number);
+		kakaoAcountDto.setMobile_num(mobile_num);
 		kakaoAcountDto.setAccessToken(accessToken);
 
 		return kakaoAcountDto;
