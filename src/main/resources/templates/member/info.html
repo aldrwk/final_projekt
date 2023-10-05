@@ -13,7 +13,7 @@
 <body>
 <div class="mainContainer">
     <div th:replace=/common/header :: header></div>
-    <div class="info-container">
+    <div class="info-container" th:with="info=${session.local_user_info}">
         <div class="info-head">
             <span class="head-title">내 정보</span>
             <button class="info-update" type="submit">저장</button>
@@ -28,25 +28,24 @@
                     </div>
                 </div>
             </label>
-            <span class="profile-account">로그인 계정 종류</span>
             <input type="file" accept="image/*" id="upload-profile" class="upload-profile">
         </div>
         <div class="info-name-area info-area">
             <p class="info-name">닉네임</p>
-            <input type="text" name="name" class="info-name-input">
+            <input type="text" name="name" class="info-name-input" th:value="${info.name}">
         </div>
         <div class="info-phonenumber-area info-area">
             <p class="info-name">핸드폰 번호</p>
-            <input type="text" name="phone_number" class="info-name-input" readonly>
+            <input type="text" name="phone_number" class="info-name-input" th:value="${info.mobile_num}" readonly>
         </div>
         <div class="info-email-area info-area">
             <p class="info-name">이메일</p>
-            <input type="text" name="email" class="info-name-input" readonly>
+            <input type="text" name="email" class="info-name-input" th:value="${info.email}" readonly>
         </div>
         <div class="info-password-area info-area">
             <p class="info-name">비밀번호</p>
             <div class="password-area">
-                <input type="password" name="password" class="info-name-input info-password-input" readonly>
+                <input type="password" name="password" class="info-name-input info-password-input" value="●●●●●●●●●" readonly>
                 <button type="button" class="change-password">변 경</button>
             </div>
         </div>

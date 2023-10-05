@@ -1,13 +1,14 @@
 package com.spring.final_project.member;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.final_project.api.kakao.KakaoService;
 import com.spring.final_project.api.kakao.kakaoAcountDto;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,20 +27,20 @@ public class memberController {
 
 	private KakaoService kakaoService;
 	private memberService memberService;
-//	private PasswordEncoder passwordEncoder;
-
-	@Autowired
-	public memberController(KakaoService kakaoService, com.spring.final_project.member.memberService memberService) {
-		this.kakaoService = kakaoService;
-		this.memberService = memberService;
-	}
+	private PasswordEncoder passwordEncoder;
 
 //	@Autowired
-//	public memberController(KakaoService kakaoService, memberService memberService, PasswordEncoder passwordEncoder) {
+//	public memberController(KakaoService kakaoService, com.spring.final_project.member.memberService memberService) {
 //		this.kakaoService = kakaoService;
 //		this.memberService = memberService;
-//		this.passwordEncoder = passwordEncoder;
 //	}
+
+	@Autowired
+	public memberController(KakaoService kakaoService, memberService memberService, PasswordEncoder passwordEncoder) {
+		this.kakaoService = kakaoService;
+		this.memberService = memberService;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 
 	@GetMapping("sign-up")
@@ -56,7 +57,7 @@ public class memberController {
 		member.setChange_date(currentDate);
 		member.setCreate_date(currentDate);
 
-//		member.setPassword(passwordEncoder.encode(member.getPassword()));
+		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		int result = memberService.insert(member);
 		if (result == 1) {
 //			CompletableFuture<Void> future = CompletableFuture.runAsync(() ->{
@@ -82,17 +83,29 @@ public class memberController {
 		model.addAttribute("redirectPath", redirectPath);
 		return "member/login";
 	}
-	@PostMapping("loginProc")
-	public String loginProc(String email, String password, Model model, HttpServletRequest request){
-		memberDomain member = memberService.findById(email);
-		if(!member.password.equals(password)){
-			return "/";
-		}
+//	@PostMapping("loginProc")
+//	public String loginProc(String email, String password, Model model, HttpServletRequest request){
+//		memberDomain member = memberService.findById(email);
+//		if(!member.password.equals(password)){
+//			return "/";
+//		}
+//		HttpSession session = request.getSession();
+//		String redirectPath = String.valueOf(session.getAttribute("redirectPath"));
+//		logger.info(redirectPath);
+//		session.setAttribute("user_info", member);
+//		return "redirect:" + redirectPath;
+//	}
+
+	@GetMapping("loginOk")
+	public String loginOk(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String redirectPath = String.valueOf(session.getAttribute("redirectPath"));
-		logger.info(redirectPath);
-		System.out.println(redirectPath);
-		session.setAttribute("user_info", member);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails user = (UserDetails) principal;
+		memberDomain member = memberService.findById(user.getUsername());
+		session.setAttribute("local_user_info", member);
+		logger.info(String.valueOf(session.getAttribute("local_user_info")));
+		model.addAttribute("local_user_info", member);
 		return "redirect:" + redirectPath;
 	}
 
@@ -106,6 +119,7 @@ public class memberController {
 
 		return ResponseEntity.ok(resultMap);
 	}
+
 	@GetMapping("logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -128,4 +142,26 @@ public class memberController {
 	public String info(String member, Model model) {
 		return "member/info";
 	}
+
+	@PostMapping("/mypage/info/passwordupdate")
+	public ResponseEntity passwordUpdate(String oldPassword, String newPassword, Model model, HttpServletRequest request, HttpSession session) {
+		session = request.getSession();
+		memberDomain member = (memberDomain) session.getAttribute("local_user_info");
+		logger.info(oldPassword);
+		logger.info(String.valueOf(member));
+		if (!passwordEncoder.matches(oldPassword, member.getPassword())) {
+			model.addAttribute("oldPassword", "not matched");
+			return ResponseEntity.ok(model);
+		} else {
+			member.setPassword(passwordEncoder.encode(newPassword));
+			memberService.updatePassword(member);
+			model.addAttribute("result", "Success");
+			session.invalidate();
+			return ResponseEntity.ok(model);
+		}
+
+
+	}
 }
+
+

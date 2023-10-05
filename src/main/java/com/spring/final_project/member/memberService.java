@@ -10,4 +10,6 @@ public interface memberService {
 	public memberDomain findById(String email);
 
 	public memberDomain findByMobile(String mobile);
+
+	public int updatePassword(memberDomain member);
 }

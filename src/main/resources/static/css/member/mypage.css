@@ -59,7 +59,6 @@
 }
 
 
-
 .horizon {
     border-top: 0.0625rem solid #9a9a9a;
     padding: 30px 0 8px 0;
@@ -91,7 +90,7 @@
     flex-direction: row;
     height: 80px;
     align-items: flex-end;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .info-update {
@@ -99,6 +98,7 @@
     float: right;
     color: #61C7FF;
     font-weight: bold;
+    background: none;
 }
 .profile-account {
     font-size: 15px;
@@ -141,6 +141,15 @@
     border-radius: 10px;
     overflow: visible;
 }
+.info-name-input:focus {
+    outline: none;
+    /*border: none;*/
+}
+input[class="info-name-input"]::-webkit-search-cancel-button {
+    appearance: none;
+    -webkit-appearance: none;
+    display: none;
+}
 .password-area {
     display: flex;
     flex-direction: row;
@@ -156,16 +165,21 @@
 }
 .change-password {
     display: inline-block;
-    border: 1.5px solid #8a8a8a;
+    border: none;
     font-size: 13px;
     font-weight: bold;
-    color: #61C7FF;
+    background-color: #61C7FF;
     width: 85px;
     border-radius: 5px;
+    color: #f5f5f5;
 }
 .change-password-body {
     display: flex;
     flex-direction: column;
+}
+
+.orgin-password-area, .new-password-area, .new-password-check-area {
+    margin-bottom: 25px;
 }
 .eingangplatz {
     width: 100%;
@@ -173,7 +187,7 @@
     border-radius: 5px;
     margin-top: 10px;
     height: 2.5rem;
-
+    padding-left: 10px;
 }
 
 .change-password-btn {
@@ -187,4 +201,17 @@
     font-size: 17px;
     border: none;
     border-radius: 5px;
+}
+
+.message {
+    margin: 0 5px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: block;
+}
+.ok {
+    color: green;
+}
+.fail {
+    color: red;
 }

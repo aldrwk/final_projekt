@@ -8,12 +8,15 @@ public class memberServiceImpl implements memberService {
 	private memberMapper memberMapper;
 
 	@Autowired
-	public memberServiceImpl(com.spring.final_project.member.memberMapper memberMapper) {
+	public memberServiceImpl(memberMapper memberMapper) {
 		this.memberMapper = memberMapper;
 	}
 
+
 	@Override
 	public int insert(memberDomain member) {
+
+
 		return memberMapper.insert(member) == 1 ? 1:0;
 	}
 
@@ -27,5 +30,9 @@ public class memberServiceImpl implements memberService {
 		return memberMapper.findByMobile(mobile);
 	}
 
+	@Override
+	public int updatePassword(memberDomain member) {
+		return memberMapper.updatePassword(member);
+	}
 
 }
