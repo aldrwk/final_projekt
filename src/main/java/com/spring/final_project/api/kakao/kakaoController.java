@@ -35,7 +35,7 @@ public class kakaoController {
 	}
 
 	@GetMapping("/kakao")
-	public String kakaoCallBack(@RequestParam String code, Model model, HttpServletRequest request) {
+	public String kakaoCallBack(@RequestParam String code, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String redirectPath = (String) session.getAttribute("redirectPath");
 		System.out.println(redirectPath);

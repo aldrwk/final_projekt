@@ -23,6 +23,7 @@
                 <span class="title-input">비밀번호</span>
                 <input class="text-input" type="password" name="password" id="login_password"
                        placeholder="비밀번호">
+                <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button type="submit" class="btn btn-submit login">로그인</button>
                 <hr>
                 <span class="other-login">다른 방법으로 로그인</span>

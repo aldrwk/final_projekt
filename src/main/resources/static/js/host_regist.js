@@ -12,7 +12,7 @@ $(function () {
     }))
 
     $(".regist-container").on('click', ".regist-main-btn", function () {
-        if ($(".consumer-check, .privateinfo-check, .service-check").prop("checked") == true) {
+        if ($(".consumer-check").prop("checked") == true && $(".privateinfo-check").prop("checked") == true && $(".service-check").prop("checked") == true) {
             $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             $(".regist-main").html("").html(account_email);
         }
@@ -27,6 +27,14 @@ $(function () {
     $(".regist-container").on("click", ".email_check", function () {
         $(this).addClass("checked");
     })
+
+    function email_check(email) {
+        $.ajax({
+            type: "Get",
+            uri: "",
+
+        });
+    }
 
     $(".regist-container").on("click", ".before", function () {
         if ($(".regist-main-title").text() == '호스트 정보') {
@@ -91,5 +99,8 @@ $(function () {
         '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
         '<button class="btn regist-main-btn">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
         '</form>';
+
+
+
 
 })

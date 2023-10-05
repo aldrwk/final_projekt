@@ -11,7 +11,7 @@ a {
 }
 
 *:focus {
-    box-shadow: none;
+    box-shadow: none!important;
 }
 .mainContainer {
     display: flex;
@@ -154,7 +154,6 @@ input[type="search"]::-webkit-search-cancel-button {
     height: 40px;
     margin: 0 10px;
 }
-
 .navi-text {
     text-align: center;
     line-height: 25px;

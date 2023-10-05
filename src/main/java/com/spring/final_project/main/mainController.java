@@ -2,7 +2,7 @@ package com.spring.final_project.main;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class mainController {
@@ -10,7 +10,10 @@ public class mainController {
 
 	@GetMapping("/")
 	public String root(Model model) {
-
+		return "main";
+	}
+	@PostMapping("/")
+	public String root1(Model model) {
 		return "main";
 	}
 
@@ -22,5 +25,10 @@ public class mainController {
 	@GetMapping("/test")
 	public String test() {
 		return "test";
+	}
+
+	@PostMapping("/error")
+	public String error() {
+		return "error/403";
 	}
 }

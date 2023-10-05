@@ -20,8 +20,8 @@
                 <div class="mypage-profile-img">
                     <img class="profile-img" src="image/util/profile.png"/>
                 </div>
-                <a href="/mypage/info" class="mypage-profile-name">
-                    <span class="profile-name">이름</span>
+                <a href="/mypage/info" class="mypage-profile-name" th:with="info=${session.local_user_info}">
+                    <span class="profile-name">[[${info.name}]]</span>
                     <span class="profile-account">로그인 계정 종류</span>
                 </a>
             </div>

@@ -49,6 +49,7 @@
                         <span>[필수] 개인정보 수집 및 이용 동의</span>
                     </label>
                 </div>
+                <input type="hidden" id="csrf" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button type="submit" class="btn btn-submit join">회원 가입</button>
             </form>
             <hr>

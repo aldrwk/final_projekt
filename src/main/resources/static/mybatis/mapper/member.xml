@@ -8,11 +8,16 @@
         values (null, #{email}, #{password}, #{name}, #{mobile_num}, #{profile}, #{create_date}, #{change_date})
     </insert>
     <select id="findById" resultType="memberDomain">
-        select * from member where email = #{email}
+        select *
+        from member
+        where email = #{email}
     </select>
     <select id="findByMobile" resultType="memberDomain">
-        select * from member where mobile_num = #{mobile_num}
+        select *
+        from member
+        where mobile_num = #{mobile_num}
     </select>
-
-
+    <update id="updatePassword" parameterType="memberDomain">
+        update member set password= #{password} where email = #{email}
+    </update>
 </mapper>
