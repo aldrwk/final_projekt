@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="/js/host_regist.js"></script>
+    <script src="/js/host_regist.js"  ></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/regist.css">
@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace=/common/host_header :: header></div>
+    <div th:replace="~{/common/host_header :: host_regist}"></div>
 
     <div class="regist-container">
         <div class="regist-header">

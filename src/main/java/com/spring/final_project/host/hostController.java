@@ -29,4 +29,5 @@ public class hostController {
 
 		return "host/hostinfo";
 	}
+
 }

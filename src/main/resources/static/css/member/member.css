@@ -171,9 +171,3 @@ input[type="checkbox"] {
     margin-bottom: 8px;
     display: block;
 }
-.ok {
-    color: green;
-}
-.fail {
-    color: red;
-}

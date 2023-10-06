@@ -29,11 +29,6 @@ public class memberController {
 	private memberService memberService;
 	private PasswordEncoder passwordEncoder;
 
-//	@Autowired
-//	public memberController(KakaoService kakaoService, com.spring.final_project.member.memberService memberService) {
-//		this.kakaoService = kakaoService;
-//		this.memberService = memberService;
-//	}
 
 	@Autowired
 	public memberController(KakaoService kakaoService, memberService memberService, PasswordEncoder passwordEncoder) {
@@ -83,6 +78,7 @@ public class memberController {
 		model.addAttribute("redirectPath", redirectPath);
 		return "member/login";
 	}
+
 //	@PostMapping("loginProc")
 //	public String loginProc(String email, String password, Model model, HttpServletRequest request){
 //		memberDomain member = memberService.findById(email);
