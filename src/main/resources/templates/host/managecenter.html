@@ -2,16 +2,59 @@
 <html lang="en">
 <head>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <!--    <script src="/js/host_regist.js"></script>-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common_util.css">
+    <link rel="stylesheet" href="/css/host/center.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div class="mainContainer">
-    <div th:replace=/common/host_header :: header></div>
+    <div class="navbar-left-container">
+        <div class="navi-left-logo">
+            <a href="/host/center" style="display: inline-block">
+                <img class="logo-img" src="/image/util/logo_3.png" alt="">
+            </a>
+        </div>
+        <div class="host-navi-left">
+            <button class="free-regist">프리 등록</button>
+            <div class="navbar-left">
+                <button class="host-info-toggle" data-bs-toggle="collapse" data-bs-target="#host-info"
+                        aria-expanded="true" aria-controls="host-info">
+                    <div class="host-info nav-left-link">
+                        <img src="/image/info-host.svg" style="width: 24px; height: 24px; margin-right: 8px"/>
+                        <span class="navbar-left-title">내 정보</span>
+                    </div>
+                </button>
+                <div class="collapse" id="host-info">
+                    <div class="card card-body">
+                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                    </div>
+                </div>
+                <button type="button" class="fee-info-toggle" data-bs-toggle="collapse" data-bs-target="#free-info"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <div class="free-info nav-left-link">
+                        <img src="/image/logo.bcc26773.svg" style="width: 24px; height: 24px; margin-right: 8px"/>
+                        <span class="navbar-left-title">프리 관리</span>
+                    </div>
+                </button>
+                <button class="profit-info-toggle" data-bs-toggle="collapse" data-bs-target="#profit-info"
+                        aria-expanded="false" aria-controls="collapseExample">
+                    <div class="profit-info nav-left-link">
+                        <img src="/image/bill.69d49dad.svg" style="width: 24px; height: 24px; margin-right: 8px"/>
+                        <span class="navbar-left-title">정산 관리</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="~{/common/host_header :: host_center}"></div>
 
 
 </div>
+<div th:replace=/common/footer ::footer></div>
 </body>
 </html>

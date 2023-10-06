@@ -15,23 +15,62 @@ $(function () {
         if ($(".consumer-check").prop("checked") == true && $(".privateinfo-check").prop("checked") == true && $(".service-check").prop("checked") == true) {
             $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             $(".regist-main").html("").html(account_email);
+            return false;
         }
         if ($(".email_check").hasClass("checked")) {
             $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             let email = $("#email").val();
             $(".regist-main").html("").html(account_regist);
             $("#email").val(email);
+        } else {
+            if ($(".btn-container").prev().hasClass("message")) {
+                $(".btn-container").prev().remove();
+            }
+            if ($("#email").val() == "") {
+                const message = "<span class=\"message fail\">이메일을 입력해주세요.</span>";
+                $(".btn-container").before(message);
+                return false;
+            }
         }
     });
 
     $(".regist-container").on("click", ".email_check", function () {
-        $(this).addClass("checked");
+        const pattern = /^\w+@\w+[.]\w{3}$/;
+        const email = $("#email").val();
+        if ($(".btn-container").prev().hasClass("message")) {
+            $(".btn-container").prev().remove();
+        }
+        if ($("#email").val() == "") {
+            const message = "<span class=\"message fail\">이메일을 입력해주세요.</span>";
+            $(".btn-container").before(message);
+            return false;
+        }
+        if (!pattern.test(email)) {
+            const message = "<span class=\"message fail\">이메일 형식이 맞지 않습니다.</span>";
+            $(".btn-container").before(message);
+            return false;
+        }
+        email_check($("#email").val());
     })
 
     function email_check(email) {
         $.ajax({
             type: "Get",
-            uri: "",
+            url: "/memberCheck",
+            data: {email: email},
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                if (data.result == "1") {
+                    const message = "<span class=\"message ok\">등록된 이메일이 있습니다.<br>다음을 클릭하여 나머지 정보를 입력해주세요.</span>";
+                    $(".btn-container").before(message);
+                } else {
+                    const message = "<span class=\"message\">등록된 이메일이 없습니다.<br>다음을 클릭하여 나머지 정보를 입력해주세요.</span>";
+                    $(".btn-container").before(message);
+                }
+                $(".email_check").addClass("checked");
+            }
+
 
         });
     }
@@ -99,8 +138,6 @@ $(function () {
         '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
         '<button class="btn regist-main-btn">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
         '</form>';
-
-
 
 
 })

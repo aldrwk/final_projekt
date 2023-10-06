@@ -10,8 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class KakaoService {
-
-
 	private kakaoAcountDto kakaoAcountDto;
 
 	@Autowired
@@ -81,6 +79,7 @@ public class KakaoService {
 		String mobile_num = body.getJSONObject("kakao_account").getString("phone_number");
 		String name = body.getJSONObject("properties").getString("nickname");
 		String profile = body.getJSONObject("properties").getString("thumbnail_image");
+
 		kakaoAcountDto.setId(id);
 		kakaoAcountDto.setEmail(email);
 		kakaoAcountDto.setName(name);
