@@ -14,7 +14,7 @@ public class memberDomain {
 
 	String authorization = "member";
 
-	String accountType = "normal";
+	String accountType = "일반회원 계정";
 
 
 	LocalDateTime createDate, changeDate;
