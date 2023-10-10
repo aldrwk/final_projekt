@@ -36,7 +36,7 @@
             </div>
         </div>
         <th:block th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
-            <div class="navi-list">
+            <div class="navi-list" th:fragment="logined">
                 <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
                 <div th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
                     <div class="menu-box-container" style="display: none">
@@ -60,8 +60,8 @@
                 </div>
             </div>
         </th:block>
-        <th:block sec:authorize="isAuthenticated()" th:style="${'display:inline'}">
-            <div class="navi-list" th:with="info=${session.local_user_info}">
+        <th:block sec:authorize="isAuthenticated()" th:style="${'display:inline'}" th:with="info=${session.user_info}">
+            <div class="navi-list">
                 <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
                 <div>
                     <div class="menu-box-container" style="display: none">

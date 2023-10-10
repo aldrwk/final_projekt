@@ -1,10 +1,11 @@
 package com.spring.final_project.api.kakao;
 
+import com.spring.final_project.member.memberDomain;
+import com.spring.final_project.member.memberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +18,13 @@ public class kakaoController {
 	private final KakaoService kakaoService;
 	private kakaoAcountDto kakaoAcountDto;
 
-@Autowired
-	public kakaoController(KakaoService kakaoService, com.spring.final_project.api.kakao.kakaoAcountDto kakaoAcountDto) {
+	private memberService memberService;
+
+	@Autowired
+	public kakaoController(KakaoService kakaoService, kakaoAcountDto kakaoAcountDto, memberService memberService) {
 		this.kakaoService = kakaoService;
 		this.kakaoAcountDto = kakaoAcountDto;
+		this.memberService = memberService;
 	}
 
 	@GetMapping("/kakaoauth")
@@ -49,10 +53,11 @@ public class kakaoController {
 		log.info("추출한 Access Token을 통해 유저 정보 요청");
 		// 유저 정보를 기반으로 회원가입 & 로그인 처리
 		log.info("유저 정보를 기반으로 회원가입 & 로그인 처리");
-		kakaoAcountDto = kakaoService.getKakaoProfile(accessToken);
+		memberDomain member;
+		member = kakaoService.getKakaoProfile(accessToken);
+		
+		session.setAttribute("user_info", member);
 
-		session.setAttribute("user_info", kakaoAcountDto);
-
-		return "redirect:" +redirectPath;
+		return "redirect:" + redirectPath;
 	}
 }

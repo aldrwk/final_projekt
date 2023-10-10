@@ -10,20 +10,19 @@
                 <pattern>${LOG_PATTERN}</pattern>
             </encoder>
         </appender>
-    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>
+    <logger name="org.springframework.context.annotation" level="INFO" additivity="true"/>
     <logger name="org.springframework" level="INFO" additivity="true"/>
 <!--    <logger name="org.springframework.web.servlet" level="INFO" additivity="true"/>-->
-    <logger name="org.apache.ibatis.logging.jdbc">
-        <level value="trace"/>
-        <appender-ref ref="STOUT"/>
-    </logger>
+    <logger name="org.apache.ibatis.logging.jdbc" level="DEBUG" additivity="true"/>
+    <logger name="org.springframework.web.servlet.handler" level="INFO" additivity="true"/>
+    <logger name="com.zaxxer.hikari.HikariConfig" level="INFO" additivity="true"/>
 
     <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <level value="debug" />
     </logger>
 
     <root>
-        <level value="info" />
+        <level value="debug" />
         <appender-ref ref="STOUT"/>
     </root>
 </configuration>

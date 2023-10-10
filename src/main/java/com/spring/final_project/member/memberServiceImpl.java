@@ -35,4 +35,13 @@ public class memberServiceImpl implements memberService {
 		return memberMapper.updatePassword(member);
 	}
 
+	@Override
+	public int updateAuth(memberDomain member) {
+		return memberMapper.updateAuth(member);
+	}
+
+	@Override
+	public int updateInfo(memberDomain member) {
+		return memberMapper.updateInfo(member);
+	}
 }

@@ -40,7 +40,6 @@ $(function () {
     $(".login-bt").attr("href", "/login?redirectPath=" + path);
 
     $(".navi-list").on("click", ".user-menu", function () {
-        console.log("test")
         $(".menu-box-container").css("display", "block");
     })
 

@@ -3,12 +3,15 @@ package com.spring.final_project.host;
 import lombok.Data;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 @Data
 public class hostDomain {
 
-	int host_num, member_num;
-	String host_profile, intro;
+	int hostNum, memberNum;
+	String hostname;
+	String hostProfile = "/image/host_profile.webp";
+	String intro = "";
 
-	Timestamp create_host_date, change_host_date;
+	LocalDateTime createHostDate, changeHostDate;
 }

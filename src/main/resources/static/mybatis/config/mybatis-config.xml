@@ -5,4 +5,7 @@
     <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
     </settings>
+    <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.LocalDateTimeTypeHandler"/>
+    </typeHandlers>
 </configuration>

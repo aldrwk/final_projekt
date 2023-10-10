@@ -36,8 +36,12 @@
     width: 71px;
     height: 71px;
 }
+.profile-img {
+    width: inherit;
+    height: inherit;
+}
 .profile-area {
-    width: 100px;
+    width: 71px;
     height: 71px;
     cursor: pointer;
 }
@@ -214,4 +218,9 @@ input[class="info-name-input"]::-webkit-search-cancel-button {
 }
 .fail {
     color: red;
+}
+
+.readonly {
+    background-color: rgb(238, 238, 238);
+
 }

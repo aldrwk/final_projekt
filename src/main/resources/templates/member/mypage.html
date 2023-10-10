@@ -17,13 +17,15 @@
         <div class="mypage-head">
             <span class="head-title">마이 페이지</span>
             <div class="mypage-profile">
+                <th:block th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
                 <div class="mypage-profile-img">
-                    <img class="profile-img" src="image/util/profile.png"/>
+                    <img class="profile-img" th:src="${info.profile}" alt="/image/default_profile.webp"/>
                 </div>
-                <a href="/mypage/info" class="mypage-profile-name" th:with="info=${session.local_user_info}">
-                    <span class="profile-name">[[${info.name}]]</span>
-                    <span class="profile-account">로그인 계정 종류</span>
-                </a>
+                    <a href="/mypage/info" class="mypage-profile-name">
+                        <span class="profile-name">[[${info.name}]]</span>
+                        <span class="profile-account">[[${info.accountType}]]</span>
+                    </a>
+                </th:block>
             </div>
         </div>
         <div class="mypage-info horizon">

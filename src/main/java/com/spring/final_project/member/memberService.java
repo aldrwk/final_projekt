@@ -12,4 +12,6 @@ public interface memberService {
 	public memberDomain findByMobile(String mobile);
 
 	public int updatePassword(memberDomain member);
+	public int updateAuth(memberDomain member);
+	public int updateInfo(memberDomain member);
 }

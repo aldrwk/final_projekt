@@ -4,5 +4,5 @@ public interface hostService {
 
 	public int insert(hostDomain host);
 
-	public hostDomain findByEmail(String email);
+
 }

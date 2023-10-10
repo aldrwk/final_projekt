@@ -3,15 +3,21 @@ package com.spring.final_project.member;
 import lombok.Data;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 @Data
 public class memberDomain {
 
 	int num;
 
-	String email, password, name, mobile_num, profile, Authorization;
+	String email, password, name, profile, mobileNum ;
 
-	Timestamp create_date, change_date;
+	String authorization = "member";
+
+	String accountType = "normal";
+
+
+	LocalDateTime createDate, changeDate;
 
 
 }

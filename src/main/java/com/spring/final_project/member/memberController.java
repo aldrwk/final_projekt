@@ -12,13 +12,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.*;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
+
+import static com.spring.final_project.util.dateService.*;
+import static com.spring.final_project.util.folderService.createFolder;
 
 @Controller
 public class memberController {
@@ -28,7 +34,6 @@ public class memberController {
 	private KakaoService kakaoService;
 	private memberService memberService;
 	private PasswordEncoder passwordEncoder;
-
 
 	@Autowired
 	public memberController(KakaoService kakaoService, memberService memberService, PasswordEncoder passwordEncoder) {
@@ -45,12 +50,13 @@ public class memberController {
 
 	@PostMapping("signupProc")
 	public String signupProc(memberDomain member, Model model) {
-		logger.info("test");
+		if (member.getName() == "") {
+			member.setName("free");
+		}
 		member.setProfile("/image/default_profile.webp");
 		LocalDateTime Date = LocalDateTime.now();
-		Timestamp currentDate = Timestamp.valueOf(Date);
-		member.setChange_date(currentDate);
-		member.setCreate_date(currentDate);
+		member.setChangeDate(Date);
+		member.setCreateDate(Date);
 
 		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		int result = memberService.insert(member);
@@ -99,9 +105,8 @@ public class memberController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails user = (UserDetails) principal;
 		memberDomain member = memberService.findById(user.getUsername());
-		session.setAttribute("local_user_info", member);
-		logger.info(String.valueOf(session.getAttribute("local_user_info")));
-		model.addAttribute("local_user_info", member);
+		session.setAttribute("user_info", member);
+		model.addAttribute("user_info", member);
 		return "redirect:" + redirectPath;
 	}
 
@@ -157,6 +162,43 @@ public class memberController {
 		}
 
 
+	}
+
+	@PostMapping("/mypage/infoupdate")
+	public String infoUpdate(String name, String email, MultipartFile profile, HttpSession session) {
+		System.out.println(profile);
+		memberDomain member = memberService.findById(email);
+		if (!name.equals(member.getName())) {
+			member.setName(name);
+		}
+		if (profile != null && !profile.isEmpty()) {
+			try {
+				// 이미지를 저장할 경로 설정
+				String savePath = "/src/main/resources/static";
+				String saveFolder = "/image/member/" + toDay();
+
+				String realPath = System.getProperty("user.dir") + savePath + saveFolder;
+				createFolder(realPath);
+				String fileName = uploadTime() + "_" + profile.getOriginalFilename();
+				String filePath = realPath + File.separator + fileName;
+				File dest = new File(filePath);
+
+				profile.transferTo(dest);
+				String saveDbPath = saveFolder + File.separator + fileName;
+				System.out.println("filePath : " + filePath);
+				member.setProfile(saveDbPath);
+				logger.info(member.getProfile());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		member.setChangeDate(LocalToDayTime());
+		System.out.println(member);
+		memberService.updateInfo(member);
+		member = memberService.findById(email);
+		session.setAttribute("user_info", member);
+
+		return "redirect:/mypage";
 	}
 }
 
