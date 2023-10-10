@@ -35,7 +35,7 @@
                 </section>
             </div>
         </div>
-        <th:block th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
+        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '카카오 계정'}" th:with="info=${session.user_info}">
             <div class="navi-list" th:fragment="logined">
                 <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
                 <div th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
@@ -71,7 +71,9 @@
                             </div>
                             <div class="menu-text-area">
                                 <a class="menu-text" href="/mypage">마이 페이지</a>
+                                <a class="menu-text" href="/host/center">호스트 센터</a>
                             </div>
+
                             <div class="logout-area">
                                 <a class="menu-text logout" href="/logout">로그아웃</a>
                             </div>
