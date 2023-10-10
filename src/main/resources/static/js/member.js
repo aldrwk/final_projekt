@@ -50,6 +50,10 @@ $(function () {
             $(".check_number_auth").after(message);
             e.preventDefault();
         }
+        if (!$(".check-request").hasClass("requested")) {
+            alert("핸드폰 번호 인증을 해주세요.")
+            e.preventDefault();
+        }
         if ($(".check_number_auth").next().hasClass("message") && $(".check_number_auth").next().hasClass("fail")) {
             e.preventDefault();
         }
@@ -85,6 +89,7 @@ $(function () {
 
     csrf = $("#csrf").val();
     $(".mobile-area").on("click", ".check-request", function () {
+        $(".check-request").addClass("requested");
         const number = $(".mobile_number_check").val();
         const regPhone = /^(01[0|1|6|7|8|9])+([0-9]{7,8})$/;
         if (number == "" || !regPhone.test(number)) {
@@ -98,6 +103,12 @@ $(function () {
             const message = "<span class=\"message fail\">올바른 핸드폰 번호를 적어주세요.</span>"
             $(this).after(message);
             return false;
+        } else if (regPhone.test(number)) {
+            if ($(".check-request").next().hasClass("message")) {
+                $(this).next().remove();
+            }
+            SmsAuth(number);
+            // $(this).after(auth);
         }
         if ($(".check-request").next().hasClass("check-area") || $(".check-request").next().hasClass("fail")) {
             return false;
@@ -105,9 +116,6 @@ $(function () {
         if ($(".check-request").next().hasClass("message")) {
             $(this).next().remove();
         }
-        console.log("test");
-        SmsAuth(number);
-        $(this).after(auth);
     });
 
     function SmsAuth(mobile) {
@@ -123,7 +131,9 @@ $(function () {
                 if (data == true) {
                     const message = "<span class=\"message fail\">등록된 핸드폰 번호입니다.</span>";
                     $(".check-request").after(message);
+                    return false;
                 }
+                $(".mobile-area").after(auth);
             }
         })
     }
@@ -256,7 +266,8 @@ $(function () {
             const message = "<span class=\"message fail\">영문+숫자+특수문자 조합 8자리이상 입력해주세요.</span>";
             $(this).after(message);
         } else {
-            $(this).next().remove();
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();}
             const message = "<span class=\"message ok\">사용 가능한 비밀번호입니다.</span>";
             $(this).after(message);
         }
@@ -324,7 +335,24 @@ $(function () {
 
     }
 
+    $('#profile').change(function (e) {
+        const inputfile = $(this).val().split('\\');
+        const filename = inputfile[inputfile.length - 1];		//inputfile.length - 1 = 2
+        const pattern = /(gif|jpg|jpeg|png)$/i;						//i(ignore case) : 대소문자 무시를 의미한다
 
+        if (pattern.test(filename)) {
+            const reader = new FileReader();						//파일을 읽기 위해 객체 생성
+            reader.readAsDataURL(e.target.files[0]);
+            console.log(reader);
+            reader.onload = function () {								//읽기에 성공한 경우 실행되는 이벤트 핸들러
+                $('.profile-img').attr('src', this.result).css('display', 'inline-block');
+
+            };
+        } else {
+            alert('이미지 파일(gif, jpg, jpeg, png)가 아닌 경우 업로드되지 않습니다.');
+            $(this).val('');
+        }
+    });
 
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.host.hostMapper">
+    <insert id="insert" parameterType="hostDomain"  >
+        insert into host
+        values (null, #{memberNum}, #{hostname}, #{hostProfile}, #{intro}, #{createHostDate}, #{changeHostDate})
+    </insert>
+
+
+
+    <resultMap id="memberMap" type="hostDomain">
+        <result column="host_num" property="hostNum" javaType="int"/>
+        <result column="member_num" property="memberNum" javaType="int"/>
+        <result column="host_profile" property="hostProfile" javaType="String"/>
+        <result column="create_host_date" property="createHostDate" />
+        <result column="change_host_date" property="changeHostDate" />
+    </resultMap>
+</mapper>

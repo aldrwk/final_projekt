@@ -17,10 +17,15 @@ $(function () {
             $(".regist-main").html("").html(account_email);
             return false;
         }
-        if ($(".email_check").hasClass("checked")) {
+        if ($(".email_check").hasClass("checked_b")) {
             $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
             let email = $("#email").val();
             $(".regist-main").html("").html(account_regist);
+            $("#email").val(email);
+        } else if ($(".email_check").hasClass("checked_a")) {
+            $(".regist-header-active:last").parent().next(":first").children(":first-child").addClass("regist-header-active");
+            let email = $("#email").val();
+            $(".regist-main").html("").html(account_regist_2);
             $("#email").val(email);
         } else {
             if ($(".btn-container").prev().hasClass("message")) {
@@ -64,11 +69,13 @@ $(function () {
                 if (data.result == "1") {
                     const message = "<span class=\"message ok\">등록된 이메일이 있습니다.<br>다음을 클릭하여 나머지 정보를 입력해주세요.</span>";
                     $(".btn-container").before(message);
+                    $(".email_check").addClass("checked_a");
                 } else {
-                    const message = "<span class=\"message\">등록된 이메일이 없습니다.<br>다음을 클릭하여 나머지 정보를 입력해주세요.</span>";
+                    const message = "<span class=\"message\">등록된 이메일이 없습니다.<br>일반회원 가입과 동시 가입됩니다.</span>";
                     $(".btn-container").before(message);
+                    $(".email_check").addClass("checked_b");
                 }
-                $(".email_check").addClass("checked");
+
             }
 
 
@@ -123,21 +130,240 @@ $(function () {
 
 
     const account_regist = '<div class="regist-main-title">호스트 정보</div>' +
-        '<form action="host/registproc" class="signnup-form">' +
-        '<span class="title-input">이메일</span>' +
-        '<input class="text-input checked-email" type="text" name="email" id="email" readonly>' +
-        '<span class="title-input">비밀번호</span>' +
-        '<input class="text-input" type="password" name="password" id="password" placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">' +
-        '<span class="title-input">비밀번호 확인</span>' +
-        '<input class="text-input" type="password" name="password_check" id="password_check">' +
+        '<form method="post" action="registproc" class="signnup-form">' +
+        ' <span class="title-input">이메일</span>\n' +
+        '                <input class="text-input checked-email" type="text" name="email" id="email" readonly>\n' +
+        '                <span class="title-input">비밀번호</span>\n' +
+        '                <input class="text-input" type="password" name="password" id="password"\n' +
+        '                       placeholder="영문+숫자+특수문자 조합 8자리이상 입력해주세요.">\n' +
+        '                <span class="title-input">비밀번호 확인</span>\n' +
+        '                <input class="text-input" type="password" name="password_check" id="password_check">\n' +
+        '                <span class="title-input">핸드폰 번호</span>\n' +
+        '                <div class="mobile-area">\n' +
+        '                    <input class="text-input mobile_number_check" type="text" name="mobileNum"\n' +
+        '                           placeholder="핸드폰 번호를 입력해주세요.">\n' +
+        '                    <button type="button" class="btn btn-submit check-request">인증 요청</button>\n' +
+        '                </div>'+
         '<span class="title-input">이름</span>' +
         '<input class="text-input" type="text" name="name" id="name" placeholder="이름을 입력해주세요.">' +
         '<span class="title-input">호스트명</span>' +
         '<input class="text-input" type="text" name="hostname" id="hostname" placeholder="호스트명을 입력해주세요.">' +
         '<div class="btn-container">' +
+
         '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
-        '<button class="btn regist-main-btn">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
+        '<button class="btn regist-main-btn regist">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
         '</form>';
 
 
+    const account_regist_2 = '<div class="regist-main-title">호스트 정보</div>' +
+        '<form method="post" action="registproc" class="signnup-form">' +
+        '<span class="title-input">이메일</span>' +
+        '<input class="text-input checked-email" type="text" name="email" id="email" readonly>' +
+        '<span class="title-input">호스트명</span>' +
+        '<input class="text-input" type="text" name="hostname" id="hostname" placeholder="호스트명을 입력해주세요.">' +
+        '<div class="btn-container">' +
+        '<input type="hidden" id="csrf" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">'+
+        '<button class="btn regist-main-btn before" type="button">이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전</button>' +
+        '<button class="btn regist-main-btn regist">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button></div>' +
+        '</form>';
+
+
+    $(document).on('keyup','.mobile_number_check', function () {
+        if (isNaN($(this).val())) {
+            $(this).val($(this).val().substring(0, $(this).val().length - 1));
+        }
+    });
+
+    csrf = $("#csrf").val();
+    $(document).on("click", ".check-request", function () {
+        const number = $(".mobile_number_check").val();
+        const regPhone = /^(01[0|1|6|7|8|9])+([0-9]{7,8})$/;
+        if (number == "" || !regPhone.test(number)) {
+            if ($(".check-request").next().hasClass("message")) {
+                return false;
+            }
+            if ($(".check-request").next().hasClass("check-area")) {
+                // $(".check-request").next().after().html("");
+                $(".check-request").next().remove();
+            }
+            const message = "<span class=\"message fail\">올바른 핸드폰 번호를 적어주세요.</span>"
+            $(this).after(message);
+            return false;
+        }
+        if ($(".check-request").next().hasClass("check-area") || $(".check-request").next().hasClass("fail")) {
+            return false;
+        }
+        if ($(".check-request").next().hasClass("message")) {
+            $(this).next().remove();
+        }
+        console.log("test");
+        SmsAuth(number);
+        $(this).after(auth);
+    });
+
+    function SmsAuth(mobile) {
+        $.ajax({
+            type: "Post",
+            url: "/api/naver/mobileAuth",
+            data: {
+                mobile: mobile,
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                if (data == true) {
+                    const message = "<span class=\"message fail\">등록된 핸드폰 번호입니다.</span>";
+                    $(".check-request").after(message);
+                }
+            }
+        })
+    }
+
+    $(document).on("click", ".check_number_auth", function () {
+        const AuthNum = $(".check_number").val();
+        if ($(".check_number_auth").next().hasClass("message")) {
+            $(this).next().remove();
+        }
+        SmsAuthOk(AuthNum);
+    });
+
+    function SmsAuthOk(AuthNum) {
+        $.ajax({
+            type: "Post",
+            url: "/api/naver/mobileAuthOk",
+            data: {AuthNum: AuthNum},
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                if (data == true) {
+                    const message = "<span class=\"message ok\">인증되었습니다.</span>";
+                    $(".check_number_auth").after(message);
+                } else {
+                    const message = "<span class=\"message fail\">인증번호가 일치하지 않습니다.</span>";
+                    $(".check_number_auth").after(message);
+                }
+            }
+        })
+    }
+
+    var auth = "<div class=\"check-area\" style=\"width: 100%\"> " +
+        "<span class=\"title-input\" >인증 번호</span>" +
+        "<div class=\"check-input\"> <input class=\"text-input check_number\" type=\"text\" name=\"mobile_check\"" +
+        "placeholder=\"인증 번호를 입력해주세요.\">" +
+        "<button type=\"button\" class=\"btn btn-submit check_number_auth \">확인 하기</button></div></div>";
+
+    $(document).on("keyup", "#password", function () {
+        regpassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
+        pass = $(this).val();
+        if (!regpassword.test(pass)) {
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();
+            }
+            const message = "<span class=\"message fail\">영문+숫자+특수문자 조합 8자리이상 입력해주세요.</span>";
+            $(this).after(message);
+        } else {
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();}
+            const message = "<span class=\"message ok\">사용 가능한 비밀번호입니다.</span>";
+            $(this).after(message);
+        }
+    });
+
+    $(document).on("keyup", "#password_check", function () {
+        pass = $("#password").val();
+        pass_check = $(this).val();
+
+        if (pass != pass_check) {
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();
+            }
+            const message = "<span class=\"message fail\">비밀번호가 일치하지 않습니다.</span>";
+            $(this).after(message);
+        } else {
+            $(this).next().remove();
+            const message = "<span class=\"message ok\">비밀번호가 일치합니다.</span>";
+            $(this).after(message);
+        }
+    });
+
+    $(document).on("focusout", ".new-password-check" ,function () {
+        pass = $(".new-password").val();
+        pass_check = $(this).val();
+        console.log("test");
+        if (pass != pass_check) {
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();
+            }
+            const message = "<span class=\"message fail\">비밀번호가 일치하지 않습니다.</span>";
+            $(this).after(message);
+        } else {
+            $(this).next().remove();
+            const message = "<span class=\"message ok\">비밀번호가 일치합니다.</span>";
+            $(this).after(message);
+        }
+    });
+
+    $(document).on("keyup", ".new-password ",function () {
+        regpassword = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/
+        pass = $(this).val();
+        if (!regpassword.test(pass)) {
+            if ($(this).next().hasClass("message")) {
+                $(this).next().remove();
+            }
+            const message = "<span class=\"message fail\">영문+숫자+특수문자 조합 8자리이상 입력해주세요.</span>";
+            $(this).after(message);
+        } else {
+            $(this).next().remove();
+            const message = "<span class=\"message ok\">사용 가능한 비밀번호입니다.</span>";
+            $(this).after(message);
+        }
+    });
+
+
+    $(document).on("click", ".regist-main-btn.regist",function (e) {
+        console.log("submit btn test")
+        if ($(".privateinfo-check,.service-check").prop("checked") == false && $(".service-check").prop("checked") == false) {
+            if (!$(".btn-submit.join").prev().hasClass("message")) {
+                let message = '<p class="message fail">필수 항목 동의해주세요</p>';
+                $(".btn-submit.join").prev().after(message);
+            }
+            e.preventDefault();
+        }
+        if ($("#email").val() == "") {
+            if ($("#email").next().hasClass("message")) {
+                $("#email").next().remove();
+            }
+            const message = "<span class=\"message fail\">이메일을 입력해주세요.</span>";
+            $("#email").after(message);
+            e.preventDefault();
+        }
+        if ($("#password").val() == "") {
+            if ($("#password").next().hasClass("message")) {
+                $("#password").next().remove();
+            }
+            const message = "<span class=\"message fail\">비밀번호를 입력해주세요.</span>";
+            $("#password").after(message);
+            e.preventDefault();
+        }
+        if ($(".mobile_number_check").val() == "") {
+            if ($(".check-request").next().hasClass("message")) {
+                $(".check-request").next().remove();
+            }
+            const message = "<span class=\"message fail\">핸드폰 번호를 입력해주세요.</span>";
+            $(".check-request").after(message);
+            e.preventDefault();
+        }
+        if ($(".check_number").val() == "") {
+            if ($(".check_number_auth").next().hasClass("message")) {
+                $(".check_number_auth").next().remove();
+            }
+            const message = "<span class=\"message fail\">인증 번호를 입력해주세요.</span>";
+            $(".check_number_auth").after(message);
+            e.preventDefault();
+        }
+        if ($(".check_number_auth").next().hasClass("message") && $(".check_number_auth").next().hasClass("fail")) {
+            e.preventDefault();
+        }
+
+    })
 })

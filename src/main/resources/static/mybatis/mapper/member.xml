@@ -5,9 +5,9 @@
 <mapper namespace="com.spring.final_project.member.memberMapper">
     <insert id="insert" parameterType="memberDomain">
         insert into member
-        values (null, #{email}, #{password}, #{name}, #{mobile_num}, #{profile}, #{create_date}, #{change_date})
+    values (null, #{email}, #{password}, #{name}, #{mobileNum}, #{profile}, #{authorization}, #{accountType}, #{createDate}, #{changeDate})
     </insert>
-    <select id="findById" resultType="memberDomain">
+    <select id="findById" resultType="memberDomain" resultMap="memberMap">
         select *
         from member
         where email = #{email}
@@ -15,9 +15,28 @@
     <select id="findByMobile" resultType="memberDomain">
         select *
         from member
-        where mobile_num = #{mobile_num}
+        where mobile_num = #{mobileNum}
     </select>
     <update id="updatePassword" parameterType="memberDomain">
         update member set password= #{password} where email = #{email}
     </update>
+    <update id="updateAuth" parameterType="memberDomain">
+        update member set authorization= #{authorization} where email = #{email}
+    </update>
+    <update id="updateInfo" parameterType="memberDomain">
+        update member set name= #{name}, profile = #{profile}, change_date = #{changeDate} where email = #{email}
+    </update>
+
+
+
+
+
+
+    <resultMap id="memberMap" type="memberDomain">
+        <result column="mobile_num" property="mobileNum" javaType="String"/>
+        <result column="account_type" property="accountType" javaType="String"/>
+                <result column="create_date" property="createDate" />
+        <result column="change_date" property="changeDate" />
+    </resultMap>
+
 </mapper>

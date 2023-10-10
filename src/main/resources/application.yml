@@ -14,12 +14,26 @@ spring:
     username: free
     password: Admin123!
     mapper-locations=classpath: /mybatis/**/*.xml
-
-# mybatis
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
 mybatis:
   type-aliases-package: com.spring.final_project
   mapper-locations: static/mybatis/mapper/*.xml
   config-location: classpath:/static/mybatis/config/mybatis-config.xml
+
+
+
 
 logging:
   file:
@@ -27,5 +41,12 @@ logging:
   level:
     org:
       thymeleaf: ERROR
-
+      springframework:
+        context:
+          annotation: INFO
+        web:
+          servlet: INFO
+        jdbc:
+          datasource:
+            DataSourceTransactionManager: DEBUG
 

@@ -33,10 +33,12 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 //				.antMatchers("/comment/**").permitAll()
 				.antMatchers("/**/**").permitAll()
 				.antMatchers("/*").permitAll()
-			.and()
-			.csrf()
+				.and()
+				.csrf()
 				.ignoringAntMatchers("/api/**")
-				.ignoringAntMatchers("/mypage/**");
+				.ignoringAntMatchers("/mypage/**")
+				.ignoringAntMatchers("/host/regist")
+				.ignoringAntMatchers("/host/registproc");
 
 		http.formLogin().loginPage("/login")
 				.loginProcessingUrl("/loginProc")
@@ -55,7 +57,7 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 //				.rememberMeCookieName("remember-me")
 //				.tokenValiditySeconds(2419200);
 
-//		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
 	}
 
 	@Override
@@ -78,10 +80,10 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-//	@Bean
-//	public AccessDeniedHandler accessDeniedHandler() {
-//		return new CustomAccessDeniedHandler();
-//	}
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		return new CustomAccessDeniedHandler();
+	}
 
 	@Bean
 	public AuthenticationFailureHandler loginFailHandler() {
