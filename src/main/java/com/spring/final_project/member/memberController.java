@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
+
 
 import static com.spring.final_project.util.dateService.*;
 import static com.spring.final_project.util.folderService.createFolder;
@@ -30,6 +30,10 @@ import static com.spring.final_project.util.folderService.createFolder;
 public class memberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(memberController.class);
+
+	private final int NOBODY = 0;
+	private final int SOMEONE = 1;
+
 
 	private KakaoService kakaoService;
 	private memberService memberService;
@@ -114,7 +118,7 @@ public class memberController {
 	public ResponseEntity<Map<String, Integer>> memberCheck(String email) {
 		memberDomain member = memberService.findById(email);
 		Map<String, Integer> resultMap = new HashMap<>();
-		int result = member == null ? 0 : 1;
+		int result = member == null ? NOBODY : SOMEONE;
 
 		resultMap.put("result", result);
 
@@ -147,7 +151,7 @@ public class memberController {
 	@PostMapping("/mypage/info/passwordupdate")
 	public ResponseEntity passwordUpdate(String oldPassword, String newPassword, Model model, HttpServletRequest request, HttpSession session) {
 		session = request.getSession();
-		memberDomain member = (memberDomain) session.getAttribute("local_user_info");
+		memberDomain member = (memberDomain) session.getAttribute("user_info");
 		logger.info(oldPassword);
 		logger.info(String.valueOf(member));
 		if (!passwordEncoder.matches(oldPassword, member.getPassword())) {

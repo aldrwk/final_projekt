@@ -38,7 +38,8 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 				.ignoringAntMatchers("/api/**")
 				.ignoringAntMatchers("/mypage/**")
 				.ignoringAntMatchers("/host/regist")
-				.ignoringAntMatchers("/host/registproc");
+				.ignoringAntMatchers("/host/registproc")
+				.ignoringAntMatchers("/host/*");
 
 		http.formLogin().loginPage("/login")
 				.loginProcessingUrl("/loginProc")

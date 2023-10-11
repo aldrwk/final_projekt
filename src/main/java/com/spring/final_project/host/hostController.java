@@ -4,9 +4,13 @@ import com.spring.final_project.member.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.InternalResourceView;
 
 import java.time.LocalDateTime;
 
@@ -55,8 +59,6 @@ public class hostController {
 		host.setCreateHostDate(Date);
 		memberService.updateAuth(member);
 		hostService.insert(host);
-
-
 		return "redirect:/";
 	}
 
@@ -71,4 +73,9 @@ public class hostController {
 		return "host/hostinfo";
 	}
 
+	@PostMapping("/profile")
+	public String hostProfile(Model model) {
+		model.addAttribute("replace", "testtest");
+		return "/host/profile ::profile";
+	}
 }

@@ -45,8 +45,10 @@ logging:
         context:
           annotation: INFO
         web:
-          servlet: INFO
+          servlet:
+            handler: INFO
         jdbc:
           datasource:
             DataSourceTransactionManager: DEBUG
+
 
