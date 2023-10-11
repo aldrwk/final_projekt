@@ -1,0 +1,45 @@
+<div class="manage-info-area" th:fragment="profile">
+    <div class="manage-info-header">
+        <span class="manage-info-title">프로필 관리</span>
+    </div>
+    <div class="manage-info-frame profile-frame">
+        <div class="manage-info-table profile-area">
+            <div class="manage-info-profile-step">
+                <form method="post" action="/host/profileupdate">
+                    <div class="manage-info-profile-area">
+                        <span class="manage-info-text">프로필 사진</span>
+                        <div class="profil-img-frame">
+                            <label for="hostprofile" style="position: absolute; height: inherit">
+                                <img class="manage-info-profile-img" src="/image/host/host_profile.webp"/>
+                                <div class="camera-container">
+                                    <img src="data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9.72386 3.05752L10.4714 3.80507C10.5964 3.93009 10.766 4.00032 10.9428 4.00033H12.6667C13.403 4.00033 14 4.59728 14 5.33366V11.3337C14 12.07 13.403 12.667 12.6667 12.667H3.33333C2.59695 12.667 2 12.07 2 11.3337V5.33366C2 4.59728 2.59695 4.00033 3.33333 4.00033H5.05719C5.234 4.00032 5.40357 3.93009 5.52859 3.80507L6.27614 3.05752C6.52619 2.80747 6.86533 2.66699 7.21895 2.66699H8.78105C9.13467 2.66699 9.47381 2.80747 9.72386 3.05752ZM10.6667 8.00033C10.6667 9.47308 9.47276 10.667 8 10.667C6.52724 10.667 5.33333 9.47308 5.33333 8.00033C5.33333 6.52757 6.52724 5.33366 8 5.33366C9.47276 5.33366 10.6667 6.52757 10.6667 8.00033ZM11.5 6.00024C11.7761 6.00024 12 5.77639 12 5.50024C12 5.2241 11.7761 5.00024 11.5 5.00024C11.2239 5.00024 11 5.2241 11 5.50024C11 5.77639 11.2239 6.00024 11.5 6.00024Z' fill='white'/%3E %3C/svg%3E"
+                                         class="MyProfilePage__CameraIamge-sc-162q6w5-6 camera">
+                                </div>
+                            </label>
+                            <input type="file" accept="image/*" id="hostprofile" name="hostprofile"
+                                   class="upload-profile">
+                        </div>
+                    </div>
+                    <div class="manage-info-profile-area">
+                        <span class="manage-info-text">호스트 명</span>
+                        <div class="manage-info-input-area">
+                            <input type="text" class="manage-info-input"><br>
+                            <span class="manage-info-subtext">프리 회원에게 보여지는 닉네임 입니다. </span>
+                        </div>
+                    </div>
+                    <div class="manage-info-profile-area textarea">
+                        <span class="manage-info-text">소개(선택)</span>
+                        <div class="manage-info-input-area">
+                            <textarea class="manage-info-input textframe"></textarea><br>
+                            <span class="manage-info-subtext">프립 크루(회원)에게 호스트님을 소개해 주세요.<br>
+                            호스트님만의 개성을 담거나, 신뢰감을 줄 수 있는 전문적인 사항들을 입력하시면 좋습니다.
+                        </span>
+                        </div>
+                    </div>
+
+                    <button class="btn-submit btn-profile">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

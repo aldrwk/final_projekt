@@ -35,7 +35,8 @@
                 </section>
             </div>
         </div>
-        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '카카오 계정'}" th:with="info=${session.user_info}">
+        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '카카오 계정'}"
+                  th:with="info=${session.user_info}">
             <div class="navi-list" th:fragment="logined">
                 <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
                 <div th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
@@ -45,7 +46,9 @@
                                 <span class="user-name">[[${info.name}]] 님</span>
                             </div>
                             <div class="menu-text-area">
-                                <a class="menu-text" href="/mypage">마이 페이지</a></div>
+                                <a class="menu-text" href="/mypage">마이 페이지</a>
+                                <a class="menu-text" href="/host/center">호스트 센터</a>
+                            </div>
                             <div class="logout-area">
                                 <a class="menu-text logout" href="/logout">로그아웃</a>
                             </div>
@@ -83,7 +86,6 @@
                 <a class="move-bt" href="/"><span class="navi-text">내 프리</span></a>
                 <div class="user-menu" style="margin: 0">
                     <img class="profile" th:src="${info.profile}">
-                    <!--                        <img class="profile" src="image/default_profile.webp">-->
                     <img data-v-35a09b99=""
                          src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgxMnYxMkgweiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iIzg4OCIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTEwIDQgNiA4IDIgNCIvPgogICAgPC9nPgo8L3N2Zz4K">
                 </div>

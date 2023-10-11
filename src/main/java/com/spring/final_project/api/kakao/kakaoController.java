@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static com.spring.final_project.api.util.apiConfig.KAKAO_LOGIN_URL;
+
+
 @Controller
 @RequestMapping("/api/login")
 public class kakaoController {
@@ -30,12 +33,7 @@ public class kakaoController {
 	@GetMapping("/kakaoauth")
 	public String kakaoLoginURL(HttpServletRequest request) {
 		String redirectPath = request.getParameter("redirectPath");
-		String REST_API_KEY = "cfba8202c491dd4272811ab220211412";
-		String REDIRECT_URI = "http://localhost/api/login/kakao";
-
-		String kakaoLoginURL = String.format("redirect:https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code", REST_API_KEY, REDIRECT_URI);
-		return kakaoLoginURL;
-
+		return KAKAO_LOGIN_URL;
 	}
 
 	@GetMapping("/kakao")
@@ -55,7 +53,7 @@ public class kakaoController {
 		log.info("유저 정보를 기반으로 회원가입 & 로그인 처리");
 		memberDomain member;
 		member = kakaoService.getKakaoProfile(accessToken);
-		
+
 		session.setAttribute("user_info", member);
 
 		return "redirect:" + redirectPath;

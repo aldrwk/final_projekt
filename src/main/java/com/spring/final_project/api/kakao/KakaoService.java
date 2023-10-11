@@ -10,6 +10,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import static com.spring.final_project.api.util.apiConfig.KAKAO_REDIRECT_URI;
+import static com.spring.final_project.api.util.apiConfig.KAKAO_REST_API_KEY;
 import static com.spring.final_project.util.dateService.LocalToDayTime;
 
 @Service
@@ -26,9 +28,6 @@ public class KakaoService {
 
 	public String getKakaoAccessToken(String code) {
 
-		String REST_API_KEY = "cfba8202c491dd4272811ab220211412";
-		String REDIRECT_URI = "http://localhost/api/login/kakao";
-
 		// POST방식으로 key=value 데이터 요청
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
@@ -37,8 +36,8 @@ public class KakaoService {
 		// HttpBody 오브젝트 생성
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", REST_API_KEY);
-		params.add("redirect_uri", REDIRECT_URI);
+		params.add("client_id", KAKAO_REST_API_KEY);
+		params.add("redirect_uri", KAKAO_REDIRECT_URI);
 		params.add("code", code);
 
 		// HttpHeader와 HttpBody를 하나의 오브젝트로 담는다

@@ -14,28 +14,16 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Random;
 
+import static com.spring.final_project.api.util.apiConfig.*;
+
 @Service
 public class naverSmsService {
 	@SuppressWarnings("unchecked")
 	public void send_msg(String tel, String rand) {
-		// 호스트 URL
-		String hostNameUrl = "https://sens.apigw.ntruss.com";
-		// 요청 URL
-		String requestUrl= "/sms/v2/services/";
-		// 요청 URL Type
-		String requestUrlType = "/messages";
-		// 개인 인증키
-		String accessKey = "tBaczgc0CzXIagsA6uh4";
-		// 2차 인증을 위해 서비스마다 할당되는 service secret
-		String secretKey = "w9V6Yo0i4D1HXLf3sZQYHP4OzgIdJEyaEJJp0Mlz";
-		// 프로젝트에 할당된 SMS 서비스 ID
-		String serviceId = "ncp:sms:kr:316028741712:free_sms";
-		// 요청 method
+
 		String method = "POST";
-		// current timestamp (epoch)
 		String timestamp = Long.toString(System.currentTimeMillis());
-		requestUrl += serviceId + requestUrlType;
-		String apiUrl = hostNameUrl + requestUrl;
+
 
 		// JSON 을 활용한 body data 생성
 		JSONObject bodyJson = new JSONObject();
@@ -55,16 +43,15 @@ public class naverSmsService {
 		bodyJson.put("content","Free 핸드폰 인증 문자");
 
 		// 발신번호 * 사전에 인증/등록된 번호만 사용할 수 있습니다.
-		bodyJson.put("from","01085957675");
+		bodyJson.put("from", NAVER_FROM_NUMBER);
 		bodyJson.put("messages", toArr);
 
 		String body = bodyJson.toString();
-//				.toJSONString();
 
 		System.out.println(body);
 
 		try {
-			URL url = new URL(apiUrl);
+			URL url = new URL(NAVER_SMS_URL);
 
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setUseCaches(false);
@@ -72,8 +59,8 @@ public class naverSmsService {
 			con.setDoInput(true);
 			con.setRequestProperty("content-type", "application/json");
 			con.setRequestProperty("x-ncp-apigw-timestamp", timestamp);
-			con.setRequestProperty("x-ncp-iam-access-key", accessKey);
-			con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(requestUrl, timestamp, method, accessKey, secretKey));
+			con.setRequestProperty("x-ncp-iam-access-key", NAVER_ACCESSKEY);
+			con.setRequestProperty("x-ncp-apigw-signature-v2", makeSignature(NAVER_SMS_SIGNATURE_URL, timestamp, method, NAVER_ACCESSKEY, NAVER_SECRETKEY));
 			con.setRequestMethod(method);
 			con.setDoOutput(true);
 			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -137,8 +124,6 @@ public class naverSmsService {
 		} catch (UnsupportedEncodingException e) {
 			encodeBase64String = e.toString();
 		}
-
-
 		return encodeBase64String;
 	}
 

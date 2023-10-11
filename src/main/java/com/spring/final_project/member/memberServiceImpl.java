@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 public class memberServiceImpl implements memberService {
 	private memberMapper memberMapper;
 
+	private final int SUCCESS = 1;
+	private final int FAIL = 0;
+
 	@Autowired
 	public memberServiceImpl(memberMapper memberMapper) {
 		this.memberMapper = memberMapper;
@@ -17,7 +20,7 @@ public class memberServiceImpl implements memberService {
 	public int insert(memberDomain member) {
 
 
-		return memberMapper.insert(member) == 1 ? 1:0;
+		return memberMapper.insert(member) == SUCCESS ? SUCCESS:FAIL;
 	}
 
 
