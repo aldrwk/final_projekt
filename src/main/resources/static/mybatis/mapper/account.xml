@@ -7,9 +7,6 @@
     <select id="findById" resultType="accountDomain" resultMap="accountMap">
         select host_num, account_num, bank_code, account_owner from account;
     </select>
-    <select id="findAll" resultType="accountDomain" resultMap="accountMap">
-        select bank_code, bank_name from bank where bank_name = ${bankName};
-    </select>
 
 
 
