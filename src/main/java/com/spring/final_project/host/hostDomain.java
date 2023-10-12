@@ -10,7 +10,7 @@ public class hostDomain {
 
 	int hostNum, memberNum;
 	String hostname;
-	String hostProfile = "/image/host_profile.webp";
+	String hostProfile = "/image/host/host_profile.webp";
 	String intro = "";
 
 	LocalDateTime createHostDate, changeHostDate;

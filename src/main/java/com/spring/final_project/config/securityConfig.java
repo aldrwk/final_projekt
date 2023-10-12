@@ -48,10 +48,11 @@ public class securityConfig extends WebSecurityConfigurerAdapter {
 				.successHandler(loginSuccessHandler())
 				.failureHandler(loginFailHandler());
 
-		http.logout().logoutSuccessUrl("/")
-				.logoutUrl("/logout")
-				.invalidateHttpSession(true)
-				.deleteCookies("remember-me", "JSESSION_ID");
+		http.logout()
+				.logoutUrl("logout")
+				.logoutSuccessUrl("/")
+				.invalidateHttpSession(true)	;
+
 
 //		http.rememberMe()
 //				.rememberMeParameter("remember-me")

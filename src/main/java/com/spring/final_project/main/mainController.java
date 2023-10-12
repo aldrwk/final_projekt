@@ -23,7 +23,10 @@ public class mainController {
 	}
 
 	@GetMapping("/test")
-	public String test() {
+	public String test(Model model) {
+
+		System.out.println(model.getAttribute("user_info2"));
+
 		return "test";
 	}
 

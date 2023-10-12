@@ -8,12 +8,23 @@
 </head>
 <body>
 <div th:if="${not #lists.isEmpty(session.user_info)}">
-    <span th:text="${session.user_info.nickname}"></span>
-    <span th:text="${session.user_info.phoneNumber}"></span>
-    <span th:text="${session.user_info.id}"></span>
+
+    <span th:text="${session.user_info.name}"></span>
+    <span th:text="${session.user_info.mobileNum}"></span>
+    <span th:text="${session.user_info.num}"></span>
     <span th:text="${session.user_info.email}"></span>
     <img th:src="${session.user_info.profile}">
+    <p>testestsetsetsetst</p>
 </div>
+
+    <span th:text="${member}"></span>
+    <span th:text="${member.name}"></span>
+    <span th:text="${member.mobileNum}"></span>
+    <span th:text="${member.num}"></span>
+    <span th:text="${member.email}"></span>
+    <img th:src="${member.profile}">
+
+
 <!--주소-->
 <div class="address-area">
     <input type="text" name="address" class="address">

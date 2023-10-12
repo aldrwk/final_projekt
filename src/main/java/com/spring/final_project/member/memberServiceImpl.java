@@ -3,12 +3,13 @@ package com.spring.final_project.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.spring.final_project.util.messages.FAIL;
+import static com.spring.final_project.util.messages.SUCCESS;
+
 @Service
 public class memberServiceImpl implements memberService {
 	private memberMapper memberMapper;
 
-	private final int SUCCESS = 1;
-	private final int FAIL = 0;
 
 	@Autowired
 	public memberServiceImpl(memberMapper memberMapper) {
@@ -28,9 +29,19 @@ public class memberServiceImpl implements memberService {
 	public memberDomain findById(String email) {
 		return memberMapper.findById(email);
 	}
+
+	@Override
+	public memberDomain login(String email) {
+		return memberMapper.login(email);
+	}
 	@Override
 	public memberDomain findByMobile(String mobile) {
 		return memberMapper.findByMobile(mobile);
+	}
+
+	@Override
+	public memberDomain findByNum(int memberNum) {
+		return memberMapper.findByNum(memberNum);
 	}
 
 	@Override

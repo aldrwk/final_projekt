@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,11 +26,12 @@ import java.util.Map;
 
 import static com.spring.final_project.util.dateService.*;
 import static com.spring.final_project.util.folderService.createFolder;
+import static com.spring.final_project.util.messages.REDIRECT_HOME;
 
 @Controller
 public class memberController {
 
-	private static final Logger logger = LoggerFactory.getLogger(memberController.class);
+	private static final Logger log = LoggerFactory.getLogger(memberController.class);
 
 	private final int NOBODY = 0;
 	private final int SOMEONE = 1;
@@ -71,9 +73,9 @@ public class memberController {
 //				sendMail.sendMail(vo);
 //			});
 //			redirectAttributes.addFlashAttribute("result", "joinSuccess");
-			return "redirect:/";
+			return REDIRECT_HOME;
 		}
-		return "redirect:/";
+		return REDIRECT_HOME;
 	}
 
 
@@ -97,7 +99,7 @@ public class memberController {
 //		}
 //		HttpSession session = request.getSession();
 //		String redirectPath = String.valueOf(session.getAttribute("redirectPath"));
-//		logger.info(redirectPath);
+//		log.info(redirectPath);
 //		session.setAttribute("user_info", member);
 //		return "redirect:" + redirectPath;
 //	}
@@ -110,9 +112,9 @@ public class memberController {
 		UserDetails user = (UserDetails) principal;
 		memberDomain member = memberService.findById(user.getUsername());
 		session.setAttribute("user_info", member);
-		model.addAttribute("user_info", member);
 		return "redirect:" + redirectPath;
 	}
+
 
 	@GetMapping("memberCheck")
 	public ResponseEntity<Map<String, Integer>> memberCheck(String email) {
@@ -132,8 +134,9 @@ public class memberController {
 			kakaoService.logoutProc((kakaoAcountDto) session.getAttribute("user_info"));
 		} catch (Exception e) {
 		}
+		log.info("logout?");
 		session.invalidate();
-		return "redirect:/";
+		return REDIRECT_HOME;
 	}
 
 	@GetMapping("mypage")
@@ -152,8 +155,8 @@ public class memberController {
 	public ResponseEntity passwordUpdate(String oldPassword, String newPassword, Model model, HttpServletRequest request, HttpSession session) {
 		session = request.getSession();
 		memberDomain member = (memberDomain) session.getAttribute("user_info");
-		logger.info(oldPassword);
-		logger.info(String.valueOf(member));
+		log.info(oldPassword);
+		log.info(String.valueOf(member));
 		if (!passwordEncoder.matches(oldPassword, member.getPassword())) {
 			model.addAttribute("oldPassword", "not matched");
 			return ResponseEntity.ok(model);
@@ -191,7 +194,7 @@ public class memberController {
 				String saveDbPath = saveFolder + File.separator + fileName;
 				System.out.println("filePath : " + filePath);
 				member.setProfile(saveDbPath);
-				logger.info(member.getProfile());
+				log.info(member.getProfile());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -203,6 +206,12 @@ public class memberController {
 		session.setAttribute("user_info", member);
 
 		return "redirect:/mypage";
+	}
+
+	@GetMapping("member/change")
+	public String change(HttpSession session) {
+		session.removeAttribute("host_info");
+		return REDIRECT_HOME;
 	}
 }
 

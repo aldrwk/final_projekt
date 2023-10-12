@@ -9,7 +9,11 @@ public interface memberService {
 
 	public memberDomain findById(String email);
 
+	public memberDomain login(String email);
+
 	public memberDomain findByMobile(String mobile);
+
+	public memberDomain findByNum(int memberNum);
 
 	public int updatePassword(memberDomain member);
 	public int updateAuth(memberDomain member);
