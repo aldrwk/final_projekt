@@ -1,0 +1,53 @@
+<div class="manage-info-area" th:fragment="konto">
+    <div class="manage-info-header">
+        <span class="manage-info-title">정산정보 관리</span>
+    </div>
+    <div class="manage-info-frame profile-frame">
+        <div class="manage-info-table profile-area">
+            <div class="manage-info-profile-step" th:with="host=${session.host_info}">
+                <form method="post" action="/host/kontoupdate">
+                    <div class="manage-info-konto-area">
+                        <span class="manage-info-text">수수료</span>
+                        <div class="frame">
+                            <span class="manage-info-text on">19.8</span>
+                        </div>
+                    </div>
+                    <div class="manage-info-konto-area">
+                        <span class="manage-info-text">입금 은행</span>
+                        <div class="manage-info-dropbox-area frame" data-toggle="collapse" data-target="#konto-info"
+                             aria-expanded="false" aria-controls="collapseExample">
+                            <input type="text" readonly class="konto-input konto-bank" name="bankName" th:value="은행">
+                            <span class="icon-arrow"></span>
+                        </div>
+                    </div>
+                    <div style="position: absolute">
+                        <div class="bank-list-area">
+                            <div class="bank-list-frame">
+                                <div class="bank-list-scroll">
+                                    <ul class="bank_list">
+                                        <li class="bank" th:each="banks: ${banks}">
+                                            <span th:text="${banks.bankName}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="manage-info-konto-area">
+                        <span class="manage-info-text">예금주 명</span>
+                        <div class="frame">
+                            <input type="text" class="konto-input konto-owner" name="accountOwner">
+                        </div>
+                    </div>
+                    <div class="manage-info-konto-area">
+                        <span class="manage-info-text">계좌 번호</span>
+                        <div class="frame">
+                            <input type="text" class="konto-input konto-number" name="accountNumber">
+                        </div>
+                    </div>
+                    <button class="btn-submit btn-center">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

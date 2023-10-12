@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.spring.final_project.util.messages.REDIRECT_HOME;
 
 
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
@@ -20,7 +21,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 	public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, org.springframework.security.access.AccessDeniedException e) throws IOException, ServletException {
 		logger.info("Access Denied Handler");
 		logger.info(httpServletRequest.getRequestURI());
-		String url = "redirect:/";
+		String url = REDIRECT_HOME;
 		RequestDispatcher dispatcher = httpServletRequest.getRequestDispatcher(url);
 		httpServletRequest.setAttribute("key", "접근 권한 없는 사용자");
 		dispatcher.forward(httpServletRequest, httpServletResponse);

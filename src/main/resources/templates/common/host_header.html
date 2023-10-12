@@ -1,5 +1,5 @@
 <header class="host-header-container" th:fragment="host_regist">
-    <section class="host-navi-bar">
+    <section class="host-navi-bar-regist">
         <div class="navi-logo">
             <a href="/host/center" style="display: inline-block">
                 <img class="logo-img" src="/image/util/logo_3.png" alt="">
@@ -13,10 +13,10 @@
     <section class="host-navi-bar">
         <div class="navi-title">프리 호스트 관리 센터</div>
         <div class="host-header-account-area">
-            <img class="host-img" src="/image/host/host_profile.webp">
-            <span class="host-name">호스트 이름</span>
-            <a href="/logout">
-                <button class="host-logout">로그아웃</button>
+            <img class="host-img" th:src="${session.host_info.hostProfile}">
+            <span class="host-name">[[${session.host_info.hostname}]]</span>
+            <a href="/host/logout">
+                <button class="host-logout"><span class="logout-text">호스트 로그아웃</span></button>
             </a>
         </div>
     </section>

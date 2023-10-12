@@ -132,7 +132,7 @@ input[type="checkbox"] {
     flex-direction: row;
 }
 .checked-email {
-    background-color: rgb(238, 238, 238);
+    background-color: #EEEEEE;
 }
 
 .regist-main-btn {

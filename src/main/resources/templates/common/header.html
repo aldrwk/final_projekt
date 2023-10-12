@@ -16,29 +16,28 @@
             <div class="search-box">
                 <section class="box-area">
                     <span style="width: 100%">추천 검색어</span>
-                    <a href="">
-                        <button class="btn recommand-button">test1</button>
-                    </a>
-                    <a href="">
-                        <button class="btn recommand-button">test2</button>
-                    </a>
-                    <a href="">
-                        <button class="btn recommand-button">test3</button>
-                    </a>
-                    <a href="">
-                        <button class="btn recommand-button">test4</button>
-                    </a>
-                    <a href="">
-                        <button class="btn recommand-button">test5</button>
-                    </a>
-
+                        <a href="">
+                            <button class="btn recommand-button" th:text="${user_info2}"></button>
+                        </a>
+                        <a href="">
+                            <button class="btn recommand-button">test2</button>
+                        </a>
+                        <a href="">
+                            <button class="btn recommand-button">test3</button>
+                        </a>
+                        <a href="">
+                            <button class="btn recommand-button">test4</button>
+                        </a>
+                        <a href="">
+                            <button class="btn recommand-button">test5</button>
+                        </a>
                 </section>
             </div>
         </div>
-        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '카카오 계정'}"
+        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '카카오 계정'} and ${#lists.isEmpty(session.host_info)}"
                   th:with="info=${session.user_info}">
             <div class="navi-list" th:fragment="logined">
-                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
+                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트 지원</span></a>
                 <div th:if="${not #lists.isEmpty(session.user_info)}" th:with="info=${session.user_info}">
                     <div class="menu-box-container" style="display: none">
                         <div class="menu-box-area">
@@ -47,7 +46,7 @@
                             </div>
                             <div class="menu-text-area">
                                 <a class="menu-text" href="/mypage">마이 페이지</a>
-                                <a class="menu-text" href="/host/center">호스트 센터</a>
+                                <a class="menu-text" href="/host/change">호스트 전환</a>
                             </div>
                             <div class="logout-area">
                                 <a class="menu-text logout" href="/logout">로그아웃</a>
@@ -63,9 +62,9 @@
                 </div>
             </div>
         </th:block>
-        <th:block sec:authorize="isAuthenticated()" th:style="${'display:inline'}" th:with="info=${session.user_info}">
+        <th:block sec:authorize="isAuthenticated()" th:if="${not #lists.isEmpty(session.user_info)} and ${session.user_info.accountType == '일반회원 계정'} and ${#lists.isEmpty(session.host_info)}" th:style="${'display:inline'}" th:with="info=${session.user_info}">
             <div class="navi-list">
-                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
+                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트 지원</span></a>
                 <div>
                     <div class="menu-box-container" style="display: none">
                         <div class="menu-box-area">
@@ -74,7 +73,7 @@
                             </div>
                             <div class="menu-text-area">
                                 <a class="menu-text" href="/mypage">마이 페이지</a>
-                                <a class="menu-text" href="/host/center">호스트 센터</a>
+                                <a class="menu-text" href="/host/change">호스트 전환</a>
                             </div>
 
                             <div class="logout-area">
@@ -91,11 +90,39 @@
                 </div>
             </div>
         </th:block>
-        <th:block sec:authorize="isAnonymous()">
-            <div class="navi-list" th:unless="${not #lists.isEmpty(session.user_info)}">
-                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트지원</span></a>
+        <th:block sec:authorize="isAnonymous()" th:if="${#lists.isEmpty(session.user_info)}">
+            <div class="navi-list" >
+                <a class="move-bt" href="/host/regist"><span class="navi-text">호스트 지원</span></a>
                 <a class="move-bt" href="/sign-up"><span class="navi-text">회원가입</span></a>
                 <a class="login-bt btn" href=><span class="navi-text login-text">로그인</span></a>
+            </div>
+        </th:block>
+        <th:block th:if="${not #lists.isEmpty(session.user_info)} and ${not #lists.isEmpty(session.host_info)}" th:style="${'display:inline'}" th:with="info=${session.user_info}">
+            <div class="navi-list">
+                <a class="move-bt" href="/host/center"><span class="navi-text">호스트 센터</span></a>
+                <div>
+                    <div class="menu-box-container" style="display: none">
+                        <div class="menu-box-area">
+                            <div class="user-name-box">
+                                <span class="user-name"> [[${info.name}]]님</span>
+                            </div>
+                            <div class="menu-text-area">
+                                <a class="menu-text" href="/mypage">마이 페이지</a>
+                                <a class="menu-text" href="/member/change">일반회원 전환</a>
+                            </div>
+
+                            <div class="logout-area">
+                                <a class="menu-text logout" href="/logout">로그아웃</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="move-bt" href="/"><span class="navi-text">내 프리</span></a>
+                <div class="user-menu" style="margin: 0">
+                    <img class="profile" th:src="${info.profile}">
+                    <img data-v-35a09b99=""
+                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCAxMiAxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTAgMGgxMnYxMkgweiIvPgogICAgICAgIDxwYXRoIHN0cm9rZT0iIzg4OCIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZD0iTTEwIDQgNiA4IDIgNCIvPgogICAgPC9nPgo8L3N2Zz4K">
+                </div>
             </div>
         </th:block>
     </section>
