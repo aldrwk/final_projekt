@@ -30,7 +30,7 @@
     </select>
     <update id="updatePassword" parameterType="memberDomain">
         update member
-        set password= #{password}
+        set password= #{password}, change_date = #{changeDate}
         where email = #{email}
     </update>
     <update id="updateAuth" parameterType="memberDomain">

@@ -8,7 +8,7 @@
         select bank_name from bank;
     </select>
     <select id="findByBank" resultType="bankDomain" resultMap="bankMap">
-        select bank_code, bank_name from bank where bank_name = ${bankName};
+        select bank_code, bank_name from bank where bank_name = '${bankName}';
     </select>
 
 

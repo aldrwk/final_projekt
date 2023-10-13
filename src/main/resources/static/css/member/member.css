@@ -125,6 +125,10 @@ input[type="checkbox"] {
     font-weight: bold;
 }
 
+.btn-pause {
+    background-color: #d5d5d5;
+}
+
 .btn-submit:focus {
     box-shadow: none;
 }

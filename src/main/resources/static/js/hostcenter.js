@@ -55,18 +55,32 @@ $(function () {
 
     $(document).on("click", ".konto-bank", function () {
         if ($(".konto-bank").hasClass("konto-select")) {
-            $(this).removeClass("konto-select");
-            $(".bank-list-area").css("display","none");
+            closeBankList()
             return false;
         }
-        $(".konto-bank").addClass("konto-select");
-        $(".bank-list-area").css("display","inline-block");
+        openBankList()
     })
+    $(document).on("click", ".icon-arrow", function () {
+        if ($(".konto-bank").hasClass("konto-select")) {
+            closeBankList()
+            return false;
+        }
+        openBankList()
+    })
+
 
     $(document).on("click", ".bank", function () {
         const bank = $(this).children().text();
         $(".konto-bank").val(bank);
+        closeBankList()
+    });
+
+    function closeBankList() {
         $(".konto-bank").removeClass("konto-select");
         $(".bank-list-area").css("display","none");
-    });
+    }
+    function openBankList() {
+        $(".konto-bank").removeClass("konto-select");
+        $(".bank-list-area").css("display","inline-block");
+    }
 });
