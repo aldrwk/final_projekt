@@ -1,0 +1,136 @@
+.modal-frame {
+    max-width: 800px;
+}
+.schadule-body {
+    padding: 40px;
+}
+.schadule-area {
+    display: flex;
+    flex-direction: column;
+}
+.schadule-frame {
+    display: flex;
+    margin-bottom: 40px;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.schadule-input {
+    width: 400px;
+    height: 50px;
+}
+.drop-box {
+    width: 150px;
+}
+.arbeit-zeit {
+    display: flex;
+}
+.start, .end {
+    width: 170px;
+}
+input:focus {
+    box-shadow: none!important;
+    border: 1px solid #ced4da!important;
+    outline: none;
+}
+input[type="time"] {
+    cursor: pointer;
+}
+
+
+.schadule-frame-text {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 16px;
+    color: #8a8a8a;
+    width: 230px;
+}
+.fc table {
+    font-size: 14px;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: #f6f5ff;
+}
+.fc-day-sat .fc-daygrid-day-number {
+    color: #297cff!important;
+}
+
+.fc-day-sun .fc-daygrid-day-number {
+    color: red!important;
+}
+
+.fc a[data-navlink]:hover {
+    font-weight: bold;
+}
+
+.teilnahme-zahl-area {
+    width: 300px;
+    height: 50px;
+}
+
+.option-popup-container {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    width: 330px;
+    font-weight: bold;
+}
+
+.option-popup-title {
+    display: inline-block;
+    font-size: 15px;
+}
+.option-popup-cnt-frame {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e5e5e5;
+}
+.option-popup-cnt-down {
+    border-radius: 4px 0 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.option-popup-cnt-up {
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.option-popup-cnt {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.option-popup {
+    display: flex;
+    flex-direction: row;
+    float: right;
+}
+
+.schadule-footer {
+ border: none;
+}
+
+.btn-submit {
+    background-color: #61C7FF;
+    width: 150px;
+    margin: 10px 0;
+    height: 45px;
+    color: #f5f5f5;
+    font-weight: bolder;
+    font-size: 13px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.btn-cancle {
+    background-color: #d5d5d5;
+}

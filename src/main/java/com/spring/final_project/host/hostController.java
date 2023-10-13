@@ -107,7 +107,7 @@ public class hostController {
 	}
 
 	@PostMapping("/profileupdate")
-	public String profileupdate(hostDomain host, String email, MultipartFile hostprofile , HttpSession session) {
+	public String profileupdate(hostDomain host, String email, MultipartFile hostprofile, HttpSession session) {
 		hostDomain originHost = (hostDomain) session.getAttribute("host_info");
 		memberDomain member = memberService.findByNum(originHost.memberNum);
 
@@ -147,13 +147,19 @@ public class hostController {
 	}
 
 	@PostMapping("/kontoupdate")
-	public String kontoUpdate(String bankName, accountDomain account, HttpSession session ) {
+	public String kontoUpdate(String bankName, accountDomain account, HttpSession session) {
 		bankDomain bank = bankService.findByBank(bankName);
 		account.setBankCode(bank.getBankCode());
 		account.setChangeDate(LocalToDayTime());
 		hostDomain host = (hostDomain) session.getAttribute("host_info");
-		account.setHostNum(host.getHostNum());
-		accountService.insert(account);
+		int hostNum = host.getHostNum();
+		account.setHostNum(hostNum);
+
+		if (accountService.findById(hostNum) != null) {
+			accountService.update(account);
+		} else {
+			accountService.insert(account);
+		}
 		return "/host/managecenter";
 	}
 

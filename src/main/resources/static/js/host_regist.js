@@ -174,6 +174,7 @@ $(function () {
         }
     });
 
+
     csrf = $("#csrf").val();
     $(document).on("click", ".check-request", function () {
         const number = $(".mobile_number_check").val();
@@ -198,11 +199,20 @@ $(function () {
         }
         console.log("test");
         SmsAuth(number);
-        $(this).after(auth);
+        $(".check-request").addClass("btn-pause").prop("disabled", true);
+        // $(this).after(auth);
+    });
+
+    $(document).on("click", ".check_number_auth", function () {
+        const AuthNum = $(".check_number").val();
+        if ($(".check_number_auth").next().hasClass("message")) {
+            $(this).next().remove();
+        }
+        SmsAuthOk(AuthNum);
     });
 
     function SmsAuth(mobile) {
-        $.ajax({
+        const options = {
             type: "Post",
             url: "/api/naver/mobileAuth",
             data: {
@@ -210,13 +220,20 @@ $(function () {
             },
             dataType: "json",
             success: function (data) {
-                console.log(data)
-                if (data == true) {
-                    const message = "<span class=\"message fail\">등록된 핸드폰 번호입니다.</span>";
-                    $(".check-request").after(message);
-                }
+                handleSMSAuthResult(data)
             }
-        })
+        }
+        ajaxRequest(options);
+    }
+
+    function handleSMSAuthResult(data) {
+        console.log(data)
+        if (data == true) {
+            const message = "<span class=\"message fail\">등록된 핸드폰 번호입니다.</span>";
+            $(".check-request").after(message);
+            return false;
+        }
+        $(".mobile-area").after(auth);
     }
 
     $(document).on("click", ".check_number_auth", function () {
@@ -228,22 +245,39 @@ $(function () {
     });
 
     function SmsAuthOk(AuthNum) {
-        $.ajax({
+        const options = {
             type: "Post",
             url: "/api/naver/mobileAuthOk",
             data: {AuthNum: AuthNum},
             dataType: "json",
             success: function (data) {
-                console.log(data)
-                if (data == true) {
-                    const message = "<span class=\"message ok\">인증되었습니다.</span>";
-                    $(".check_number_auth").after(message);
-                } else {
-                    const message = "<span class=\"message fail\">인증번호가 일치하지 않습니다.</span>";
-                    $(".check_number_auth").after(message);
-                }
+                handleSMSAuthOk(data)
             }
+        }
+        ajaxRequest(options);
+    }
+
+    function handleSMSAuthOk(data) {
+        console.log(data)
+        if (data == true) {
+            const message = "<span class=\"message ok\">인증되었습니다.</span>";
+            $(".check_number_auth").after(message);
+        } else {
+            const message = "<span class=\"message fail\">인증번호가 일치하지 않습니다.</span>";
+            $(".check_number_auth").after(message);
+        }
+    }
+
+    function ajaxRequest(options) {
+        $.ajax({
+            type: options.type || "GET",
+            url: options.url || "",
+            data: options.data || {},
+            dataType: options.dataType || "json"
         })
+            .done(function (data) {
+                options.success(data)
+            });
     }
 
     var auth = "<div class=\"check-area\" style=\"width: 100%\"> " +

@@ -61,8 +61,8 @@ public class memberController {
 		}
 		member.setProfile("/image/default_profile.webp");
 		LocalDateTime Date = LocalDateTime.now();
-		member.setChangeDate(Date);
-		member.setCreateDate(Date);
+		member.setChangeDate(LocalToDayTime());
+		member.setCreateDate(LocalToDayTime());
 
 		member.setPassword(passwordEncoder.encode(member.getPassword()));
 		int result = memberService.insert(member);
@@ -156,12 +156,14 @@ public class memberController {
 		session = request.getSession();
 		memberDomain member = (memberDomain) session.getAttribute("user_info");
 		log.info(oldPassword);
+		member = memberService.login(member.getEmail());
 		log.info(String.valueOf(member));
 		if (!passwordEncoder.matches(oldPassword, member.getPassword())) {
 			model.addAttribute("oldPassword", "not matched");
 			return ResponseEntity.ok(model);
 		} else {
 			member.setPassword(passwordEncoder.encode(newPassword));
+			member.setChangeDate(LocalToDayTime());
 			memberService.updatePassword(member);
 			model.addAttribute("result", "Success");
 			session.invalidate();
