@@ -17,9 +17,9 @@ public class mainController {
 		return "main";
 	}
 
-	@GetMapping("/calender")
+	@GetMapping("/calendar")
 	public String calender() {
-		return "calendertest";
+		return "calendartest";
 	}
 
 	@GetMapping("/test")
@@ -28,6 +28,10 @@ public class mainController {
 		System.out.println(model.getAttribute("user_info2"));
 
 		return "test";
+	}
+	@GetMapping("/write")
+	public String writeTest() {
+		return "/product/write";
 	}
 
 	@PostMapping("/error")

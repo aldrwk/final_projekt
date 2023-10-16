@@ -14,6 +14,7 @@
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    flex-wrap: wrap
 }
 .schadule-input {
     width: 400px;
@@ -48,6 +49,7 @@ input[type="time"] {
 .fc table {
     font-size: 14px;
 }
+
 
 .fc .fc-daygrid-day.fc-day-today {
     background-color: #f6f5ff;
@@ -131,6 +133,121 @@ input[type="time"] {
     border-radius: 5px;
 }
 
-.btn-cancle {
-    background-color: #d5d5d5;
+.btn-cancel {
+    background-color: #d5d5d5!important;
+    color: #000000 !important;
+    text-shadow: none;
+}
+.bnt-modal {
+    display: none;
+}
+
+.message {
+    margin: 0 5px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: block;
+    color: red;
+    padding: 10px 0 0 225px;
+}
+.frame {
+    margin: 15px 0 0 230px;
+}
+
+.konto-input {
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    padding: 0 20px;
+    color: #606266;
+}
+.schadule-box {
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    padding: 0 20px;
+    color: #606266;
+    cursor: pointer;
+}
+.icon-arrow::before {
+    position: relative;
+    right: 40px;
+    bottom: 2px;
+    display: inline-block;
+    width: 20px;
+    content: "\2329";
+    color: #e5e5e5;
+    font-size: 20px;
+    font-weight: bold;
+    transform: rotate(270deg);
+    cursor: pointer;
+}
+.schadule-type-area {
+    display: none;
+    transform-origin: center top;
+    z-index: 100;
+    position: absolute;
+    top: 40px;
+    left: 230px;
+    width: 150px;
+    height: 138px;
+    border: 1px solid #e7e7e7;
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #ffffff;
+}
+.schadule-type-frame {
+    position: relative;
+    overflow: hidden;
+}
+.schadule-type-scroll {
+    overflow: scroll;
+    height: 100%;
+    max-height: 217px;
+    margin-bottom: -17px;
+    margin-right: -17px;
+
+}
+.schadule-type-list {
+    box-shadow: #dedede 1px 1px 10px -3px;
+    padding: 6px 0;
+    margin: 0;
+}
+.schadule-type {
+    padding: 10px 18px;
+    list-style: none;
+    cursor: pointer;
+}
+.schadule-type:hover {
+    background-color: #EEEEEE;
+}
+.day-area {
+    display: flex;
+    justify-content: space-between;
+    width: 350px;
+}
+.day-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    color: #606266;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+.day-box:hover, .checked {
+    background-color: #61C7FF;
+    color: #f5f5f5;
+}
+.disable{
+    display: none;
+}
+.everyday {
+   color: #61C7FF;
 }
