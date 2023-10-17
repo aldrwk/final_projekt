@@ -20,27 +20,26 @@
         <div class="recommend_bar">
             <div class="slider">
                 <div class="card-view">
-                    <a href="contents/${c.chNum}/${c.boardNum}">
-                        <img class="card_img" src="../image/roll/1.jpg">
+                    <a href="#">
+                        <img class="card_img" src="/image/main/travel1.webp">
                     </a></div>
                 <div class="card-view">
-                    <a href="contents/${c.chNum}/${c.boardNum}">
-                        <img class="card_img" src="../image/roll/2.jpg">
+                    <a href="#">
+                        <img class="card_img" src="/image/main/travel2.webp">
+                    </a></div>
+                <div class="card-view">
+                    <a href="#">
+                        <img class="card_img" src="/image/main/travel3.webp">
                     </a></div>
             </div>
         </div>
 
         <div class="category-container">
-            <span class="category-title">카테고리</span>
             <div class="category-main">
-                <a href="/" class="category-item">아웃도어</a>
-                <a href="/" class="category-item">스포츠</a>
-                <a href="/" class="category-item">언어</a>
-                <a href="/" class="category-item">베이킹</a>
-                <a href="/" class="category-item">심리/상담</a>
-                <a href="/" class="category-item">문화예술</a>
-                <a href="/" class="category-item">여행</a>
-                <a href="/" class="category-item">자기개발</a>
+                <a href="/" class="category-item"  th:each="category: ${categorys}">
+                    <img class="category-image" th:src="${category.image}">
+                    <span class="category-text" th:text="${category.firstCateName}"></span>
+                </a>
             </div>
         </div>
         <div class="beliebt-container">

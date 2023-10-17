@@ -1,15 +1,28 @@
 package com.spring.final_project.main;
 
+import com.spring.final_project.category_first.FirstCategoryDomain;
+import com.spring.final_project.category_first.FirstCategoryService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
+@Transactional
 public class mainController {
 
+	private FirstCategoryService firstCategoryService;
+
+	public mainController(FirstCategoryService firstCategoryService) {
+		this.firstCategoryService = firstCategoryService;
+	}
 
 	@GetMapping("/")
 	public String root(Model model) {
+		List<FirstCategoryDomain> firstCategory = firstCategoryService.findAll();
+		model.addAttribute("categorys", firstCategory);
 		return "main";
 	}
 	@PostMapping("/")

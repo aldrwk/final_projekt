@@ -63,14 +63,7 @@ $(function () {
                 closeSchaduleList();
                 return;
             }
-            const everyday = " <div class=\"everyday frame\">           <div class=\"start-area\">\n" +
-                "                    <input type=\"date\" class=\"form-control schadule-input start\" name=\"startDay\"\n" +
-                "                           id=\"startDay\">\n" +
-                "                </div>\n" +
-                "                <span style=\"line-height: 50px; padding: 0 20px\">~</span>\n" +
-                "                <div class=\"end-area\">\n" +
-                "                    <input type=\"date\" class=\"form-control schadule-input end\" name=\"endDay\" id=\"endDay\">\n" +
-                "                </div></div>";
+            const everyday = " <div class=\"everyday frame\">           <div class=\"start-area\">\n" + "                    <input type=\"date\" class=\"form-control schadule-input start\" name=\"startDay\"\n" + "                           id=\"startDay\">\n" + "                </div>\n" + "                <span style=\"line-height: 50px; padding: 0 20px\">~</span>\n" + "                <div class=\"end-area\">\n" + "                    <input type=\"date\" class=\"form-control schadule-input end\" name=\"endDay\" id=\"endDay\">\n" + "                </div></div>";
             // $("#reserv_date").addClass("disable");
             $(".day-area").remove();
             const message = "<span class=\"message everyday\">당일부터 3개월까지 매일 일정이 등록 됩니다.</span>";
@@ -116,30 +109,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar')
     const calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
-            left: 'prev',
-            center: 'title',
-            right: 'next'
-        },
-        views: {
+            left: 'prev', center: 'title', right: 'next'
+        }, views: {
             month: {
                 validRange: {
                     start: today,     // 현재 날짜
                     end: endDate       // 3개월 후의 날짜
                 }
             }
-        },
-        eventOverlap: false,
-        editable: true,
-        droppable: true, // this allows things to be dropped onto the calendar
-        initialView: 'dayGridMonth',
-        selectMirror: true,
-        locale: "ko",
-        fixedWeekCount: false,
-        validRange: {
+        }, eventOverlap: false, editable: true, droppable: true, // this allows things to be dropped onto the calendar
+        initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
             start: new Date(), // 현재 날짜 이후의 날짜만 허용
-        },
-        navLinks: true,
-        navLinkDayClick: function (date) {
+        }, navLinks: true, navLinkDayClick: function (date) {
             datearr = date.toLocaleString().split(".")
             date = datearr[0].trim() + "-" + datearr[1].trim() + "-" + datearr[2].trim();
             $("#reserv_date").val(date);
@@ -148,8 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             schadule_reset();
             $(".btn-primary.schedule-modal").click();
             console.log($(".bnt-modal.schedule-regist").click())
-        },
-        eventClick: function (data) {
+        }, eventClick: function (data) {
             console.log(data);
             const start = data.event._instance.range.start.toISOString().split("T");
             const end = data.event._instance.range.end.toISOString().split("T");
@@ -179,11 +159,11 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxPeople = $(".maxPeople").val();
         const maxPerson = $(".maxPerson").val();
         console.log(maxPeople, maxPerson);
+        console.log(person_check(maxPeople, maxPerson));
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }
         if (!date_check()) {
-            console.log("test")
             return false;
         }
         calendar.addEvent({
@@ -193,8 +173,7 @@ document.addEventListener('DOMContentLoaded', function () {
             allDay: false,
             daysOfWeek: ['0'],
             extendedProps: {
-                maxPeople: maxPeople,
-                maxPerson: maxPerson
+                maxPeople: maxPeople, maxPerson: maxPerson
             }
         })
         $(".close").click();
@@ -249,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function date_check() {
     const start = $(".start").val();
     const end = $(".end").val();
-    if (start > end) {
+    if (start > end && end != "") {
         if ($(".end").parent().next().hasClass("message")) {
             return false;
         }
@@ -257,7 +236,7 @@ function date_check() {
         $(".end").parent().after(message);
         return false;
     }
-    if (end == "" ||start == "") {
+    if (end == "" && start == "") {
         if ($(".end").parent().next().hasClass("message")) {
             return false;
         }
@@ -280,11 +259,13 @@ function person_check(maxPeople, maxPerson) {
         $(".teilnahme-zahl-area").eq(1).after(message);
     }
     if (maxPeople == "0" || maxPerson == "0") {
+        console.log(maxPerson, maxPeople)
         if ($(".teilnahme-zahl-area").eq(1).next().hasClass("message")) {
             return false;
         }
         const message = "<span class=\"message person\">인원 설정을 하시길 바랍니다.</span>";
         $(".teilnahme-zahl-area").eq(1).after(message);
+        return false;
     }
     if (maxPerson <= maxPeople) {
         $(".message.person").remove();

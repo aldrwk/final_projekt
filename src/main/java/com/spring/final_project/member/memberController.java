@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,7 @@ import static com.spring.final_project.util.folderService.createFolder;
 import static com.spring.final_project.util.messages.REDIRECT_HOME;
 
 @Controller
+@Transactional
 public class memberController {
 
 	private static final Logger log = LoggerFactory.getLogger(memberController.class);

@@ -5,21 +5,21 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class bankServiceImpl implements bankService {
+public class BankServiceImpl implements BankService {
 
-	private bankMapper bankMapper;
+	private BankMapper bankMapper;
 
-	public bankServiceImpl(bankMapper bankMapper) {
+	public BankServiceImpl(BankMapper bankMapper) {
 		this.bankMapper = bankMapper;
 	}
 
 	@Override
-	public bankDomain findByBank(String bankName) {
+	public BankDomain findByBank(String bankName) {
 		return bankMapper.findByBank(bankName);
 	}
 
 	@Override
-	public List<bankDomain> findAll() {
+	public List<BankDomain> findAll() {
 		return bankMapper.findAll();
 	}
 }

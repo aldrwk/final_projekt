@@ -154,15 +154,15 @@ input[type="time"] {
     margin: 15px 0 0 230px;
 }
 
-.konto-input {
-    width: 150px;
-    height: 50px;
-    border-radius: 5px;
-    border: 1px solid #e5e5e5;
-    box-shadow: none;
-    padding: 0 20px;
-    color: #606266;
-}
+/*.konto-input {*/
+/*    width: 150px;*/
+/*    height: 50px;*/
+/*    border-radius: 5px;*/
+/*    border: 1px solid #e5e5e5;*/
+/*    box-shadow: none;*/
+/*    padding: 0 20px;*/
+/*    color: #606266;*/
+/*}*/
 .schadule-box {
     width: 150px;
     height: 50px;

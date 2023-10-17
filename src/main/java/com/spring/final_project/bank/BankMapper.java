@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface bankMapper {
+public interface BankMapper {
 
-	public List<bankDomain> findAll();
+	public List<BankDomain> findAll();
 
-	public bankDomain findByBank(String bankName);
+	public BankDomain findByBank(String bankName);
 
 }
