@@ -2,14 +2,15 @@ package com.spring.final_project.host;
 
 import com.spring.final_project.account.accountDomain;
 import com.spring.final_project.account.accountService;
-import com.spring.final_project.bank.bankDomain;
-import com.spring.final_project.bank.bankService;
+import com.spring.final_project.bank.BankDomain;
+import com.spring.final_project.bank.BankService;
 import com.spring.final_project.member.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ import static com.spring.final_project.util.folderService.createFolder;
 import static com.spring.final_project.util.messages.*;
 
 @Controller
+@Transactional
 @RequestMapping("/host")
 public class hostController {
 	private static final Logger log = LoggerFactory.getLogger(memberController.class);
@@ -33,13 +35,13 @@ public class hostController {
 	private memberService memberService;
 	private PasswordEncoder passwordEncoder;
 	private hostService hostService;
-	private bankService bankService;
+	private BankService bankService;
 	private accountService accountService;
 
 	private int result;
 
 	@Autowired
-	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, bankService bankService, accountService accountService) {
+	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, BankService bankService, accountService accountService) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.hostService = hostService;
@@ -141,14 +143,14 @@ public class hostController {
 
 	@PostMapping("/konto")
 	public String hostKonto(Model model) {
-		List<bankDomain> banks = bankService.findAll();
+		List<BankDomain> banks = bankService.findAll();
 		model.addAttribute("banks", banks);
 		return "/host/konto ::konto";
 	}
 
 	@PostMapping("/kontoupdate")
 	public String kontoUpdate(String bankName, accountDomain account, HttpSession session) {
-		bankDomain bank = bankService.findByBank(bankName);
+		BankDomain bank = bankService.findByBank(bankName);
 		account.setBankCode(bank.getBankCode());
 		account.setChangeDate(LocalToDayTime());
 		hostDomain host = (hostDomain) session.getAttribute("host_info");

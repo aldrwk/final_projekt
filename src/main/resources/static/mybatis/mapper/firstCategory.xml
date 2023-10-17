@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.category_first.FirstCategoryMapper">
+
+    <select id="findAll" resultType="FirstCategoryDomain" resultMap="categoryMap">
+        select first_cate_name,image from first_category;
+    </select>
+    <select id="findByName" resultType="FirstCategoryDomain" resultMap="categoryMap">
+        select first_cate_num from first_category where first_cate_name = '${id}';
+    </select>
+
+
+
+    <resultMap id="categoryMap" type="FirstCategoryDomain">
+        <result column="first_cate_num" property="firstCateNum" />
+        <result column="first_cate_name" property="firstCateName" />
+    </resultMap>
+</mapper>
