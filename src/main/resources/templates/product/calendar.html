@@ -1,0 +1,116 @@
+
+<div id='calendar' style="width: 800px;"></div>
+<!-- Button trigger modal -->
+<button type="button" class="btn bnt-modal schedule-regist" data-toggle="modal" data-target="#schedule-modal">
+    일정 등록
+</button>
+<button type="button" class="btn bnt-modal schedule-update" data-toggle="modal" data-target="#schedule-update">
+    일정 확인
+</button>
+<!-- Modal -->
+<div class="modal fade" id="schedule-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-frame" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">일정</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body schadule-body">
+                <div class="schadule-area">
+                    <div class="form-group schadule-frame">
+                        <span class="schadule-frame-text">일정 </span>
+                        <div class="schadule-dropbox-area">
+                            <input type="text" readonly class="schadule-box" name="repeat"
+                                   th:value="반복없음">
+                            <span class="icon-arrow"></span>
+                        </div>
+                        <div style="position: absolute">
+                            <div class="schadule-type-area">
+                                <div class="schadule-type-frame">
+                                    <div class="schadule-type-scroll">
+                                        <ul class="schadule-type-list">
+                                            <li class="schadule-type">
+                                                <span>반복없음</span>
+                                            </li>
+                                            <li class="schadule-type">
+                                                <span>매일</span>
+                                            </li>
+                                            <li class="schadule-type">
+                                                <span>매주</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="textbox" class="form-control schadule-input date-frame" id="reserv_date"
+                               name="reserv_date" readonly="readonly">
+                    </div>
+                    <div class="form-group schadule-frame">
+                        <span class="schadule-frame-text">일정 내ㅛㅇㅇ </span>
+                        <input type="textbox" class="form-control schadule-input" placeholder="" id="">
+                    </div>
+                    <div class="form-group schadule-frame">
+                        <span class="schadule-frame-text">운영 시간</span>
+                        <div class="start-area">
+                            <input type="time" class="form-control schadule-input start" name="start"
+                                   id="start">
+                        </div>
+                        <span style="line-height: 50px; padding: 0 20px">~</span>
+                        <div class="end-area">
+                            <input type="time" class="form-control schadule-input end" name="end" id="end">
+                        </div>
+                    </div>
+                    <div class="form-group schadule-frame">
+                        <span class="schadule-frame-text">최대 모집 인원</span>
+                        <div class="teilnahme-zahl-area">
+                            <div class="option-popup-container">
+                                <div class="option-popup">
+                                    <div class="option-popup-cnt-frame option-popup-cnt-down">-</div>
+                                    <input type="text" class="option-popup-cnt-frame option-popup-cnt maxPeople"
+                                           id="maxPeople"
+                                           name="validPerson" readonly value="0">
+                                    <div class="option-popup-cnt-frame option-popup-cnt-up">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group schadule-frame">
+                        <span class="schadule-frame-text">인당 최대 등록 인원</span>
+                        <div class="teilnahme-zahl-area">
+                            <div class="option-popup-container">
+                                <div class="option-popup">
+                                    <div class="option-popup-cnt-frame option-popup-cnt-down">-</div>
+                                    <input type="text" class="option-popup-cnt-frame option-popup-cnt maxPerson"
+                                           id="maxPerson"
+                                           name="maxRegisterPerOne" readonly value="0">
+                                    <div class="option-popup-cnt-frame option-popup-cnt-up">+</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer schadule-footer regist-footer">
+                    <button type="button" class="btn-submit btn-schadule-add">일정 생성</button>
+                    <!--                <button type="button" class="btn-submit btn-cancel">취소</button>-->
+                    <button type="button" class="btn-submit btn-cancel close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">취소</span>
+                    </button>
+                </div>
+                <div class="modal-footer schadule-footer update-footer">
+                    <button type="button" class="btn-submit btn-schadule-update">수정</button>
+                    <button type="button" class="btn-submit btn-delete">삭제</button>
+                    <button type="button" class="btn-submit btn-cancel close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">취소</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

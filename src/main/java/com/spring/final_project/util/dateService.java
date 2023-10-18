@@ -23,8 +23,7 @@ public class dateService {
         return currentDate;
     }
 
-
-        public static String toDay() {
+    public static String toDay() {
         LocalDateTime currentDate = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = currentDate.format(formatter);

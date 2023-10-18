@@ -54,4 +54,9 @@ $(function () {
         "</div>\n" +
         "</div>";
 
+
+    $(".teilnahme-btn").click(function () {
+        $(".move-participate").click();
+    });
+
 })

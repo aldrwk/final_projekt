@@ -5,21 +5,19 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/productregist.js"></script>
     <script src="/js/calendar.js"></script>
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/calender.css">
 </head>
 <body>
-<div id='calendar' style="width: 1000px; height: 900px;"></div>
+<div id='calendar' style="width: 1000px;"></div>
 <!-- Button trigger modal -->
 <button type="button" class="btn bnt-modal schedule-regist" data-toggle="modal" data-target="#schedule-modal">
     일정 등록
 </button>
 <button type="button" class="btn bnt-modal schedule-update" data-toggle="modal" data-target="#schedule-update">
     일정 확인
-</button>
-<button type="button" class="btn btn-submit btn-regist">
-    test button
 </button>
 
 <!-- Modal -->
@@ -63,7 +61,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="textbox" class="form-control schadule-input frame" id="reserv_date"
+                        <input type="textbox" class="form-control schadule-input date-frame" id="reserv_date"
                                name="reserv_date" readonly="readonly">
                     </div>
                     <div class="form-group schadule-frame">

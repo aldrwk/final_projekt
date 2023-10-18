@@ -32,7 +32,7 @@ public class mainController {
 
 	@GetMapping("/calendar")
 	public String calender() {
-		return "calendartest";
+		return "calendar";
 	}
 
 	@GetMapping("/test")
