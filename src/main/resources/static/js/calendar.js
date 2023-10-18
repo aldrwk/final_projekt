@@ -22,6 +22,7 @@ $(function () {
         date_check();
     });
 
+
     $(document).on("click", ".schadule-box", function () {
         if ($(".schadule-box").hasClass("schadule-select")) {
             closeSchaduleList()
@@ -37,7 +38,6 @@ $(function () {
         openSchaduleList()
     })
 
-
     $(document).on("click", ".schadule-type", function () {
         const type = $(this).children().text();
         // $(".schadule-box").val(type);
@@ -49,9 +49,9 @@ $(function () {
                 return false;
             }
             const day = ["월", "화", "수", "목", "금", "토", "일"];
-            var day_area = "<div class=\"day-area frame\">"
+            var day_area = "<div class=\"day-area date-frame\">"
             for (i = 0; i < day.length; i++) {
-                day_area += "<button class=\"day-box\">" + day[i] + "</button>";
+                day_area += "<button class=\"day-box\" type='button'>" + day[i] + "</button>";
             }
             day_area += "</div>";
             $("#reserv_date").removeClass("disable");
@@ -79,11 +79,11 @@ $(function () {
 
     $(document).on("click", ".day-box", function () {
         console.log($(this));
-        if ($(this).hasClass("checked")) {
-            $(this).removeClass("checked");
+        if ($(this).hasClass("day-checked")) {
+            $(this).removeClass("day-checked");
             return false;
         }
-        $(this).addClass("checked");
+        $(this).addClass("day-checked");
     });
 
 
@@ -97,59 +97,55 @@ $(function () {
         $(".schadule-type-area").css("display", "inline-block");
     }
 
+    // var today = new Date();
+    // var endDate = new Date(today);
+    // endDate.setMonth(endDate.getMonth() + 3);
 
-});
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    var today = new Date();
-    var endDate = new Date(today);
-    endDate.setMonth(endDate.getMonth() + 3);
-
-    const calendarEl = document.getElementById('calendar')
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-        headerToolbar: {
-            left: 'prev', center: 'title', right: 'next'
-        }, views: {
-            month: {
-                validRange: {
-                    start: today,     // 현재 날짜
-                    end: endDate       // 3개월 후의 날짜
-                }
-            }
-        }, eventOverlap: false, editable: true, droppable: true, // this allows things to be dropped onto the calendar
-        initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
-            start: new Date(), // 현재 날짜 이후의 날짜만 허용
-        }, navLinks: true, navLinkDayClick: function (date) {
-            datearr = date.toLocaleString().split(".")
-            date = datearr[0].trim() + "-" + datearr[1].trim() + "-" + datearr[2].trim();
-            $("#reserv_date").val(date);
-            $(".regist-footer").removeClass("disable");
-            $(".update-footer").addClass("disable");
-            schadule_reset();
-            $(".btn-primary.schedule-modal").click();
-            console.log($(".bnt-modal.schedule-regist").click())
-        }, eventClick: function (data) {
-            console.log(data);
-            const start = data.event._instance.range.start.toISOString().split("T");
-            const end = data.event._instance.range.end.toISOString().split("T");
-            const maxPeople = data.event.extendedProps.maxPeople;
-            const maxPerson = data.event.extendedProps.maxPerson;
-            id = data.event._def.publicId;
-            startTime = start[1].split(".");
-            endTime = end[1].split(".");
-            $("#reserv").val(start[0]);
-            $("#start").val(startTime[0]);
-            $("#end").val(endTime[0]);
-            $(".maxPerson").val(maxPerson);
-            $(".maxPeople").val(maxPeople);
-            $(".regist-footer").addClass("disable");
-            $(".update-footer").removeClass("disable");
-            $(".bnt-modal.schedule-regist").click();
-        },
-    })
-
-    calendar.render();
+    // function callCalendar() {
+    // const calendarEl = document.getElementById('calendar')
+    //     calendar = new FullCalendar.Calendar(calendarEl, {
+    //         headerToolbar: {
+    //             left: 'prev', center: 'title', right: 'next'
+    //         }, views: {
+    //             month: {
+    //                 validRange: {
+    //                     start: today,     // 현재 날짜
+    //                     end: endDate       // 3개월 후의 날짜
+    //                 }
+    //             }
+    //         }, eventOverlap: false, editable: true, droppable: true, // this allows things to be dropped onto the calendar
+    //         initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
+    //             start: new Date(), // 현재 날짜 이후의 날짜만 허용
+    //         }, navLinks: true, navLinkDayClick: function (date) {
+    //             datearr = date.toLocaleString().split(".")
+    //             date = datearr[0].trim() + "-" + datearr[1].trim() + "-" + datearr[2].trim();
+    //             $("#reserv_date").val(date);
+    //             $(".regist-footer").removeClass("disable");
+    //             $(".update-footer").addClass("disable");
+    //             schadule_reset();
+    //             $(".btn-primary.schedule-modal").click();
+    //             console.log($(".bnt-modal.schedule-regist").click())
+    //         }, eventClick: function (data) {
+    //             console.log(data);
+    //             const start = data.event._instance.range.start.toISOString().split("T");
+    //             const end = data.event._instance.range.end.toISOString().split("T");
+    //             const maxPeople = data.event.extendedProps.maxPeople;
+    //             const maxPerson = data.event.extendedProps.maxPerson;
+    //             id = data.event._def.publicId;
+    //             startTime = start[1].split(".");
+    //             endTime = end[1].split(".");
+    //             $("#reserv").val(start[0]);
+    //             $("#start").val(startTime[0]);
+    //             $("#end").val(endTime[0]);
+    //             $(".maxPerson").val(maxPerson);
+    //             $(".maxPeople").val(maxPeople);
+    //             $(".regist-footer").addClass("disable");
+    //             $(".update-footer").removeClass("disable");
+    //             $(".bnt-modal.schedule-regist").click();
+    //         },
+    //     })
+    //     calendar.render();
+    // }
 
 
     $(document).on("click", ".btn-schadule-add", function () {
@@ -158,8 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const end = $("#end").val();
         const maxPeople = $(".maxPeople").val();
         const maxPerson = $(".maxPerson").val();
-        console.log(maxPeople, maxPerson);
-        console.log(person_check(maxPeople, maxPerson));
+        console.log(start, end);
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }
@@ -171,7 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
             start: date + "T" + start,
             end: date + "T" + end,
             allDay: false,
-            daysOfWeek: ['0'],
+            // daysOfWeek: [],
+            // startTime: start,
+            // endTime: end,
             extendedProps: {
                 maxPeople: maxPeople, maxPerson: maxPerson
             }
@@ -185,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const end = date + "T" + $("#end").val();
         const maxPeople = $("#maxPeople").val();
         const maxPerson = $("#maxPerson").val();
+        console.log(start, end);
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }
@@ -195,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar_update.setDates(start, end);
         calendar_update.setExtendedProp("maxPeople", maxPeople);
         calendar_update.setExtendedProp("maxPerson", maxPerson);
+        console.log(calendar_update);
         $(".close").click();
     });
 
@@ -223,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
         calendar.getEventById(data).remove();
         $(".close").click();
     }
-})
+});
 
 function date_check() {
     const start = $(".start").val();

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -11,6 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/center.css">
+    <link rel="stylesheet" href="/css/calender.css">
+    <!--    <script src="/js/calendar.js"></script>-->
     <script src="/js/hostcenter.js"></script>
     <script src="/js/productregist.js"></script>
     <meta charset="UTF-8">
@@ -144,8 +146,8 @@
                         </div>
                     </div>
                 </div>
+                <div th:replace="~{/common/footer ::host_footer}"></div>
             </div>
-            <div th:replace="~{/common/footer ::host_footer}"></div>
         </div>
     </div>
 </div>

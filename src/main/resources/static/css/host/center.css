@@ -1,7 +1,6 @@
 .mainContainer {
     margin-left: 280px;
     justify-content: flex-start;
-    height: 1000px;
 }
 
 .navbar-left-container {
@@ -236,6 +235,7 @@
     margin: 40px 50px 0;
     border-bottom: 1px solid #e5e5e5;
     height: 150px;
+    /*height: auto;*/
 }
 
 .manage-info-profile-img {
@@ -450,12 +450,12 @@ input:focus {
 }
 
 .categoryf-list-area {
-    top: -110px;
+    top: -50px;
     left: 185px;
 }
 
 .categorys-list-area {
-    top: -110px;
+    top: -50px;
     left: 509px;
 }
 
@@ -502,7 +502,7 @@ input:focus {
     background-color: #EEEEEE;
 }
 
-.disable {
+.category-disable {
     background-color: #EEEEEE;
     cursor: auto;
 }
@@ -527,7 +527,7 @@ input:focus {
 }
 
 .regist-menu:hover, .checked {
-    border-bottom: 3px solid #000000;
+    border-bottom: 3px solid #61C7FF;
 }
 
 .menu-text {
@@ -589,10 +589,91 @@ input:focus {
     height: inherit;
 }
 
-.default-info,.sales-info, .content-info {
+.default-info, .sales-info, .content-info {
     display: none;
 }
+
 .clicked {
-    display: initial!important;
+    display: initial !important;
 }
 
+.ck.ck-editor {
+    width: 900px!important;
+}
+.ck-editor__editable {
+    height: 600px;
+}
+
+.ck-dropdown__panel {
+    height: 200px;
+    overflow-y: scroll;
+}
+ .content-area {
+     height: 800px;
+ }
+.option-area {
+    height: auto;
+}
+ .option-frame {
+     display: flex;
+     flex-direction: column;
+     margin: 0 0 0 50px;
+ }
+ .option-name {
+     display: block;
+     font-weight: bolder;
+     font-size: 15px;
+     margin-bottom: 10px;
+ }
+ .option-row {
+     display: flex;
+     margin-bottom: 20px;
+
+ }
+ .option-box {
+     margin-right: 30px;
+ }
+.option-input {
+    width: 300px;
+}
+.preis {
+    text-align: right;
+    padding-right: 50px;
+    overflow: hidden;
+}
+.preis-won {
+    color: #8d8d8d;
+    position: relative;
+    right: 35px;
+}
+
+.option {
+    border-radius: 5px;
+    border: 1px solid #8d8d8d;
+    box-shadow: #8d8d8d 1px 1px 6px -3px;
+    background-color: #ffffff;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+.option-btn-frame {
+    margin-top: 33px;
+    display: flex;
+
+}
+.option-add-img {
+    width: 20px;
+}
+
+.schadule-container {
+    height: 800px;
+}
+
+.calendar-area {
+    width: 850px;
+    height: 600px;
+}

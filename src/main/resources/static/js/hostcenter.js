@@ -110,7 +110,7 @@ $(function () {
     });
 
     $(document).on("click", ".cates", function () {
-        if ($(this).hasClass("selected") || $(this).hasClass("disable")) {
+        if ($(this).hasClass("selected") || $(this).hasClass("category-disable")) {
             closeList("categorys");
             return false;
         }
@@ -131,7 +131,7 @@ $(function () {
             data: {name: name}, // 전송할 데이터
             success: function (data) {
                 console.log(data)
-                $(".cates").removeClass("disable");
+                $(".cates").removeClass("category-disable");
                 closeList("categorys");
                 $(".categorys-list").children().remove();
                 $(".cates").val("2차카테고리");

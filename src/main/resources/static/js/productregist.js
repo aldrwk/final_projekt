@@ -1,5 +1,6 @@
 $(function () {
-    $(document).on("click",".regist-menu",function () {
+
+        $(document).on("click", ".regist-menu", function () {
         $(".checked").removeClass("checked");
         $(this).addClass("checked");
         if ($(".checked").text() == "기본 정보") {
@@ -9,6 +10,7 @@ $(function () {
         if ($(".checked").text() == "판매 정보") {
             $(".clicked").removeClass("clicked");
             $(".sales-info").addClass("clicked");
+            callCalendar();
         }
         if ($(".checked").text() == "프리 설명") {
             $(".clicked").removeClass("clicked");
@@ -24,7 +26,7 @@ $(function () {
 
     $(document).on("click", ".btn-address-search", function () {
         new daum.Postcode({
-            oncomplete: function(data) { //선택시 입력값 세팅
+            oncomplete: function (data) { //선택시 입력값 세팅
                 $(".address").val(data.address); // 주소 넣기
             }
         }).open();
@@ -47,12 +49,108 @@ $(function () {
         }
     });
 
+    $(document).on("keyup", ".preis", function (e) {
+        if (isNaN($(this).val())) {
+            $(this).val($(this).val().substring(0, $(this).val().length - 1));
+        }
+    });
+
+    $(document).on("click", ".option.add", function () {
+        const option_add = "<div class=\"option-row\">" +
+            "<div class=\"option-box\">\n" +
+            "<span class=\"option-name\">옵션명</span>\n" +
+            "<input type=\"text\" class=\"manage-info-input option-input\" maxlength=\"20\">\n" +
+            "</div>\n" +
+            "<div class=\"option-box\">\n" +
+            "<span class=\"option-name\">판매가</span>\n" +
+            "<input type=\"text\" class=\"manage-info-input option-input preis\" maxlength=\"12\">\n" +
+            "<span class=\"preis-won\">원</span>\n" +
+            "</div>\n" +
+            "<div class=\"option-box option-btn-frame\">\n" +
+            "<button class=\"option add\" type=\"button\">\n" +
+            "<img class=\"option-add-img\" src=\"/image/util/add.85e31315.svg\">\n" +
+            "</button>\n" +
+            " <button class=\"option delete\" type=\"button\">\n" +
+            " <img class=\"option-delete-img\" src=\"/image/util/delete.6d6ddd61.svg\">\n" +
+            " </button></div></div>"
+
+        if ($(".option-row").length == 5) {
+            return false;
+        };
+        $(".option-row:last").after(option_add);
+    });
+
+    $(document).on("click", ".option.delete", function () {
+        $(this).parent().parent().remove();
+    });
+
+    function callCalendar() {
+        var today = new Date();
+        var endDate = new Date(today);
+        endDate.setMonth(endDate.getMonth() + 3);
+        const calendarEl = document.getElementById('calendar')
+        calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev', center: 'title', right: 'next'
+            }, views: {
+                month: {
+                    validRange: {
+                        start: today,     // 현재 날짜
+                        end: endDate       // 3개월 후의 날짜
+                    }
+                }
+            }, eventOverlap: false, editable: true, droppable: true, // this allows things to be dropped onto the calendar
+            initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
+                start: new Date(), // 현재 날짜 이후의 날짜만 허용
+            }, navLinks: true, navLinkDayClick: function (date) {
+                datearr = date.toLocaleString().split(".")
+                date = datearr[0].trim() + "-" + datearr[1].trim() + "-" + datearr[2].trim();
+                $("#reserv_date").val(date);
+                $(".regist-footer").removeClass("disable");
+                $(".update-footer").addClass("disable");
+                schadule_reset();
+                $(".btn-primary.schedule-modal").click();
+                console.log($(".bnt-modal.schedule-regist").click())
+            }, eventClick: function (data) {
+                console.log(data);
+                const start = data.event._instance.range.start.toISOString().split("T");
+                const end = data.event._instance.range.end.toISOString().split("T");
+                const maxPeople = data.event.extendedProps.maxPeople;
+                const maxPerson = data.event.extendedProps.maxPerson;
+                id = data.event._def.publicId;
+                startTime = start[1].split(".");
+                endTime = end[1].split(".");
+                $("#reserv").val(start[0]);
+                $("#start").val(startTime[0]);
+                $("#end").val(endTime[0]);
+                $(".maxPerson").val(maxPerson);
+                $(".maxPeople").val(maxPeople);
+                $(".regist-footer").addClass("disable");
+                $(".update-footer").removeClass("disable");
+                $(".bnt-modal.schedule-regist").click();
+            },
+        })
+        calendar.render();
+    }
 
 
 
+    $(document).on("click", ".product-submit", function () {
+        var allEvent = calendar.getEvents(); // .getEvents() 함수로 모든 이벤트를 Array 형식으로 가져온다. (FullCalendar 기능 참조)
+        var events = new Array(); // Json 데이터를 받기 위한 배열 선언
+        for (var i = 0; i < allEvent.length; i++) {
+            var obj = new Object();     // Json 을 담기 위해 Object 선언
+            obj.id = allEvent[i]._def.publicId; // 이벤트 명칭  ConsoleLog 로 확인 가능.
+            obj.start = allEvent[i]._instance.range.start; // 시작
+            obj.end = allEvent[i]._instance.range.end; // 끝
+            obj.maxPeople = allEvent[i].extendedProps.maxPeople;
+            obj.maxPerson = allEvent[i].extendedProps.maxPerson;
+            events.push(obj);
+        }
+        var jsondata = JSON.stringify(events);
+        console.log(jsondata);
+        $("#events").val(jsondata);
+        $("#product_regist").submit();
+    });
 
-
-
-
-
-});
+    });

@@ -10,7 +10,7 @@
 
     <insert id="insert" parameterType="accountDomain">
         insert into account
-        values (null, ${hostNum}, ${accountNum}, '${bankCode}', '${accountOwner}', #{changeDate})
+        values (null, ${hostNum}, ${accountNum}, '${bankCode}', '${accountOwner}', ${changeDate})
     </insert>
 
     <update id="update" parameterType="accountDomain">
