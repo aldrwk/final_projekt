@@ -152,9 +152,9 @@ $(function () {
         const date = $("#reserv_date").val();
         const start = $("#start").val();
         const end = $("#end").val();
-        const maxPeople = $(".maxPeople").val();
-        const maxPerson = $(".maxPerson").val();
-        console.log(start, end);
+        const maxPeople = parseInt($(".maxPeople").val());
+        const maxPerson = parseInt($(".maxPerson").val());
+        console.log(maxPeople > maxPerson);
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }

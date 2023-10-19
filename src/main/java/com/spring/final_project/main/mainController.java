@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@Transactional
 public class mainController {
 
 	private FirstCategoryService firstCategoryService;

@@ -603,9 +603,8 @@ input:focus {
 .ck-editor__editable {
     height: 600px;
 }
-
 .ck-dropdown__panel {
-    height: 200px;
+    height: 200px!important;
     overflow-y: scroll;
 }
  .content-area {

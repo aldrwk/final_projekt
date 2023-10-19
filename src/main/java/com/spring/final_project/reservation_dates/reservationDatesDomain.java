@@ -9,5 +9,5 @@ public class reservationDatesDomain {
 
 	int reservationId, producNum, validPerson, maxRegisterPerOne;
 
-	LocalDateTime reservDate, closeDate, registDate, updateDate;
+	LocalDateTime reservDate, endDate, closeDate, registDate, updateDate;
 }

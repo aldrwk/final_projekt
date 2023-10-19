@@ -7,7 +7,7 @@ import java.util.List;
 @Mapper
 public interface FirstCategoryMapper {
 
-	public FirstCategoryDomain findByName(String name);
+	public int findByName(String firstCateName);
 	public List<FirstCategoryDomain> findAll();
 
 

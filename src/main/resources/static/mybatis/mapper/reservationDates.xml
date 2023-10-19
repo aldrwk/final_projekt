@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.reservation_dates.reservationDatesMapper">
+
+    <!--    <select id="findById" resultType="productDomain" resultMap="accountMap">-->
+    <!--        select host_num, account_num, bank_code, account_owner from account where host_num = #{hostNum}-->
+    <!--    </select>-->
+
+    <insert id="insert" parameterType="reservationDatesDomain">
+        insert into reservation_dates
+        values (null, #{producNum}, #{reservDate}, #{endDate}, #{validPerson}, #{maxRegisterPerOne}, #{closeDate}, #{registDate},
+                #{updateDate})
+    </insert>
+    
+    <select id="findProductNum" resultType="int">
+        select produc_num from product where host_num = #{hostNum} order by produc_num desc LIMIT 1
+    </select>
+
+    <!--    <update id="update" parameterType="accountDomain">-->
+    <!--        update account-->
+    <!--        set account_num   = #{accountNum},-->
+    <!--            bank_code     = #{bankCode},-->
+    <!--            account_owner = #{accountOwner},-->
+    <!--            change_date   = #{changeDate}-->
+    <!--        where host_num = #{hostNum}-->
+    <!--    </update>-->
+
+
+    <resultMap id="reservationDatesMap" type="reservationDatesDomain">
+        <result column="reservation_id" property="reservationId"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="reserv_date" property="reservDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="valid_person" property="validPerson"/>
+        <result column="conntent" property="conntent" />
+        <result column="max_register_per_one" property="maxRegisterPerOne"/>
+        <result column="close_date" property="closeDate"/>
+        <result column="regist_date" property="registDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+</mapper>

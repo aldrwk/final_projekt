@@ -8,10 +8,13 @@
         select first_cate_num, sec_cate_name from second_category;
     </select>
     <select id="findById" resultType="SecondCategoryDomain" resultMap="categoryMap">
-        select first_cate_num, sec_cate_name from second_category where sec_cate_num = '${id}';
+        select first_cate_num, sec_cate_name from second_category where sec_cate_num = '#{id}';
+    </select>
+    <select id="findByName" resultType="int" parameterType="Map">
+        select sec_cate_num from second_category where sec_cate_name = #{categoryName} and first_cate_num = #{firstCategoryNum};
     </select>
     <select id="findByFirstCategory" resultType="SecondCategoryDomain" resultMap="categoryMap">
-        select sec_cate_num, sec_cate_name from second_category where first_cate_num = '${num}';
+        select sec_cate_num, sec_cate_name from second_category where first_cate_num = #{num};
     </select>
 
 

@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class productDomain {
-	int producNum,hostNum, price, secCateNum;
+	int producNum,hostNum, secCateNum;
 
 	String title, content, address, addressDetail, thumnail;
 

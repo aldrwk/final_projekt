@@ -2,6 +2,7 @@ package com.spring.final_project.host;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class hostServiceImpl implements hostService{
@@ -13,16 +14,19 @@ public class hostServiceImpl implements hostService{
 	}
 
 	@Override
+	@Transactional
 	public int insert(hostDomain host) {
 		return hostMapper.insert(host);
 	}
 
 	@Override
+	@Transactional
 	public hostDomain findById(String email) {
 		return hostMapper.findById(email);
 	}
 
 	@Override
+	@Transactional
 	public int updateInfo(hostDomain host) {
 		return hostMapper.updateInfo(host);
 	}

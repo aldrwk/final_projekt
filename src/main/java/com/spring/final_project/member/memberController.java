@@ -10,27 +10,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-
-import static com.spring.final_project.util.dateService.*;
-import static com.spring.final_project.util.folderService.createFolder;
+import static com.spring.final_project.util.dateService.LocalToDayTime;
+import static com.spring.final_project.util.dateService.toDay;
+import static com.spring.final_project.util.fileUploadService.imageUpload;
 import static com.spring.final_project.util.messages.REDIRECT_HOME;
 
 @Controller
-@Transactional
 public class memberController {
 
 	private static final Logger log = LoggerFactory.getLogger(memberController.class);
@@ -62,7 +56,6 @@ public class memberController {
 			member.setName("free");
 		}
 		member.setProfile("/image/default_profile.webp");
-		LocalDateTime Date = LocalDateTime.now();
 		member.setChangeDate(LocalToDayTime());
 		member.setCreateDate(LocalToDayTime());
 
@@ -183,25 +176,10 @@ public class memberController {
 			member.setName(name);
 		}
 		if (profile != null && !profile.isEmpty()) {
-			try {
-				// 이미지를 저장할 경로 설정
-				String savePath = "/src/main/resources/static";
-				String saveFolder = "/image/member/" + toDay();
-
-				String realPath = System.getProperty("user.dir") + savePath + saveFolder;
-				createFolder(realPath);
-				String fileName = uploadTime() + "_" + profile.getOriginalFilename();
-				String filePath = realPath + File.separator + fileName;
-				File dest = new File(filePath);
-
-				profile.transferTo(dest);
-				String saveDbPath = saveFolder + File.separator + fileName;
-				System.out.println("filePath : " + filePath);
-				member.setProfile(saveDbPath);
-				log.info(member.getProfile());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			// 이미지를 저장할 경로 설정
+			String saveFolder = "/image/member/" + toDay();
+			String saveName = imageUpload(saveFolder, profile);
+			member.setProfile(saveName);
 		}
 		member.setChangeDate(LocalToDayTime());
 		System.out.println(member);
