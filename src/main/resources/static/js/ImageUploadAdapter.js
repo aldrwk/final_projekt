@@ -12,8 +12,8 @@ export default class UploadAdapter {
 
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
-        xhr.open('POST', 'upload.co', true);
-        xhr.setRequestHeader("channelNum", request.getParameter("chnum")); // 여기 필수 원복 할것
+        xhr.open('POST', '/product/contentImgUpload', true);
+        // xhr.setRequestHeader("channelNum", request.getParameter("chnum")); // 여기 필수 원복 할것
         xhr.responseType = 'json';
     }
 
@@ -29,7 +29,6 @@ export default class UploadAdapter {
             if(!response || response.error) {
                 return reject( response && response.error ? response.error.message : genericErrorText );
             }
-
             resolve({
                 default: response.url //업로드된 파일 주소
             })
@@ -38,7 +37,7 @@ export default class UploadAdapter {
 
     _sendRequest(file) {
         const data = new FormData()
-        data.append('upload',file)
+        data.append('file',file)
         this.xhr.send(data)
     }
 

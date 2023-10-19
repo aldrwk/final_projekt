@@ -1,7 +1,6 @@
 <div class="manage-info-area" th:fragment="regist" xmlns:th="http://www.w3.org/1999/html">
-    <!--    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>-->
     <script src="/js/ckeditor5/build/ckeditor.js"></script>
-    <script type="module" src="/js/ckeditor.js"></script>
+    <script type="module" src="/js/ckeditorcreate.js"></script>
     <script src="/js/calendar.js"></script>
     <div class="manage-info-header">
         <span class="manage-info-title">프리 등록</span>
@@ -80,7 +79,7 @@
                                     <img class="thumnail-img" src="/image/util/add.85e31315.svg"/>
                                     <div>이미지 추가하기</div>
                                 </label>
-                                <input type="file" accept="image/*" name="thumnail" id="thumnail" style="display: none">
+                                <input type="file" accept="image/*" name="file" id="thumnail" style="display: none">
                             </div>
                         </div>
                     </div>
@@ -92,12 +91,12 @@
                                     <div class="option-box">
                                         <span class="option-name">옵션명</span>
                                         <input type="text" class="manage-info-input option-input" maxlength="20"
-                                               name="option-name">
+                                               name="optionName">
                                     </div>
                                     <div class="option-box">
                                         <span class="option-name">판매가</span>
                                         <input type="text" class="manage-info-input option-input preis" maxlength="12"
-                                               name="option-price">
+                                               name="price">
                                         <span class="preis-won">원</span>
                                     </div>
                                     <div class="option-box option-btn-frame">
@@ -121,7 +120,7 @@
                         <div class="manage-info-profile-area content-area">
                             <span class="manage-info-text">상세 설명</span>
                             <div class="manage-info-input-area manage-info-dropbox-area">
-                                <div class="product-_content_wrap">
+                                <div class="product_content_wrap">
                                     <div class="editor_group">
                                         <textarea name="content" id="editor"></textarea>
                                     </div>

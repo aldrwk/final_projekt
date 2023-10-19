@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/center.css">
     <link rel="stylesheet" href="/css/calender.css">
-    <!--    <script src="/js/calendar.js"></script>-->
     <script src="/js/hostcenter.js"></script>
     <script src="/js/productregist.js"></script>
     <meta charset="UTF-8">
@@ -105,7 +104,7 @@
                             <span class="manage-info-value"> 1,000,000 원</span>
                         </div>
                         <div class="manage-info-totalsale">이달 진행 프리
-                            <span class="manage-info-value"> 2 개</span>
+                            <span class="manage-info-value" th:text="${freeCountInThisMonth}+ ' 개'"> 0 개</span>
                         </div>
                         <div class="manage-info-totalsale">전체 결제 건수
                             <span class="manage-info-value"> 10 건</span>

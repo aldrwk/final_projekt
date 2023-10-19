@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface FirstCategoryService {
 
-	public FirstCategoryDomain findByfindByName(String name);
+	public int findByName(String firstCateName);
 	public List<FirstCategoryDomain> findAll();
 }

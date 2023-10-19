@@ -5,6 +5,7 @@ import com.spring.final_project.account.accountService;
 import com.spring.final_project.bank.BankDomain;
 import com.spring.final_project.bank.BankService;
 import com.spring.final_project.member.*;
+import com.spring.final_project.product.productService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 import static com.spring.final_project.util.dateService.*;
+import static com.spring.final_project.util.fileUploadService.imageUpload;
 import static com.spring.final_project.util.folderService.createFolder;
 import static com.spring.final_project.util.messages.*;
 
 @Controller
-@Transactional
 @RequestMapping("/host")
 public class hostController {
 	private static final Logger log = LoggerFactory.getLogger(memberController.class);
@@ -38,15 +39,18 @@ public class hostController {
 	private BankService bankService;
 	private accountService accountService;
 
+	private productService productService;
+
 	private int result;
 
 	@Autowired
-	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, BankService bankService, accountService accountService) {
+	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, BankService bankService, accountService accountService,productService productService) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.hostService = hostService;
 		this.bankService = bankService;
 		this.accountService = accountService;
+		this.productService = productService;
 	}
 
 	@GetMapping("/regist")
@@ -93,7 +97,13 @@ public class hostController {
 
 
 	@GetMapping("/center")
-	public String center() {
+	public String center(HttpSession session, Model model) {
+		hostDomain host = (hostDomain) session.getAttribute("host_info");
+		Map<String, Object> freeInThisMonth = new HashMap<>();
+		freeInThisMonth.put("hostNum", host.getHostNum());
+		freeInThisMonth.put("thisMoth", thisMonth()+"%");
+		int freeCountInThisMonth = productService.countInThisMonth(freeInThisMonth);
+		model.addAttribute("freeCountInThisMonth", freeCountInThisMonth);
 		return "host/managecenter";
 	}
 
@@ -114,22 +124,10 @@ public class hostController {
 		memberDomain member = memberService.findByNum(originHost.memberNum);
 
 		if (hostprofile != null && !hostprofile.isEmpty()) {
-			try {
 				// 이미지를 저장할 경로 설정
-				String savePath = "/src/main/resources/static";
 				String saveFolder = "/image/host/" + toDay();
-				String realPath = System.getProperty("user.dir") + savePath + saveFolder;
-				createFolder(realPath);
-				String fileName = uploadTime() + "_" + hostprofile.getOriginalFilename();
-				String filePath = realPath + File.separator + fileName;
-				File dest = new File(filePath);
-				hostprofile.transferTo(dest);
-				String saveDbPath = saveFolder + File.separator + fileName;
-				System.out.println("filePath : " + filePath);
-				host.setHostProfile(saveDbPath);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			String saveName = imageUpload(saveFolder, hostprofile);
+				host.setHostProfile(saveName);
 		}
 		if (email.equals(member.getEmail())) {
 			host.setMemberNum(originHost.getMemberNum());

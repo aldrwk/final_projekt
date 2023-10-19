@@ -5,21 +5,21 @@
 <mapper namespace="com.spring.final_project.account.accountMapper">
 
     <select id="findById" resultType="accountDomain" resultMap="accountMap">
-        select host_num, account_num, bank_code, account_owner from account where host_num = ${hostNum}
+        select host_num, account_num, bank_code, account_owner from account where host_num = #{hostNum}
     </select>
 
     <insert id="insert" parameterType="accountDomain">
         insert into account
-        values (null, ${hostNum}, ${accountNum}, '${bankCode}', '${accountOwner}', ${changeDate})
+        values (null, #{hostNum}, #{accountNum}, '#{bankCode}', '#{accountOwner}', #{changeDate})
     </insert>
 
     <update id="update" parameterType="accountDomain">
         update account
-        set account_num   = ${accountNum},
-            bank_code     = '${bankCode}',
-            account_owner = '${accountOwner}',
+        set account_num   = #{accountNum},
+            bank_code     = '#{bankCode}',
+            account_owner = '#{accountOwner}',
             change_date   = #{changeDate}
-        where host_num = ${hostNum}
+        where host_num = #{hostNum}
     </update>
 
 

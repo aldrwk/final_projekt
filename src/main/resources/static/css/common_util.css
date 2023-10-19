@@ -91,6 +91,7 @@ a {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+    min-width: fit-content;
 }
 .host-img {
     width: 45px;

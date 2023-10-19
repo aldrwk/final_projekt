@@ -10,7 +10,7 @@ public class folderService {
 		File makeChFolder = new File(realPath);
 		if (!makeChFolder.exists()) {
 			System.out.println("dir : " + realPath);
-			makeChFolder.mkdir();
+			makeChFolder.mkdirs();
 		}
 	}
 }
