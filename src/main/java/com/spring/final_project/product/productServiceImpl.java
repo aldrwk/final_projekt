@@ -44,6 +44,11 @@ public class productServiceImpl implements productService {
 	}
 
 	@Override
+	public productDomain findByProductNum(int productNum) {
+		return productMapper.findByProductNum(productNum);
+	}
+
+	@Override
 	@Transactional
 	public int findProductNum(int hostNum) {
 		return productMapper.findProductNum(hostNum);
@@ -56,9 +61,24 @@ public class productServiceImpl implements productService {
 	}
 
 	@Override
+	@Transactional
+	public int viewCountUp(int productNum) {
+		return productMapper.viewCountUp(productNum);
+	}
+
+	@Override
+	public List<productDomain> findPopular() {
+		return productMapper.findPopular()
+				;
+	}
+
+	@Override
 	public productDomain productSet(productDomain product, int hostNum, String addressDetail, int SecondCategoryNum) {
+		String[] addressArray = product.getAddress().split(" ");
 		product.setHostNum(hostNum);
 		product.setAddressDetail(addressDetail);
+		product.setArea(addressArray[0]);
+		product.setAreaDetail(addressArray[1]);
 		product.setSecCateNum(SecondCategoryNum);
 		product.setProducRegitDate(LocalToDayTime());
 		product.setProducUpdateDate(LocalToDayTime());

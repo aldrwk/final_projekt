@@ -4,28 +4,26 @@
 
 <mapper namespace="com.spring.final_project.product.productOptionMapper">
 
-    <!--    <select id="findById" resultType="productDomain" resultMap="accountMap">-->
-    <!--        select host_num, account_num, bank_code, account_owner from account where host_num = ${hostNum}-->
-    <!--    </select>-->
-
     <insert id="insert" parameterType="productOptionDomain">
         insert into product_option
         values (null, #{producNum}, #{optionName}, #{price})
     </insert>
+    <select id="OneOptionByProduct" resultMap="productOptionMap">
+        select option_name, price
+        from product_option
+        where produc_num = #{producNum} limit 1;
+    </select>
 
-    <!--    <update id="update" parameterType="accountDomain">-->
-    <!--        update account-->
-    <!--        set account_num   = ${accountNum},-->
-    <!--            bank_code     = '${bankCode}',-->
-    <!--            account_owner = '${accountOwner}',-->
-    <!--            change_date   = #{changeDate}-->
-    <!--        where host_num = ${hostNum}-->
-    <!--    </update>-->
-
+    <select id="optionsByProduct" resultMap="productOptionMap">
+        select option_name, price
+        from product_option
+        where produc_num = #{producNum};
+    </select>
 
     <resultMap id="productOptionMap" type="productOptionDomain">
         <result column="option_id" property="optionId"/>
         <result column="produc_num" property="producNum"/>
         <result column="option_name" property="optionName"/>
+        <result column="price" property="price"/>
     </resultMap>
 </mapper>

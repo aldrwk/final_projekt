@@ -26,6 +26,11 @@ public class hostServiceImpl implements hostService{
 	}
 
 	@Override
+	public hostDomain findByHostNum(int hostNum) {
+		return hostMapper.findByHostNum(hostNum);
+	}
+
+	@Override
 	@Transactional
 	public int updateInfo(hostDomain host) {
 		return hostMapper.updateInfo(host);

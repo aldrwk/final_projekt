@@ -23,7 +23,6 @@ public class fileUploadService {
 			File dest = new File(filePath);
 			file.transferTo(dest);
 			saveDbPath = saveFolder + "/" + fileName;
-			System.out.println("filePath : " + filePath);
 		} catch (
 				IOException e) {
 			e.printStackTrace();

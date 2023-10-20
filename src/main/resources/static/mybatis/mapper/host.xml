@@ -7,8 +7,13 @@
         insert into host
         values (null, #{memberNum}, #{hostname}, #{hostProfile}, #{intro}, #{createHostDate}, #{changeHostDate})
     </insert>
-    <select id="findById" resultType="hostDomain" resultMap="hostMap">
+    <select id="findById" resultMap="hostMap">
         select host_num, member_num, hostname, intro, host_profile from host left join member m on host.member_num = m.num where m.email = #{email};
+    </select>
+    <select id="findByHostNum" resultMap="hostMap">
+        select hostname, host_profile
+        from host
+        where host_num = #{hostNum};
     </select>
 
     <update id="updateInfo" parameterType="hostDomain">

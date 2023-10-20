@@ -12,4 +12,8 @@ public interface productOptionMapper {
 	public int update(productOptionDomain option);
 
 	public int delete(productOptionDomain option);
+
+	public productOptionDomain OneOptionByProduct(int productNum);
+
+	public productOptionDomain optionsByProduct(int productNum);
 }

@@ -8,7 +8,9 @@ import java.time.LocalDateTime;
 public class productDomain {
 	int producNum,hostNum, secCateNum;
 
-	String title, content, address, addressDetail, thumnail;
+	String title, content, address, addressDetail, area, areaDetail, thumnail;
 
 	LocalDateTime producRegitDate, producUpdateDate;
+
+	int viewCount = 0;
 }

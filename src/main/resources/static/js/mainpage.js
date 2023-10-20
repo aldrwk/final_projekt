@@ -10,4 +10,6 @@ $(function () {
         $(".bt-item.on").removeClass('on');
         $(this).addClass('on').css("box-shadow", "none");
     });
+
+
 });

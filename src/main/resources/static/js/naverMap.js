@@ -31,6 +31,6 @@ $(function () {
 
             });
         }
-    searchAddressToCoordinate('한천로 120길 28-5') //주소값 대입
+    searchAddressToCoordinate($(".detail-platz-address").text()) //주소값 대입
     initMap();
 });
