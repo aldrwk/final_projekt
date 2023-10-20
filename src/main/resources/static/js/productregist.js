@@ -104,7 +104,16 @@ $(function () {
                 start: new Date(), // 현재 날짜 이후의 날짜만 허용
             }, navLinks: true, navLinkDayClick: function (date) {
                 datearr = date.toLocaleString().split(".")
-                date = datearr[0].trim() + "-" + datearr[1].trim() + "-" + datearr[2].trim();
+                console.log(datearr);
+                day = datearr[2].trim();
+                month = datearr[1].trim();
+                if (day.length == 1) {
+                    day = 0 + day;
+                }
+                if (month.length == 1) {
+                    month = 0 + month;
+                }
+                date = datearr[0].trim() + "-" + month + "-" + day;
                 $("#reserv_date").val(date);
                 $(".regist-footer").removeClass("disable");
                 $(".update-footer").addClass("disable");

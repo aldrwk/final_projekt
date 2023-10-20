@@ -5,6 +5,7 @@ import com.spring.final_project.category_first.FirstCategoryService;
 import com.spring.final_project.category_second.SecondCategoryDomain;
 import com.spring.final_project.category_second.SecondCategoryService;
 import com.spring.final_project.host.hostDomain;
+import com.spring.final_project.host.hostService;
 import com.spring.final_project.member.memberController;
 import com.spring.final_project.reservation_dates.reservationDatesDomain;
 import com.spring.final_project.reservation_dates.reservationDatesService;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -37,6 +39,8 @@ public class productController {
 
 	FirstCategoryService firstCategoryService;
 	SecondCategoryService secondCategoryService;
+
+	hostService hostService;
 	productService productService;
 	productOptionService productOptionService;
 
@@ -44,7 +48,8 @@ public class productController {
 
 
 	@Autowired
-	public productController(FirstCategoryService firstCategoryService, SecondCategoryService secondCategoryService, productService productService, productOptionService productOptionService, reservationDatesService reservationDatesService) {
+	public productController(FirstCategoryService firstCategoryService, SecondCategoryService secondCategoryService, productService productService, productOptionService productOptionService, reservationDatesService reservationDatesService, hostService hostService) {
+		this.hostService = hostService;
 		this.firstCategoryService = firstCategoryService;
 		this.secondCategoryService = secondCategoryService;
 		this.productService = productService;
@@ -56,10 +61,25 @@ public class productController {
 	@GetMapping("product/{productNum}")
 	public String productList(@PathVariable("productNum") int productNum, Model model) {
 
+		productDomain product = productService.findByProductNum(productNum);
+		hostDomain host = hostService.findByHostNum(product.getHostNum());
+		productOptionDomain productOption = productOptionService.optionsByProduct(productNum);
+
+		model.addAttribute("product", product);
+		model.addAttribute("host", host);
+		model.addAttribute("productOption", productOption);
+		model.addAttribute("currentUrl", "/product/" + productNum);
+
+		List<productOptionDomain> productsOption = new ArrayList<>();
+
+
+
+		model.addAttribute("productsoption", productsOption);
+		productService.viewCountUp(productNum);
 		return "product/detail";
 	}
 
-	@PostMapping("product/{productNum}/participate")
+	@GetMapping("product/{productNum}/participate")
 	public String productCalender(@PathVariable("productNum") int productNum, Model model) {
 		return "product/participate";
 	}
@@ -103,14 +123,16 @@ public class productController {
 		Map<String, Object> data = new HashMap<>();
 		data.put("firstCategoryNum", firstCategoryNum);
 		data.put("categoryName", categorys);
-
 		int secondCategoryNum = secondCategoryService.findByName(data);
 		product = productService.productSet(product, host.getHostNum(), addressDetail, secondCategoryNum);
 		productService.insert(product);
 		int productNum = productService.findProductNum(host.getHostNum());
 		productOption.setProducNum(productNum);
+		Locale locale = new Locale("ko", "KR"); // 한국 로케일 (한국어, 대한민국)
+		NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+		String newPrice = String.valueOf(numberFormat.format(Integer.parseInt(productOption.getPrice())));
+		productOption.setPrice(newPrice);
 		productOptionService.insert(productOption);
-		log.info(product.toString());
 		List<reservationDatesDomain> dates = DatesRetouch(events);
 		for (reservationDatesDomain date : dates) {
 			date.setProducNum(productNum);
@@ -131,14 +153,8 @@ public class productController {
 		if (file != null && !file.isEmpty()) {
 			String saveFolder = "/image/product/" + toDay() + File.separator + host.getHostNum();
 			url = imageUpload(saveFolder, file);
-			log.info(url);
+
 		}
-
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("url", url);
-//
-//		log.info(jsonObject.toString());
-
 		Map<String, String> map = new HashMap<>();
 		map.put("url", url);
 		return map;

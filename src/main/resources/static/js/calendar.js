@@ -154,25 +154,24 @@ $(function () {
         const end = $("#end").val();
         const maxPeople = parseInt($(".maxPeople").val());
         const maxPerson = parseInt($(".maxPerson").val());
-        console.log(maxPeople > maxPerson);
+        console.log( "maxPeople > maxPerson : "+ maxPeople > maxPerson);
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }
         if (!date_check()) {
             return false;
         }
+        console.log(date + "+" + start + "+" + end + "+" + maxPerson + "+" + maxPeople);
         calendar.addEvent({
             id: date + " " + start,
             start: date + "T" + start,
             end: date + "T" + end,
             allDay: false,
-            // daysOfWeek: [],
-            // startTime: start,
-            // endTime: end,
             extendedProps: {
                 maxPeople: maxPeople, maxPerson: maxPerson
             }
         })
+        console.log(calendar.getEvents());
         $(".close").click();
     });
 

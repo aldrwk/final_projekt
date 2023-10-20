@@ -11,5 +11,7 @@ public interface hostMapper {
 
 	public hostDomain findById(String email);
 
+	public hostDomain findByHostNum(int hostNum);
+
 	public int updateInfo(hostDomain host);
 }

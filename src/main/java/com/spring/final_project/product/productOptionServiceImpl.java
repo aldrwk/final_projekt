@@ -37,4 +37,16 @@ public class productOptionServiceImpl implements productOptionService {
 	public int delete(productOptionDomain option) {
 		return productOptionMapper.delete(option);
 	}
+
+	@Override
+	@Transactional
+	public productOptionDomain OneOptionByProduct(int productNum) {
+		return productOptionMapper.OneOptionByProduct(productNum);
+	}
+
+	@Override
+	@Transactional
+	public productOptionDomain optionsByProduct(int productNum) {
+		return productOptionMapper.optionsByProduct(productNum);
+	}
 }

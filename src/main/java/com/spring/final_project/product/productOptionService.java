@@ -12,4 +12,8 @@ public interface productOptionService {
 
 	public int delete(productOptionDomain option);
 
+	public productOptionDomain OneOptionByProduct(int productNum);
+
+	public productOptionDomain optionsByProduct(int productNum);
+
 }

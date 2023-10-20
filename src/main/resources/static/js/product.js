@@ -14,7 +14,6 @@ $(function () {
         totalPay();
     });
 
-
     function totalPay() {
         let price = $(".option-list.select").find(".option-price").text().replace(/\D/g, '');
         let cnt = $(".option-popup-cnt").text();
@@ -54,9 +53,22 @@ $(function () {
         "</div>\n" +
         "</div>";
 
-
-    $(".teilnahme-btn").click(function () {
-        $(".move-participate").click();
+    $(".detail-body-cover-button").click(function () {
+        if(!$(this).hasClass("more")){
+        $(".detail-body-main").addClass("more-view");
+        $(this).addClass("more");
+        $(this).children().eq(0).html("간략히 보기");
+        $(this).children().eq(1).addClass("arrow-turn");
+            return false;
+        }
+        $(".detail-body-main").removeClass("more-view");
+        $(this).removeClass("more");
+        $(this).children().eq(0).html("상세정보 더보기 ");
+        $(this).children().eq(1).removeClass("arrow-turn");
     });
 
-})
+
+
+
+
+});
