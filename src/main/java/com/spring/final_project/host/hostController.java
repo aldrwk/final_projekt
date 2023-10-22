@@ -88,7 +88,6 @@ public class hostController {
 	public String change(HttpSession session) {
 		memberDomain member = (memberDomain) session.getAttribute("user_info");
 		hostDomain host = hostService.findById(member.getEmail());
-		log.info(String.valueOf(host.getHostNum()));
 		if (host == null) {
 			return "redirect:/host/regist";
 		}
