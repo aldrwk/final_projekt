@@ -15,10 +15,10 @@
         from product
         where host_num = #{hostNum}
         order by produc_num desc LIMIT 1;
-
     </select>
     <select id="findByProductNum" resultMap="productMap">
-        select host_num,
+        select produc_num,
+               host_num,
                title,
                content,
                address,
@@ -29,8 +29,16 @@
                thumnail
         from product
         where produc_num = #{productNum};
-
     </select>
+    <select id="findByHostNum" resultMap="productMap">
+        select title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where host_num = #{hostNum};
+    </select>
+
     <select id="countInThisMonth" resultType="int" parameterType="Map">
         select count(distinct rd.produc_num)
         from product p
@@ -52,6 +60,20 @@
                thumnail
         from product
         order by view_count desc limit 8;
+    </select>
+    <select id="findNew" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               content,
+               address,
+               address_detail,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        order by produc_regit_date desc limit 8;
     </select>
     <update id="viewCountUp" parameterType="int">
         update product

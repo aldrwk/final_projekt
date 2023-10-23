@@ -19,18 +19,18 @@
 <body>
 <div class="mainContainer">
     <div th:replace=/common/header :: header></div>
-    <div class="detail-container">
+    <div class="detail-container" th:each="productpack: ${productpack}">
         <div class="detail-header">
-            <div class="detail-header-img-area">
-                <img th:src="${product.thumnail}" class="detail-header-img"/>
+            <div class="detail-header-img-area" >
+                <img th:src="${productpack.product.thumnail}" class="detail-header-img"/>
             </div>
             <div class="detail-header-info">
                 <div class="detail-text-area">
-                    <div class="detail-header-title" th:text="${product.title}">제~~~~목</div>
-                    <div class="detail-header-ort" th:text="${product.area}+'/'+${product.areaDetail}">지~~~~역</div>
-                    <div class="detail-header-preis" th:text="${productOption.price}+' 원'">가~~~~격</div>
+                    <div class="detail-header-title" th:text="${productpack.product.title}">제~~~~목</div>
+                    <div class="detail-header-ort" th:text="${productpack.product.area}+'/'+${product.areaDetail}">지~~~~역</div>
+                    <div class="detail-header-preis" th:text="${productpack.productoption.price}+' 원'">가~~~~격</div>
                 </div>
-                <a class="detail-header-host-area" href="/host/info/1">
+                <a class="detail-header-host-area" th:href="'/host/info/'+${productpack.product.hostNum}">
                     <img th:src="${host.hostProfile}" class="detail-header-host-profile" alt="임시"/>
                     <div class="detail-header-host" th:text="${host.hostname}">호~~~~~~스~~~~~~트 이름</div>
                     <img class="img_arrow"
@@ -44,7 +44,7 @@
                 프리 소개
             </div>
             <div class="detail-body-main">
-                [(${product.content})]
+                [(${productpack.product.content})]
             </div>
             <div class="detail-body-cover">
                 <button class="btn detail-body-cover-button">
@@ -59,8 +59,8 @@
             </div>
             <div class="detail-platz-karte">
                 <div id="map" style="width:800px;height:400px;"></div>
-                <a href="https://map.naver.com/p/search/" target="_blank" class="detail-platz-address"
-                   th:text="${product.address}+' '+${product.addressDetail}"></a>
+                <a th:href="@{https://map.naver.com/p/search/{addressDetail}(addressDetail=${productpack.product.address})}" target="_blank" class="detail-platz-address"
+                   th:text="${productpack.product.address}+' '+${productpack.product.addressDetail}"></a>
             </div>
         </div>
     </div>

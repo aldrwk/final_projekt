@@ -18,9 +18,10 @@
 }
 
 .participate-calender {
+    padding-top: 10px;
     width: 700px;
     height: 600px;
-    border: 1px solid black;
+
 }
 
 .participate-date-table {

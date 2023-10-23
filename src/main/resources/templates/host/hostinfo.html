@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/host.css">
+    <link rel="stylesheet" href="/css/mainpage.css">
     <script src="/js/header.js"></script>
 
     <title>Title</title>
@@ -17,125 +18,36 @@
 
     <div class="detail-host-container">
         <div class="detail-header-host-area">
-            <img src="" class="detail-header-host-profile" alt="임시"/>
-            <div class="detail-header-host">호~~~~~~스~~~~~~트 이름</div>
+            <img th:src="${host.hostProfile}" class="detail-header-host-profile" alt="임시"/>
+            <div class="detail-header-host" th:text="${host.hostname}">호~~~~~~스~~~~~~트 이름</div>
         </div>
         <div class="detail-host-info-area">
-            <span class="detail-host-info">ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-                ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
-          ㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ
+            <span class="detail-host-info" th:text="${host.intro}">호스트 소개
             </span>
         </div>
         <div class="detail-host-free-area">
-            <span class="detail-host-freee-text">프리</span>
-            <div class="detail-host-free">
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort">sadfsdfsda</span>
-                                <span class="produkt-title">asdfscvbcvbvcbvcbadfsdfsfsdfsdfsdfdsfdsfsdfsd</span>
-                                <hr>
-                                <span class="produkt-preise">10,000원</span>
+            <span class="detail-host-free-text">프리</span>
+            <div class="detail-host-free" th:each="productpack: ${productpacks}">
+                <div class="produkt-wrapper">
+                    <a th:href="@{'/product/'+${productpack.product.producNum}}" class="produkt-link">
+                        <div class="produkt-karte">
+                            <div class="produkt-img-area">
+                                <img class="produkt-img" th:src="@{${productpack.product.thumnail}}"/>
+                            </div>
+                            <div class="produkt-detail-area">
+                                <div class="produkt-detail">
+                                    <span class="produkt-ort"
+                                          th:text="${productpack.product.area}+'/'+${productpack.product.areaDetail}">서울/성수</span>
+                                    <span class="produkt-title" th:text="${productpack.product.title}"></span>
+                                    <span class="produkt-price" th:text="${productpack.productoption.price}+'원'"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-                </div>
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort"></span>
-                                <span class="produkt-title"></span>
-                                <hr>
-                                <span class="produkt-preise">???원</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                </div>
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort"></span>
-                                <span class="produkt-title"></span>
-                                <hr>
-                                <span class="produkt-preise">???원</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                </div>
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort"></span>
-                                <span class="produkt-title"></span>
-                                <hr>
-                                <span class="produkt-preise">???원</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                </div>
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort"></span>
-                                <span class="produkt-title"></span>
-                                <hr>
-                                <span class="produkt-preise">???원</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                </div>
-                <div class="produkt-wrapper"><a href="" class="produkt-link">
-                    <div class="produkt-karte">
-                        <div class="produkt-img-area">
-                            <img class="produkt-img" src=""/>
-                        </div>
-                        <div class="produkt-detail-area">
-                            <div class="produkt-detail">
-                                <span class="produkt-ort"></span>
-                                <span class="produkt-title"></span>
-                                <hr>
-                                <span class="produkt-preise">???원</span>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                    </a>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-</div>
-<div th:replace="~{/common/footer ::footer}"></div>
+    <div th:replace="~{/common/footer ::footer}"></div>
 </body>
 </html>

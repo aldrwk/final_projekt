@@ -36,7 +36,13 @@ public class reservationDatesServiceImpl implements reservationDatesService {
 
 	@Override
 	@Transactional
-	public List<reservationDatesDomain> findByProduct() {
-		return null;
+	public List<reservationDatesDomain> findByProductNum(int productNum) {
+		return reservationDatesMapper.findByProductNum(productNum);
+	}
+
+	@Override
+	@Transactional
+	public reservationDatesDomain findById(int reservationId) {
+		return reservationDatesMapper.findById(reservationId);
 	}
 }

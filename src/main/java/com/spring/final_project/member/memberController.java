@@ -1,6 +1,6 @@
 package com.spring.final_project.member;
 
-import com.spring.final_project.api.kakao.KakaoService;
+import com.spring.final_project.api.kakao.KakaoLoginService;
 import com.spring.final_project.api.kakao.kakaoAcountDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +33,13 @@ public class memberController {
 	private final int SOMEONE = 1;
 
 
-	private KakaoService kakaoService;
+	private KakaoLoginService kakaoLoginService;
 	private memberService memberService;
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
-	public memberController(KakaoService kakaoService, memberService memberService, PasswordEncoder passwordEncoder) {
-		this.kakaoService = kakaoService;
+	public memberController(KakaoLoginService kakaoLoginService, memberService memberService, PasswordEncoder passwordEncoder) {
+		this.kakaoLoginService = kakaoLoginService;
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -126,7 +126,7 @@ public class memberController {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		try {
-			kakaoService.logoutProc((kakaoAcountDto) session.getAttribute("user_info"));
+			kakaoLoginService.logoutProc((kakaoAcountDto) session.getAttribute("user_info"));
 		} catch (Exception e) {
 		}
 		log.info("logout?");

@@ -11,7 +11,7 @@
         select host_num, member_num, hostname, intro, host_profile from host left join member m on host.member_num = m.num where m.email = #{email};
     </select>
     <select id="findByHostNum" resultMap="hostMap">
-        select hostname, host_profile
+        select hostname, host_profile, intro
         from host
         where host_num = #{hostNum};
     </select>

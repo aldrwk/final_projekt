@@ -14,6 +14,8 @@ public interface productService {
 
 	public productDomain findByProductNum(int productNum);
 
+	public List<productDomain> findByHostNum(int hostNum);
+
 	public int findProductNum(int hostNum);
 
 	public int countInThisMonth(Map<String, Object> map);
@@ -22,7 +24,11 @@ public interface productService {
 
 	public int viewCountUp(int productNum);
 
+
+
 	public List<productDomain> findPopular();
 
+	public List<productDomain> findNew();
 
+	List<Map<String, Object>>  setProductPack(List<productDomain> products);
 }

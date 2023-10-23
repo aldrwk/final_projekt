@@ -22,30 +22,21 @@ $(function () {
         $("#totalPrice").val((price * cnt));
     };
 
-    // $(".goToPay").click(function () {
-    //     const totalPrice = $(".total-price").text();
-    //     const date = $(".date-selected").text();
-    //     const time = $(".option-zeit").text();
-    //     const productName = $(".participate-title").text();
-    //     window.location.href = "/pay/1/pay-method?totalPrice=" + totalPrice + "&date=" + date + "&time=" + time + "$productName=" + productName;
-    // });
-
-    $(".option-list").click(function () {
+    $(document).on("click", ".option-list", function () {
         $(".option-list").removeClass('select');
         $(this).addClass('select');
         $(".option-popup-cnt").text("0");
         $(".total-price").text("0 원");
-        $("#date").val($(this).children().first().text());
-        $("#time").val($(this).children().eq(1).text());
-        $("#productName").val($(".participate-title").text());
-        if($(".option-popup-container").hasClass("option-popup-container")){
+        $("#optionId").val($(this).children().eq(3).text());
+
+        if ($(".option-popup-container").hasClass("option-popup-container")) {
             return;
         }
         $(this).after(option_popup);
     });
 
     const option_popup = "<div class=\"option-popup-container\">\n" +
-        "<div class=\"option-popup-title\">인원 선택</div>\n" +
+        "<div class=\"option-popup-title\">수량 선택</div>\n" +
         "<div class=\"option-popup\">\n" +
         "<div class=\"option-popup-cnt-down\">-</div>\n" +
         "<div class=\"option-popup-cnt\">0</div>\n" +
@@ -54,11 +45,11 @@ $(function () {
         "</div>";
 
     $(".detail-body-cover-button").click(function () {
-        if(!$(this).hasClass("more")){
-        $(".detail-body-main").addClass("more-view");
-        $(this).addClass("more");
-        $(this).children().eq(0).html("간략히 보기");
-        $(this).children().eq(1).addClass("arrow-turn");
+        if (!$(this).hasClass("more")) {
+            $(".detail-body-main").addClass("more-view");
+            $(this).addClass("more");
+            $(this).children().eq(0).html("간략히 보기");
+            $(this).children().eq(1).addClass("arrow-turn");
             return false;
         }
         $(".detail-body-main").removeClass("more-view");
@@ -66,8 +57,6 @@ $(function () {
         $(this).children().eq(0).html("상세정보 더보기 ");
         $(this).children().eq(1).removeClass("arrow-turn");
     });
-
-
 
 
 

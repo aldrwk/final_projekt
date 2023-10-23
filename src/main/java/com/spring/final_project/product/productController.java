@@ -9,11 +9,9 @@ import com.spring.final_project.host.hostService;
 import com.spring.final_project.member.memberController;
 import com.spring.final_project.reservation_dates.reservationDatesDomain;
 import com.spring.final_project.reservation_dates.reservationDatesService;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -60,18 +58,20 @@ public class productController {
 
 	@GetMapping("product/{productNum}")
 	public String productList(@PathVariable("productNum") int productNum, Model model) {
-
+		List<productDomain> products = new ArrayList<>();
+		List<Map<String, Object>> productpack = new ArrayList<>();
 		productDomain product = productService.findByProductNum(productNum);
 		hostDomain host = hostService.findByHostNum(product.getHostNum());
-		productOptionDomain productOption = productOptionService.optionsByProduct(productNum);
-
+		productOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
+		products.add(product);
+		productpack= productService.setProductPack(products);
 		model.addAttribute("product", product);
 		model.addAttribute("host", host);
 		model.addAttribute("productOption", productOption);
 		model.addAttribute("currentUrl", "/product/" + productNum);
+		model.addAttribute("productpack", productpack);
 
 		List<productOptionDomain> productsOption = new ArrayList<>();
-
 
 
 		model.addAttribute("productsoption", productsOption);
@@ -81,6 +81,14 @@ public class productController {
 
 	@GetMapping("product/{productNum}/participate")
 	public String productCalender(@PathVariable("productNum") int productNum, Model model) {
+		log.info(String.valueOf(productNum));
+		List<reservationDatesDomain> reservationDates = reservationDatesService.findByProductNum(productNum);
+		productDomain product = productService.findByProductNum(productNum);
+		List<productOptionDomain> productOption = productOptionService.optionsByProduct(productNum);
+		model.addAttribute("dates", reservationDates);
+		model.addAttribute("product", product);
+		model.addAttribute("productoption", productOption);
+		model.addAttribute("productNum", productNum);
 		return "product/participate";
 	}
 
@@ -114,11 +122,13 @@ public class productController {
 	public String productRegist(productDomain product, productOptionDomain productOption, HttpSession session, String categoryf, String categorys,
 								@RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events) {
 		hostDomain host = (hostDomain) session.getAttribute("host_info");
+
 		if (file != null && !file.isEmpty()) {
 			String saveFolder = "/image/product/" + toDay() + File.separator + host.getHostNum();
 			String saveName = imageUpload(saveFolder, file);
 			product.setThumnail(saveName);
 		}
+
 		int firstCategoryNum = firstCategoryService.findByName(categoryf);
 		Map<String, Object> data = new HashMap<>();
 		data.put("firstCategoryNum", firstCategoryNum);
@@ -126,21 +136,21 @@ public class productController {
 		int secondCategoryNum = secondCategoryService.findByName(data);
 		product = productService.productSet(product, host.getHostNum(), addressDetail, secondCategoryNum);
 		productService.insert(product);
+
 		int productNum = productService.findProductNum(host.getHostNum());
 		productOption.setProducNum(productNum);
-		Locale locale = new Locale("ko", "KR"); // 한국 로케일 (한국어, 대한민국)
-		NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
-		String newPrice = String.valueOf(numberFormat.format(Integer.parseInt(productOption.getPrice())));
-		productOption.setPrice(newPrice);
 		productOptionService.insert(productOption);
 		List<reservationDatesDomain> dates = DatesRetouch(events);
+		log.info(dates.toString());
 		for (reservationDatesDomain date : dates) {
 			date.setProducNum(productNum);
 			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
 			date.setCloseDate(closeDate);
 			date.setRegistDate(LocalToDayTime());
 			date.setUpdateDate(LocalToDayTime());
-			reservationDatesService.insert(date);
+			if (1 == reservationDatesService.insert(date)) {
+				log.info("등록");
+			}
 		}
 		return "redirect:/host/center";
 	}

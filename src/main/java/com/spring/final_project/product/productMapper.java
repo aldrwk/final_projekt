@@ -1,6 +1,7 @@
 package com.spring.final_project.product;
 
 
+import com.spring.final_project.host.hostDomain;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -18,11 +19,16 @@ public interface productMapper {
 
 	public int findProductNum(int hostNum);
 
+	public List<productDomain> findByHostNum(int hostNum);
+
 	public int countInThisMonth(Map<String, Object> map);
 
 	public int viewCountUp(int productNum);
 
 	public List<productDomain> findPopular();
+	public List<productDomain> findNew();
+
+
 
 
 }

@@ -4,28 +4,20 @@
 
 <mapper namespace="com.spring.final_project.reservation_dates.reservationDatesMapper">
 
-    <!--    <select id="findById" resultType="productDomain" resultMap="accountMap">-->
-    <!--        select host_num, account_num, bank_code, account_owner from account where host_num = #{hostNum}-->
-    <!--    </select>-->
-
     <insert id="insert" parameterType="reservationDatesDomain">
         insert into reservation_dates
         values (null, #{producNum}, #{reservDate}, #{endDate}, #{validPerson}, #{maxRegisterPerOne}, #{closeDate}, #{registDate},
                 #{updateDate})
     </insert>
     
-    <select id="findProductNum" resultType="int">
-        select produc_num from product where host_num = #{hostNum} order by produc_num desc LIMIT 1
+    <select id="findByProductNum" resultMap="reservationDatesMap">
+        select reservation_id, reserv_date, end_date, valid_person, max_register_per_one, close_date from reservation_dates where produc_num = #{producNum}
+    </select>
+    <select id="findById" resultMap="reservationDatesMap">
+        select reservation_id, reserv_date, end_date
+        from reservation_dates where reservation_id = ${reservationId}
     </select>
 
-    <!--    <update id="update" parameterType="accountDomain">-->
-    <!--        update account-->
-    <!--        set account_num   = #{accountNum},-->
-    <!--            bank_code     = #{bankCode},-->
-    <!--            account_owner = #{accountOwner},-->
-    <!--            change_date   = #{changeDate}-->
-    <!--        where host_num = #{hostNum}-->
-    <!--    </update>-->
 
 
     <resultMap id="reservationDatesMap" type="reservationDatesDomain">

@@ -4,8 +4,10 @@ import com.spring.final_project.account.accountDomain;
 import com.spring.final_project.account.accountService;
 import com.spring.final_project.bank.BankDomain;
 import com.spring.final_project.bank.BankService;
+import com.spring.final_project.category_first.FirstCategoryDomain;
+import com.spring.final_project.category_first.FirstCategoryService;
 import com.spring.final_project.member.*;
-import com.spring.final_project.product.productService;
+import com.spring.final_project.product.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import static com.spring.final_project.util.fileUploadService.imageUpload;
 import static com.spring.final_project.util.folderService.createFolder;
 import static com.spring.final_project.util.messages.*;
 
+
 @Controller
 @RequestMapping("/host")
 public class hostController {
@@ -40,17 +43,22 @@ public class hostController {
 	private accountService accountService;
 
 	private productService productService;
+	private productOptionService productOptionService;
+	private FirstCategoryService firstCategoryService;
 
 	private int result;
 
 	@Autowired
-	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, BankService bankService, accountService accountService,productService productService) {
+	public hostController(memberService memberService, PasswordEncoder passwordEncoder, hostService hostService, BankService bankService, accountService accountService,productService productService,
+						  FirstCategoryService firstCategoryService,productOptionService productOptionService) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.hostService = hostService;
 		this.bankService = bankService;
 		this.accountService = accountService;
 		this.productService = productService;
+		this.firstCategoryService = firstCategoryService;
+		this.productOptionService = productOptionService;
 	}
 
 	@GetMapping("/regist")
@@ -108,8 +116,22 @@ public class hostController {
 	}
 
 	@GetMapping("/info/{hostNum}")
-	public String hostInfo(@PathVariable("hostNum") int hostNum) {
-
+	public String hostInfo(@PathVariable("hostNum") int hostNum, Model model) {
+		hostDomain host = hostService.findByHostNum(hostNum);
+		List<FirstCategoryDomain> firstCategory = firstCategoryService.findAll();
+		List<productDomain> products = productService.findPopular();
+		List<Map<String, Object>> productpacks = new ArrayList<>();
+		for (productDomain product : products) {
+			Map<String, Object> productpack = new HashMap<>();
+			int productNum = product.getProducNum();
+			productOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
+			productpack.put("product", product);
+			productpack.put("productoption", productOption);
+			productpacks.add(productpack);
+		}
+		model.addAttribute("categorys", firstCategory);
+		model.addAttribute("productpacks", productpacks);
+		model.addAttribute("host", host);
 		return "host/hostinfo";
 	}
 

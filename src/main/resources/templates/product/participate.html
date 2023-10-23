@@ -4,8 +4,16 @@
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/product.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/common_util.css">
+    <link rel="stylesheet" href="/css/calender.css">
+    <script th:inline="javascript">
+        var dates = /*[[${dates}]]*/ null
+        var options = /*[[${productoption}]]*/ null
+    </script>
+    <script src="/js/participate.js"></script>
+    <script src="/js/calendar.js"></script>
     <link rel="stylesheet" href="/css/product/participate.css">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,10 +22,10 @@
 <div class="mainContainer">
     <div th:replace=/common/header :: header></div>
     <div class="participate-container">
-        <div class="participate-title">상품 제목</div>
+        <div class="participate-title" th:text="${product.title}">상품 제목</div>
         <div class="participate-calender-area">
             <div class="participate-calender">
-                달력
+                <div th:replace="/product/reserv_calendar"></div>
             </div>
             <div class="participate-date-table">
                 <div class="date-header">
@@ -26,35 +34,20 @@
                     </div>
                     <div class="date-selected">선택한 날짜</div>
                 </div>
-                <div class="option-list">
-                    <div class="option-title">날짜</div>
-                    <span class="option-zeit">오전 11:00 ~ 오후 1:30</span>
-                    <div class="option-price">10,000원</div>
-                </div>
-                <div class="option-list">
-                    <div class="option-title">날짜</div>
-                    <span class="option-zeit">오후 2:00 ~ 오후 4:00</span>
-                    <div class="option-price">100,000원</div>
-                </div>
-                <div class="option-list">
-                    <div class="option-title">날짜</div>
-                    <span class="option-zeit">오후 5:00 ~ 오후 7:00</span>
-                    <div class="option-price">1,000,000원</div>
-                </div>
+                <div class="option-list"></div>
                 <div class="total-price-area">
                     <div class="total-price-title">총 액</div>
                     <div class="total-price">0 원</div>
                 </div>
             </div>
         </div>
-        <form action="/pay/1/pay-method" method="post">
+        <form action="/pay/pay-method" method="post">
             <input type="hidden" name="totalPrice" id="totalPrice">
-            <input type="hidden" name="date" id="date">
-            <input type="hidden" name="time" id="time">
-            <input type="hidden" name="productName" id="productName">
+            <input type="hidden" name="reservId" id="reservId">
+            <input type="hidden" name="optionId" id="optionId">
+            <input type="hidden" name="productNum" id="productNum" th:value="${productNum}">
             <div class="btn-container">
                 <button class="btn participate-btn before">취&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</button>
-
                 <button class="btn participate-btn goToPay">결 제 하 기</button>
             </div>
         </form>
