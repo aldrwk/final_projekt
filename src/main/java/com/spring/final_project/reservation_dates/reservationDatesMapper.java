@@ -15,4 +15,8 @@ public interface reservationDatesMapper {
 
 	public List<reservationDatesDomain> findByProduct();
 
+	public List<reservationDatesDomain> findByProductNum(int productNum);
+	public reservationDatesDomain findById(int reservationId);
+
+
 }

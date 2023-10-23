@@ -44,165 +44,120 @@
         </div>
         <div class="beliebt-container">
             <div class="beliebt-main">
-                <span class="beliebt-title">인기 있는 프리</span>
+                <span class="main-title">인기 있는 프리</span>
                 <div class="beliebt-cards" th:each="productpack: ${productpacks}">
-                        <div class="produkt-wrapper">
-                            <a th:href="@{'/product/'+${productpack.product.producNum}}" class="produkt-link">
-                                <div class="produkt-karte">
-                                    <div class="produkt-img-area">
-                                        <img class="produkt-img" th:src="@{${productpack.product.thumnail}}"/>
+                    <div class="produkt-wrapper">
+                        <a th:href="@{'/product/'+${productpack.product.producNum}}" class="produkt-link">
+                            <div class="produkt-karte">
+                                <div class="produkt-img-area">
+                                    <img class="produkt-img" th:src="@{${productpack.product.thumnail}}"/>
+                                </div>
+                                <div class="produkt-detail-area">
+                                    <div class="produkt-detail">
+                                        <span class="produkt-ort"
+                                              th:text="${productpack.product.area}+'/'+${productpack.product.areaDetail}">서울/성수</span>
+                                        <span class="produkt-title" th:text="${productpack.product.title}"></span>
+                                        <span class="produkt-price"
+                                              th:text="${productpack.productoption.price}+'원'"></span>
                                     </div>
-                                    <div class="produkt-detail-area">
-                                        <div class="produkt-detail">
-                                            <span class="produkt-ort" th:text="${productpack.product.area}+'/'+${productpack.product.areaDetail}">서울/성수</span>
-                                            <span class="produkt-title" th:text="${productpack.product.title}"></span>
-                                            <span class="produkt-price" th:text="${productpack.productoption.price}+'원'"></span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bereich-container">
+                    <div class="bereich-main">
+                        <span class="main-title">지역별 찾기</span>
+                        <div class="bereich-list">
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">서울</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">부산</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">인천</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">수원</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">성남</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">대전</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">대구</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">광주</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">울산</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">경기</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">강원</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">충북</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">충남</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">경북</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">경남</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">전북</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">전남</button>
+                            </a>
+                            <a href="/" class="bereich-item">
+                                <button class="btn free-btn">제주</button>
+                            </a>
+                        </div>
+                    </span></div>
+                </div>
+                <div class="newfree-container">
+                    <div class="newfree-main">
+                        <span class="main-title">새로운 프리</span>
+                        <div class="beliebt-cards" th:each="productpack: ${newproductpacks}">
+                            <div class="produkt-wrapper">
+                                <a th:href="@{'/product/'+${productpack.product.producNum}}" class="produkt-link">
+                                    <div class="produkt-karte">
+                                        <div class="produkt-img-area">
+                                            <img class="produkt-img" th:src="@{${productpack.product.thumnail}}"/>
+                                        </div>
+                                        <div class="produkt-detail-area">
+                                            <div class="produkt-detail">
+                                        <span class="produkt-ort"
+                                              th:text="${productpack.product.area}+'/'+${productpack.product.areaDetail}">서울/성수</span>
+                                                <span class="produkt-title" th:text="${productpack.product.title}"></span>
+                                                <span class="produkt-price"
+                                                      th:text="${productpack.productoption.price}+'원'"></span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-
-                </div>
-            </div>
-
-            <div class="bereich-container">
-                <div class="bereich-main">
-                    지역별 찾기
-                    <div class="bereich-list">
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">서울</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">부산</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">인천</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">수원</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">성남</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">대전</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">대구</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">광주</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">울산</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">경기</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">강원</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">충북</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">충남</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">경북</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">경남</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">전북</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">전남</button>
-                        </a>
-                        <a href="/" class="bereich-item">
-                            <button class="btn free-btn">제주</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="newfree-container">
-                <div class="newfree-main">
-                    새로운 프리
-                    <div class="newfree-list">
-                        <div class="produkt-wrapper"><a href="" class="produkt-link">
-                            <div class="produkt-karte">
-                                <div class="produkt-img-area">
-                                    <img class="produkt-img" src="image/logo_1.png"/>
-                                </div>
-                                <div class="produkt-detail-area">
-                                    <div class="produkt-detail">
-                                        <span class="produkt-ort">서울 / 종로</span>
-                                        <span class="produkt-title">나만의 반려식물, 테라리움 만들기</span>
-                                        <hr>
-                                        <span class="produkt-preise">10,000원</span>
-                                    </div>
-                                </div>
+                                </a>
                             </div>
-                        </a>
-                        </div>
-                        <div class="produkt-wrapper"><a href="" class="produkt-link">
-                            <div class="produkt-karte">
-                                <div class="produkt-img-area">
-                                    <img class="produkt-img" src="image/logo_1.png"/>
-                                </div>
-                                <div class="produkt-detail-area">
-                                    <div class="produkt-detail">
-                                        <span class="produkt-ort">sadfsdfsda</span>
-                                        <span class="produkt-title">asdfscvbcvbvcbvcbadfsdfsfsdfsdfsdfdsfdsfsdfsd</span>
-                                        <hr>
-                                        <span class="produkt-preise">10,000원</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                        <div class="produkt-wrapper"><a href="" class="produkt-link">
-                            <div class="produkt-karte">
-                                <div class="produkt-img-area">
-                                    <img class="produkt-img" src=""/>
-                                </div>
-                                <div class="produkt-detail-area">
-                                    <div class="produkt-detail">
-                                        <span class="produkt-ort">sadfsdfsda</span>
-                                        <span class="produkt-title">asdfscvbcvbvcbvcbadfsdfsfsdfsdfsdfdsfdsfsdfsd</span>
-                                        <hr>
-                                        <span class="produkt-preise">10,000원</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                        <div class="produkt-wrapper"><a href="" class="produkt-link">
-                            <div class="produkt-karte">
-                                <div class="produkt-img-area">
-                                    <img class="produkt-img" src=""/>
-                                </div>
-                                <div class="produkt-detail-area">
-                                    <div class="produkt-detail">
-                                        <span class="produkt-ort">sadfsdfsda</span>
-                                        <span class="produkt-title">asdfscvbcvbvcbvcbadfsdfsfsdfsdfsdfdsfdsfsdfsd</span>
-                                        <hr>
-                                        <span class="produkt-preise">10,000원</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
                         </div>
                     </div>
                 </div>
+                <a href="/host/regist" style="width: inherit">
+                    <img class="host-join" style="width: inherit" src="/image/host/host_regist_banner.jpg"/>
+                </a>
             </div>
-            <a href="/host/regist" style="width: inherit">
-                <img class="host-join" style="width: inherit" src="/image/host/host_regist_banner.jpg"/>
-            </a>
         </div>
     </div>
-</div>
 </div>
 <div th:replace="~{/common/footer ::footer}"></div>
 </body>

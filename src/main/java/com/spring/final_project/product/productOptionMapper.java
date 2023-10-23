@@ -2,6 +2,8 @@ package com.spring.final_project.product;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface productOptionMapper {
 
@@ -15,5 +17,8 @@ public interface productOptionMapper {
 
 	public productOptionDomain OneOptionByProduct(int productNum);
 
-	public productOptionDomain optionsByProduct(int productNum);
+	public List<productOptionDomain> optionsByProduct(int productNum);
+	public productOptionDomain optionsById(int optionId);
+
+
 }

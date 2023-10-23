@@ -8,6 +8,10 @@ public class apiConfig {
 	public final static String KAKAO_LOGIN_URL = String.format("redirect:https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code",
 			KAKAO_REST_API_KEY, KAKAO_REDIRECT_URI);
 
+	public static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
+	public static final String ADMIN_KEY = "6e0bb1b64847c937a7f4ad3a6414b04e";
+
+
 	public final static String NAVER_FROM_NUMBER = "01085957675";
 	public final static String NAVER_ACCESSKEY = "tBaczgc0CzXIagsA6uh4";
 	// 2차 인증을 위해 서비스마다 할당되는 service secret

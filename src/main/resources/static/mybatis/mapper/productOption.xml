@@ -15,9 +15,14 @@
     </select>
 
     <select id="optionsByProduct" resultMap="productOptionMap">
-        select option_name, price
+        select option_id, option_name, price
         from product_option
         where produc_num = #{producNum};
+    </select>
+    <select id="optionsById" resultMap="productOptionMap">
+        select option_id, option_name, price
+        from product_option
+        where option_id = #{optionId};
     </select>
 
     <resultMap id="productOptionMap" type="productOptionDomain">

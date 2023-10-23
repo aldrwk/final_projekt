@@ -30,6 +30,8 @@
     font-weight: bold;
     position: relative;
     bottom: 46px;
+    padding-left: 20px;
+    font-size: 20px;
 }
 .pay-product-option {
     display: inline-block;

@@ -14,6 +14,8 @@ public interface productOptionService {
 
 	public productOptionDomain OneOptionByProduct(int productNum);
 
-	public productOptionDomain optionsByProduct(int productNum);
+	public List<productOptionDomain> optionsByProduct(int productNum);
+
+	public productOptionDomain optionsById(int optionId);
 
 }

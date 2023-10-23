@@ -1,8 +1,9 @@
 package com.spring.final_project.api.kakao;
 
-import com.spring.final_project.member.memberDomain;
-import com.spring.final_project.member.memberService;
+import com.spring.final_project.member.*;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -10,19 +11,22 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.spring.final_project.api.util.apiConfig.KAKAO_REDIRECT_URI;
-import static com.spring.final_project.api.util.apiConfig.KAKAO_REST_API_KEY;
+import static com.spring.final_project.api.util.apiConfig.*;
 import static com.spring.final_project.util.dateService.LocalToDayTime;
 
 @Service
-public class KakaoService {
-	private kakaoAcountDto kakaoAcountDto;
+public class KakaoLoginService {
+
+
+	private static final Logger log = LoggerFactory.getLogger(KakaoLoginService.class);
 
 	private memberService memberService;
+//	private kakaoAcountDto kakaoAcountDto;
+//	private kakaoPayDto kakaoPayDto;
 
 	@Autowired
-	public KakaoService(kakaoAcountDto kakaoAcountDto, memberService memberService) {
-		this.kakaoAcountDto = kakaoAcountDto;
+	public KakaoLoginService(/*kakaoAcountDto kakaoAcountDto,*/ memberService memberService) {
+//		this.kakaoAcountDto = kakaoAcountDto;
 		this.memberService = memberService;
 	}
 
@@ -63,7 +67,7 @@ public class KakaoService {
 	}
 
 	// 카카오 액세스 토큰을 사용해 유저 정보 요청
-	public memberDomain getKakaoProfile(String accessToken) {
+	public memberDomain getKakaoProfile(String accessToken, kakaoAcountDto kakaoAcountDto) {
 
 		///유저정보 요청
 		RestTemplate restTemplate = new RestTemplate();
@@ -141,4 +145,6 @@ public class KakaoService {
 		return member;
 	}
 
+
 }
+
