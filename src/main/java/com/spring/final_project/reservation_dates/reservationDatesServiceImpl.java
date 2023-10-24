@@ -45,4 +45,11 @@ public class reservationDatesServiceImpl implements reservationDatesService {
 	public reservationDatesDomain findById(int reservationId) {
 		return reservationDatesMapper.findById(reservationId);
 	}
+
+
+	@Override
+	@Transactional
+	public int getId(int productNum) {
+		return reservationDatesMapper.getId(productNum);
+	}
 }

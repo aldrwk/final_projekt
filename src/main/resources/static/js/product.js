@@ -17,6 +17,7 @@ $(function () {
     function totalPay() {
         let price = $(".option-list.select").find(".option-price").text().replace(/\D/g, '');
         let cnt = $(".option-popup-cnt").text();
+        $("#quantity").val(cnt);
         console.log(price);
         $(".total-price").html((price * cnt).toLocaleString() + "원");
         $("#totalPrice").val((price * cnt));
@@ -56,6 +57,10 @@ $(function () {
         $(this).removeClass("more");
         $(this).children().eq(0).html("상세정보 더보기 ");
         $(this).children().eq(1).removeClass("arrow-turn");
+    });
+
+    $(".pay-btn").click(function () {
+
     });
 
 

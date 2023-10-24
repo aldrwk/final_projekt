@@ -6,16 +6,19 @@
 
     <insert id="insert" parameterType="reservationDatesDomain">
         insert into reservation_dates
-        values (null, #{producNum}, #{reservDate}, #{endDate}, #{validPerson}, #{maxRegisterPerOne}, #{closeDate}, #{registDate},
+        values (null, #{producNum}, #{reservDate}, #{endDate}, #{closeDate}, #{registDate},
                 #{updateDate})
     </insert>
     
     <select id="findByProductNum" resultMap="reservationDatesMap">
-        select reservation_id, reserv_date, end_date, valid_person, max_register_per_one, close_date from reservation_dates where produc_num = #{producNum}
+        select reservation_id, reserv_date, end_date, close_date from reservation_dates where produc_num = #{producNum}
     </select>
     <select id="findById" resultMap="reservationDatesMap">
         select reservation_id, reserv_date, end_date
-        from reservation_dates where reservation_id = ${reservationId}
+        from reservation_dates where reservation_id = #{reservationId}
+    </select>
+    <select id="getId" resultType="int">
+        select reservation_id from reservation_dates where produc_num = #{producNum} order by reservation_id desc limit 1
     </select>
 
 
@@ -25,9 +28,6 @@
         <result column="produc_num" property="producNum"/>
         <result column="reserv_date" property="reservDate"/>
         <result column="end_date" property="endDate"/>
-        <result column="valid_person" property="validPerson"/>
-        <result column="conntent" property="conntent" />
-        <result column="max_register_per_one" property="maxRegisterPerOne"/>
         <result column="close_date" property="closeDate"/>
         <result column="regist_date" property="registDate"/>
         <result column="update_date" property="updateDate"/>

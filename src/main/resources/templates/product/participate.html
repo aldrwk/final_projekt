@@ -22,7 +22,7 @@
 <div class="mainContainer">
     <div th:replace=/common/header :: header></div>
     <div class="participate-container">
-        <div class="participate-title" th:text="${product.title}">상품 제목</div>
+        <div class="participate-title" th:text="${productTitle}">상품 제목</div>
         <div class="participate-calender-area">
             <div class="participate-calender">
                 <div th:replace="/product/reserv_calendar"></div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="date-selected">선택한 날짜</div>
                 </div>
-                <div class="option-list"></div>
+                <div class="option-list" style="display: none"></div>
                 <div class="total-price-area">
                     <div class="total-price-title">총 액</div>
                     <div class="total-price">0 원</div>
@@ -43,6 +43,7 @@
         </div>
         <form action="/pay/pay-method" method="post">
             <input type="hidden" name="totalPrice" id="totalPrice">
+            <input type="hidden" name="quantity" id="quantity">
             <input type="hidden" name="reservId" id="reservId">
             <input type="hidden" name="optionId" id="optionId">
             <input type="hidden" name="productNum" id="productNum" th:value="${productNum}">

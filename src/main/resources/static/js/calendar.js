@@ -171,6 +171,8 @@ $(function () {
                 maxPeople: maxPeople, maxPerson: maxPerson
             }
         })
+        $("#validPerson").val(maxPeople);
+        $("#maxRegisterPerOne").val(maxPerson)
         console.log(calendar.getEvents());
         $(".close").click();
     });

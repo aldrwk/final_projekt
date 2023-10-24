@@ -11,8 +11,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.spring.final_project.api.util.apiConfig.*;
-import static com.spring.final_project.util.dateService.LocalToDayTime;
+import static com.spring.final_project.api.util.ApiConfig.*;
+import static com.spring.final_project.util.DateService.LocalToDayTime;
 
 @Service
 public class KakaoLoginService {
@@ -20,12 +20,12 @@ public class KakaoLoginService {
 
 	private static final Logger log = LoggerFactory.getLogger(KakaoLoginService.class);
 
-	private memberService memberService;
+	private MemberService memberService;
 //	private kakaoAcountDto kakaoAcountDto;
 //	private kakaoPayDto kakaoPayDto;
 
 	@Autowired
-	public KakaoLoginService(/*kakaoAcountDto kakaoAcountDto,*/ memberService memberService) {
+	public KakaoLoginService(/*kakaoAcountDto kakaoAcountDto,*/ MemberService memberService) {
 //		this.kakaoAcountDto = kakaoAcountDto;
 		this.memberService = memberService;
 	}
@@ -67,7 +67,7 @@ public class KakaoLoginService {
 	}
 
 	// 카카오 액세스 토큰을 사용해 유저 정보 요청
-	public memberDomain getKakaoProfile(String accessToken, kakaoAcountDto kakaoAcountDto) {
+	public MemberDomain getKakaoProfile(String accessToken, KakaoAcountDto kakaoAcountDto) {
 
 		///유저정보 요청
 		RestTemplate restTemplate = new RestTemplate();
@@ -95,11 +95,11 @@ public class KakaoLoginService {
 		kakaoAcountDto.setProfile(profile);
 		kakaoAcountDto.setMobileNum(mobileNum);
 		kakaoAcountDto.setAccessToken(accessToken);
-		memberDomain member = registAccount(kakaoAcountDto);
+		MemberDomain member = registAccount(kakaoAcountDto);
 		return member;
 	}
 
-	public void logoutProc(kakaoAcountDto kakaoAcountDto) {
+	public void logoutProc(KakaoAcountDto kakaoAcountDto) {
 		String accessToken = kakaoAcountDto.getAccessToken();
 
 		// POST방식으로 key=value 데이터 요청
@@ -122,16 +122,16 @@ public class KakaoLoginService {
 		System.out.println(response);
 	}
 
-	public memberDomain registAccount(kakaoAcountDto kakaoAcount) {
+	public MemberDomain registAccount(KakaoAcountDto kakaoAcount) {
 		String mobileNum = kakaoAcount.getMobileNum().replaceAll("[^0-9]", "");
 
 		if (!mobileNum.startsWith("0")) {
 			mobileNum = "0" + mobileNum.substring(2);
 		}
-		memberDomain member = new memberDomain();
+		MemberDomain member = new MemberDomain();
 		member = memberService.findById(kakaoAcount.getEmail());
 		if (member == null) {
-			member = new memberDomain();
+			member = new MemberDomain();
 			member.setEmail(kakaoAcount.getEmail());
 			member.setPassword("");
 			member.setName(kakaoAcount.getName());
