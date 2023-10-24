@@ -14,4 +14,6 @@ public interface reservationDatesService {
 	public List<reservationDatesDomain> findByProductNum(int productNum);
 
 	public reservationDatesDomain findById(int reservationId);
+
+	public int getId(int productNum);
 }

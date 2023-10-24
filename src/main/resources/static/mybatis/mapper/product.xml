@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.spring.final_project.product.productMapper">
+<mapper namespace="com.spring.final_project.product.ProductMapper">
 
     <insert id="insert" parameterType="productDomain">
         insert into product
@@ -30,6 +30,18 @@
         from product
         where produc_num = #{productNum};
     </select>
+    <select id="getTitleByProductNum" resultType="String">
+        select title
+        from product
+        where produc_num = #{productNum};
+    </select>
+    <select id="forPayByProductNum" resultMap="productMap">
+        select produc_num, title, thumnail
+        from product
+        where produc_num = #{productNum};
+
+    </select>
+
     <select id="findByHostNum" resultMap="productMap">
         select title,
                area,
@@ -87,6 +99,7 @@
         <result column="address_detail" property="addressDetail"/>
         <result column="area_detail" property="areaDetail"/>
         <result column="sec_cate_num" property="secCateNum"/>
+        <result column="thumnail" property="thumnail"/>
         <result column="conntent" property="conntent"/>
         <result column="produc_regit_date" property="producRegitDate"/>
         <result column="produc_update_date" property="producUpdateDate"/>

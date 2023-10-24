@@ -59,11 +59,11 @@ $(function () {
         const option_add = "<div class=\"option-row\">" +
             "<div class=\"option-box\">\n" +
             "<span class=\"option-name\">옵션명</span>\n" +
-            "<input type=\"text\" class=\"manage-info-input option-input\" maxlength=\"20\">\n" +
+            "<input type=\"text\" class=\"manage-info-input option-input optionName\" maxlength=\"20\" name=\"optionName\">\n" +
             "</div>\n" +
             "<div class=\"option-box\">\n" +
             "<span class=\"option-name\">판매가</span>\n" +
-            "<input type=\"text\" class=\"manage-info-input option-input preis\" maxlength=\"12\">\n" +
+            "<input type=\"text\" class=\"manage-info-input option-input preis price\" maxlength=\"12\" id=\"price\" name=\"price\">\n" +
             "<span class=\"preis-won\">원</span>\n" +
             "</div>\n" +
             "<div class=\"option-box option-btn-frame\">\n" +
@@ -157,8 +157,19 @@ $(function () {
             events.push(obj);
         }
         var jsondata = JSON.stringify(events);
-        console.log(jsondata);
+        var options = new Array();
+        for (var i = 0; i < $(".optionName").length; i++) {
+            var obj = new Object();
+            obj.optionName = $(".optionName").eq(i).val();
+            obj.price = $(".price").eq(i).val();
+            obj.validPerson = $("#validPerson").val();
+            obj.maxRegisterPerOne = $("#maxRegisterPerOne").val();
+            options.push(obj);
+        }
+        var optionJson = JSON.stringify(options);
+        console.log(optionJson);
         $("#events").val(jsondata);
+        $("#options").val(optionJson);
         $("#product_regist").submit();
     });
 

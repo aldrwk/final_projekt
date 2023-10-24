@@ -1,6 +1,5 @@
 package com.spring.final_project.reservation_dates;
 
-import com.spring.final_project.product.productDomain;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,6 +16,8 @@ public interface reservationDatesMapper {
 
 	public List<reservationDatesDomain> findByProductNum(int productNum);
 	public reservationDatesDomain findById(int reservationId);
+
+	public int getId(int productNum);
 
 
 }

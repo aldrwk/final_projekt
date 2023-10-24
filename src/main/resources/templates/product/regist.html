@@ -90,12 +90,12 @@
                                 <div class="option-row">
                                     <div class="option-box">
                                         <span class="option-name">옵션명</span>
-                                        <input type="text" class="manage-info-input option-input" maxlength="20"
-                                               name="optionName">
+                                        <input type="text" class="manage-info-input option-input optionName" maxlength="20"
+                                               id="optionName" name="optionName">
                                     </div>
                                     <div class="option-box">
                                         <span class="option-name">판매가</span>
-                                        <input type="text" class="manage-info-input option-input preis" maxlength="12"
+                                        <input type="text" class="manage-info-input option-input preis price" maxlength="12"
                                               id="price" name="price">
                                         <span class="preis-won">원</span>
                                     </div>
@@ -112,6 +112,9 @@
                             <div class="manage-info-input-area calendar-area">
                                 <div th:replace="/product/calendar"></div>
                                 <input type="hidden" name="events" id="events">
+                                <input type="hidden" name="options" id="options">
+                                <input type="hidden" name="validPerson" id="validPerson">
+                                <input type="hidden" name="maxRegisterPerOne" id="maxRegisterPerOne">
                             </div>
                         </div>
                     </div>
@@ -131,7 +134,7 @@
 
                 </form>
             </div>
-            <button class="btn-submit btn-center product-submit">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장</button>
+            <button class="btn-submit btn-center product-submit">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button>
         </div>
     </div>
 </div>

@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.spring.final_project.member.memberMapper">
+<mapper namespace="com.spring.final_project.member.MemberMapper">
     <insert id="insert" parameterType="memberDomain">
         insert into member
         values (null, #{email}, #{password}, #{name}, #{mobileNum}, #{profile}, #{authorization}, #{accountType},
                 #{createDate}, #{changeDate})
     </insert>
     <select id="findById" resultType="memberDomain" resultMap="memberMap">
-        select email, name, mobile_num, profile, account_type
+        select num, email, name, mobile_num, profile, account_type
         from member
         where email = #{email}
     </select>

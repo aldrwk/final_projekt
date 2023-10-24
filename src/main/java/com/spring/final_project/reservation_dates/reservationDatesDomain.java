@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 public class reservationDatesDomain {
 
-	int reservationId, producNum, validPerson, maxRegisterPerOne;
+	int reservationId, producNum;
 
 	LocalDateTime reservDate, endDate, closeDate, registDate, updateDate;
 }

@@ -19,13 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 //	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Autowired
-	private memberMapper member;
+	private MemberMapper member;
 
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("username = " + username);
-		memberDomain user = member.login(username);
+		MemberDomain user = member.login(username);
 		if (user == null) {
 			logger.info("username" + username + " not found");
 			throw new UsernameNotFoundException("username" + username + " not found");

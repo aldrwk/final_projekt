@@ -5,7 +5,7 @@
     <script src="/js/header.js"></script>
     <script th:inline="javascript">
         reservationDate = /*[[${reservationDate}]]*/ null
-        option = /*[[${productOptions}]]*/ null
+        option = /*[[${productoptions}]]*/ null
         totalPrice =  /*[[${totalPrice}]]*/ null
     </script>
     <script src="/js/product.js"></script>
@@ -61,13 +61,10 @@
                 </div>
             </fieldset>
         </div>
-
-
         <hr>
-
         <div class="pay-price-area">
             <div class="pay-price-title">총 결제 금액</div>
-            <div class="pay-price-total" >0원</div>
+            <div class="pay-price-total">0원</div>
         </div>
         <div class="agreement-area">
             <div class="agreement-box">
@@ -83,10 +80,11 @@
         <div class="pay-btn-area">
             <form action="/api/pay/ready" method="post">
                 <input type="hidden" name="totalPrice" id="totalPrice" th:value="${totalPrice}">
+                <input type="hidden" name="quantity" id="quantity" th:value="${quantity}">
                 <input type="hidden" name="reservId" id="reserv" th:value="${reservationDate}">
-                <input type="hidden" name="optionId" id="option" th:value="${option}">
-                <input type="hidden" name="productNum" id="productNum" th:value="${productNum}">
-            <button type="submit" class="btn pay-btn">결&nbsp;제&nbsp;하&nbsp;기</button>
+                <input type="hidden" name="optionId" id="option" th:value="${optionId}">
+                <button type="submit" class="btn pay-btn">결&nbsp;제&nbsp;하&nbsp;기</button>
+            </form>
         </div>
 
     </div>

@@ -14,13 +14,10 @@ $(function () {
         reservDate = date.getMonth() + 1 + "월 " + date.getDate() + "일 (" + days[date.getDay()] + ") " + ampm + " " + date.getHours() + " : " + Minutes;
         $(".pay-product-date").text(reservDate);
         $(".pay-product-info").text(option.optionName);
+        console.log(option)
     }
 
     totalPrice = parseInt(totalPrice).toLocaleString();
     $(".pay-price-total").text(totalPrice + "원");
 
-
-    $(".pay-btn").click(function () {
-
-    });
 });

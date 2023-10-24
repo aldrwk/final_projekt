@@ -7,9 +7,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.spring.final_project.api.util.apiConfig.ADMIN_KEY;
-import static com.spring.final_project.api.util.apiConfig.cid;
-import static org.junit.jupiter.api.Assertions.*;
+import static com.spring.final_project.api.util.ApiConfig.ADMIN_KEY;
+import static com.spring.final_project.api.util.ApiConfig.cid;
 
 class KakaoLoginServiceTest {
 
@@ -26,7 +25,7 @@ class KakaoLoginServiceTest {
 	}
 	@Test
 	void kakaoPayReady() {
-		kakaoPayReadyDto kakaoPayReadyDto = new kakaoPayReadyDto();
+		KakaoPayReadyDto kakaoPayReadyDto = new KakaoPayReadyDto();
 		// 카카오페이 요청 양식
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("cid", cid);
@@ -54,7 +53,7 @@ class KakaoLoginServiceTest {
 		System.out.println(restTemplate.postForObject(
 				"https://kapi.kakao.com/v1/payment/ready",
 				requestEntity,
-				kakaoPayReadyDto.class));
+				KakaoPayReadyDto.class));
 //		System.out.println(kakaoPayReadyDto);
 	}
 }

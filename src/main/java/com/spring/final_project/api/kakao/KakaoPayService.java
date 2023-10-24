@@ -1,5 +1,7 @@
 package com.spring.final_project.api.kakao;
 
+import com.spring.final_project.product.ProductDomain;
+import com.spring.final_project.product.ProductOptionDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -9,31 +11,19 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.spring.final_project.api.util.apiConfig.ADMIN_KEY;
-import static com.spring.final_project.api.util.apiConfig.cid;
+import static com.spring.final_project.api.util.ApiConfig.*;
 
 @Service
 public class KakaoPayService {
 	private static final Logger log = LoggerFactory.getLogger(KakaoLoginService.class);
 
-	kakaoPayReadyDto kakaoPayReadyDto;
+	KakaoPayReadyDto kakaoPayReadyDto;
 
 
-	public kakaoPayReadyDto kakaoPayReady() {
+	public KakaoPayReadyDto kakaoPayReady(ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId) {
 		// 카카오페이 요청 양식
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-		parameters.add("cid", cid);
-		parameters.add("partner_order_id", "가맹점 주문 번호");
-		parameters.add("partner_user_id", "가맹점 회원 ID");
-		parameters.add("item_name", "상품명");
-		parameters.add("quantity", "1");
-		parameters.add("total_amount", "10000");
-		parameters.add("vat_amount", "0");
-		parameters.add("tax_free_amount", "0");
-		parameters.add("approval_url", "http://localhost/api/pay/success"); // 성공 시 redirect url
-		parameters.add("cancel_url", "http://localhost/api/pay/cancel"); // 취소 시 redirect url
-		parameters.add("fail_url", "http://localhost/api/pay/fail"); // 실패 시 redirect url
-
+		parameters = setPayReadyParmeter(parameters, product, option, quantity, totalPrice, partnerOrderId);
 		// 파라미터, 헤더
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -44,18 +34,18 @@ public class KakaoPayService {
 		kakaoPayReadyDto = restTemplate.postForObject(
 				"https://kapi.kakao.com/v1/payment/ready",
 				requestEntity,
-				kakaoPayReadyDto.class);
+				KakaoPayReadyDto.class);
 		log.info(kakaoPayReadyDto.toString());
 		return kakaoPayReadyDto;
 	}
 
-	public KakaoApproveResponse ApproveResponse(String pgToken) {
+	public KakaoApproveResponse ApproveResponse(String pgToken, String partnerOrderId) {
 		// 카카오 요청
 		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 		parameters.add("cid", cid);
 		parameters.add("tid", kakaoPayReadyDto.getTid());
-		parameters.add("partner_order_id", "가맹점 주문 번호");
-		parameters.add("partner_user_id", "가맹점 회원 ID");
+		parameters.add("partner_order_id", partnerOrderId);
+		parameters.add("partner_user_id", "Free");
 		parameters.add("pg_token", pgToken);
 
 		// 파라미터, 헤더
@@ -80,5 +70,26 @@ public class KakaoPayService {
 		httpHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
 		return httpHeaders;
+	}
+
+	private static MultiValueMap<String, String> setPayReadyParmeter(MultiValueMap<String, String> parameters, ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId ) {
+		final String ZERO = "0";
+		String productName = product.getTitle();
+		String optionName = option.getOptionName();
+		String itemName = productName + " " + optionName;
+
+		parameters.add("cid", cid);
+		parameters.add("partner_order_id", partnerOrderId);
+		parameters.add("partner_user_id", "Free");
+		parameters.add("item_name", itemName);
+		parameters.add("quantity", quantity);
+		parameters.add("total_amount", totalPrice);
+		parameters.add("vat_amount", ZERO);
+		parameters.add("tax_free_amount", ZERO);
+		parameters.add("approval_url", APPROVAL_URL); // 성공 시 redirect url
+		parameters.add("cancel_url", CANCEL_URL); // 취소 시 redirect url
+		parameters.add("fail_url", FAIL_URL); // 실패 시 redirect url
+
+		return parameters;
 	}
 }
