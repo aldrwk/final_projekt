@@ -6,13 +6,33 @@
 
     <insert id="insert" parameterType="PayHistoryDomain">
         insert into pay_history
-        values (null, #{payerNum}, #{reservNum}, #{payMethod}, #{cardNum}, #{payPrice},#{payDate})
+        values (null, #{payerNum}, #{reservNum}, #{payMethod}, #{cardNum}, #{payPrice}, #{payDate})
     </insert>
 
-    <select id="getReservNum" resultType="int">
-        select reserv_num from reservation where member_num = #{memberNum} order by reserv_num desc limit 1
+    <select id="totalProfit" resultType="Integer">
+        select ifnull(sum(pay_price), 0)
+        from product
+                 natural join reservation
+                 natural join pay_history
+        where host_num = #{hostNum};
     </select>
 
+    <select id="profitInThisMonth" resultType="Integer">
+        select ifnull(sum(pay_price), 0)
+        from product
+                 natural join reservation
+                 natural join pay_history
+        where host_num = #{hostNum}
+          and pay_date like #{thisMonth};
+    </select>
+
+    <select id="countPay" resultType="Integer">
+        select count(produc_num)
+        from pay_history
+                 natural join reservation
+                 natural join product
+        where host_num = #{hostNum};
+    </select>
 
     <resultMap id="PayHistoryMap" type="PayHistoryDomain">
         <result column="pay_num" property="payNum"/>

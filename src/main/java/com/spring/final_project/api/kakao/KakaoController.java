@@ -2,6 +2,7 @@ package com.spring.final_project.api.kakao;
 
 import com.spring.final_project.member.MemberDomain;
 import com.spring.final_project.member.MemberService;
+import com.spring.final_project.payment.PaymentService;
 import com.spring.final_project.product.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,14 +28,18 @@ public class KakaoController {
 	private KakaoPayService kakaoPayService;
 	private ProductOptionService productOptionService;
 
+	private PaymentService paymentService;
+
 
 	@Autowired
-	public KakaoController(KakaoLoginService kakaoLoginService, KakaoAcountDto kakaoAcountDto, MemberService memberService, KakaoPayService kakaoPayService, ProductOptionService productOptionService) {
+	public KakaoController(KakaoLoginService kakaoLoginService, KakaoAcountDto kakaoAcountDto, MemberService memberService, KakaoPayService kakaoPayService, ProductOptionService productOptionService, PaymentService paymentService) {
 		this.kakaoLoginService = kakaoLoginService;
 		this.kakaoAcountDto = kakaoAcountDto;
 		this.memberService = memberService;
 		this.kakaoPayService = kakaoPayService;
 		this.productOptionService = productOptionService;
+		this.paymentService = paymentService;
+
 	}
 
 	@GetMapping("/login/kakaoauth")
@@ -73,28 +78,34 @@ public class KakaoController {
 		ProductOptionDomain option = productOptionService.optionsById(optionId);
 		ProductDomain product = (ProductDomain) session.getAttribute("product");
 		MemberDomain member = (MemberDomain) session.getAttribute("user_info");
-		String partnerOrderId = member.getNum()+"_"+product.getProducNum() + "_" + option.getOptionId();
-		String redirectUrl = kakaoPayService.kakaoPayReady(product, option, quantity,totalPrice, partnerOrderId).getNext_redirect_pc_url();
-		session.setAttribute("partnerOrderId",partnerOrderId);
-		session.setAttribute("optionId", optionId);
+		String partnerOrderId = member.getNum() + "_" + product.getProducNum() + "_" + option.getOptionId();
+		log.info(quantity+ "요청 수량확인!!!!!!!!!!!!!!!!!!!!");
+		KakaoPayReadyDto kakaoPayReadyDto = kakaoPayService.kakaoPayReady(product, option, quantity, totalPrice, partnerOrderId);
+		if (kakaoPayReadyDto == null) {
+
+			return "redirect:/api/pay/fail";
+		}
+		String redirectUrl = kakaoPayReadyDto.getNext_redirect_pc_url();
+		session.setAttribute("partnerOrderId", partnerOrderId);
+//		session.setAttribute("optionId", optionId);
+//		session.setAttribute("quantity", quantity);
 		return "redirect:" + redirectUrl;
 	}
 
-
 	@GetMapping("/pay/success")
 	public String afterPayRequest(@RequestParam("pg_token") String pgToken, Model model, HttpSession session) {
-		int optionId = (int) session.getAttribute("optionId");
 		String partnerOrderId = (String) session.getAttribute("partnerOrderId");
-		log.info("옵션 아이디 " +optionId);
-		int rest = productOptionService.getRestById(optionId);
-		if (rest > 0) {
-			productOptionService.restDown(optionId);
-			KakaoApproveResponse kakaoApprove = kakaoPayService.ApproveResponse(pgToken,partnerOrderId);
+		KakaoApproveResponse kakaoApprove = kakaoPayService.ApproveResponse(pgToken, partnerOrderId);
+//		session.removeAttribute("optionId");
+//		session.removeAttribute("quantity");
+		if (kakaoApprove != null) {
 			session.setAttribute("payInfo", kakaoApprove);
 		}
 		log.info(session.getAttribute("payInfo").toString());
 		return "redirect:/reservation/result";
 	}
+
+
 	/**
 	 * 결제 진행 중 취소
 	 */

@@ -1,6 +1,6 @@
 $(function () {
 
-        $(document).on("click", ".regist-menu", function () {
+    $(document).on("click", ".regist-menu", function () {
         $(".checked").removeClass("checked");
         $(this).addClass("checked");
         if ($(".checked").text() == "기본 정보") {
@@ -10,7 +10,9 @@ $(function () {
         if ($(".checked").text() == "판매 정보") {
             $(".clicked").removeClass("clicked");
             $(".sales-info").addClass("clicked");
-            callCalendar();
+            if (!$("#calendar").hasClass("fc")) {
+                callCalendar();
+            }
         }
         if ($(".checked").text() == "프리 설명") {
             $(".clicked").removeClass("clicked");
@@ -76,7 +78,8 @@ $(function () {
 
         if ($(".option-row").length == 5) {
             return false;
-        };
+        }
+        ;
         $(".option-row:last").after(option_add);
     });
 
@@ -143,7 +146,6 @@ $(function () {
     }
 
 
-
     $(document).on("click", ".product-submit", function () {
         var allEvent = calendar.getEvents(); // .getEvents() 함수로 모든 이벤트를 Array 형식으로 가져온다. (FullCalendar 기능 참조)
         var events = new Array(); // Json 데이터를 받기 위한 배열 선언
@@ -173,4 +175,4 @@ $(function () {
         $("#product_regist").submit();
     });
 
-    });
+});

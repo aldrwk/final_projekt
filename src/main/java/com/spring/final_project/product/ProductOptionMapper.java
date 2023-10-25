@@ -3,6 +3,7 @@ package com.spring.final_project.product;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProductOptionMapper {
@@ -20,7 +21,7 @@ public interface ProductOptionMapper {
 	public List<ProductOptionDomain> optionsByProduct(int productNum);
 	public ProductOptionDomain optionsById(int optionId);
 	public int getRestById(int optionId);
-	public int restDown(int optionId);
+	public int restDown(Map<String, Object> restDownMap);
 
 
 

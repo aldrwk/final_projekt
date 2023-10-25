@@ -1,15 +1,20 @@
 package com.spring.final_project.api.kakao;
 
-import com.spring.final_project.product.ProductDomain;
-import com.spring.final_project.product.ProductOptionDomain;
+import com.spring.final_project.payment.PaymentService;
+import com.spring.final_project.product.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.spring.final_project.api.util.ApiConfig.*;
 
@@ -18,25 +23,44 @@ public class KakaoPayService {
 	private static final Logger log = LoggerFactory.getLogger(KakaoLoginService.class);
 
 	KakaoPayReadyDto kakaoPayReadyDto;
+	private ProductOptionService productOptionService;
+	private PaymentService paymentService;
 
+	@Autowired
+	public KakaoPayService(ProductOptionService productOptionService, PaymentService paymentService) {
+		this.productOptionService = productOptionService;
+		this.paymentService = paymentService;
+	}
 
+	@Transactional
 	public KakaoPayReadyDto kakaoPayReady(ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId) {
-		// 카카오페이 요청 양식
-		MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
-		parameters = setPayReadyParmeter(parameters, product, option, quantity, totalPrice, partnerOrderId);
-		// 파라미터, 헤더
-		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+		int optionId = option.getOptionId();
+		int restCheckResult = paymentService.restCheck(optionId, quantity);
+		int intQuantity = Integer.parseInt(quantity);
+		log.info("재고 체크 : "+ restCheckResult);
 
-		// 외부에 보낼 url
-		RestTemplate restTemplate = new RestTemplate();
+		if (restCheckResult > 0) {
+			Map<String, Object> restDownMap = new HashMap<>();
+			restDownMap.put("optionId", optionId);
+			restDownMap.put("quantity", intQuantity);
+			productOptionService.restDown(restDownMap);
+			// 카카오페이 요청 양식
+			MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+			parameters = setPayReadyParmeter(parameters, product, option, quantity, totalPrice, partnerOrderId);
+			// 파라미터, 헤더
+			HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+			// 외부에 보낼 url
+			RestTemplate restTemplate = new RestTemplate();
+			kakaoPayReadyDto = restTemplate.postForObject(
+					"https://kapi.kakao.com/v1/payment/ready",
+					requestEntity,
+					KakaoPayReadyDto.class);
+			log.info(kakaoPayReadyDto.toString());
+			return kakaoPayReadyDto;
+		} else {
+			return kakaoPayReadyDto;
+		}
 
-
-		kakaoPayReadyDto = restTemplate.postForObject(
-				"https://kapi.kakao.com/v1/payment/ready",
-				requestEntity,
-				KakaoPayReadyDto.class);
-		log.info(kakaoPayReadyDto.toString());
-		return kakaoPayReadyDto;
 	}
 
 	public KakaoApproveResponse ApproveResponse(String pgToken, String partnerOrderId) {
@@ -61,6 +85,7 @@ public class KakaoPayService {
 
 		return approveResponse;
 	}
+
 	private HttpHeaders getHeaders() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 
@@ -72,7 +97,7 @@ public class KakaoPayService {
 		return httpHeaders;
 	}
 
-	private static MultiValueMap<String, String> setPayReadyParmeter(MultiValueMap<String, String> parameters, ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId ) {
+	private static MultiValueMap<String, String> setPayReadyParmeter(MultiValueMap<String, String> parameters, ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId) {
 		final String ZERO = "0";
 		String productName = product.getTitle();
 		String optionName = option.getOptionName();

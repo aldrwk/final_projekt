@@ -29,11 +29,12 @@
         from product_option
         where option_id = #{optionId} for update;
     </select>
-    <update id="restDown" parameterType="int">
+    <update id="restDown" parameterType="Map">
         update product_option
-        set rest = rest - 1
+        set rest = rest - #{quantity}
         where option_id = #{optionId}
     </update>
+
 
     <resultMap id="productOptionMap" type="productOptionDomain">
         <result column="option_id" property="optionId"/>

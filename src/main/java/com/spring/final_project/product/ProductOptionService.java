@@ -1,6 +1,7 @@
 package com.spring.final_project.product;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductOptionService {
 
@@ -20,7 +21,7 @@ public interface ProductOptionService {
 
 	public ProductOptionDomain optionsById(int optionId);
 	public int getRestById(int optionId);
-	public int restDown(int optionId);
+	public int restDown(Map<String, Object> restDownMap);
 
 
 }

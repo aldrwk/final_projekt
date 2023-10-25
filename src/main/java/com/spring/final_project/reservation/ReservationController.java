@@ -3,12 +3,11 @@ package com.spring.final_project.reservation;
 import com.spring.final_project.api.kakao.KakaoApproveResponse;
 import com.spring.final_project.member.MemberController;
 import com.spring.final_project.payment.PayHistoryDomain;
-import com.spring.final_project.payment.PayHistoryService;
+import com.spring.final_project.payment.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,10 +20,10 @@ public class ReservationController {
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
 	ReservationService reservationService;
-	PayHistoryService payHistoryService;
+	PaymentService payHistoryService;
 
 	@Autowired
-	public ReservationController(ReservationService reservationService, PayHistoryService payHistoryService) {
+	public ReservationController(ReservationService reservationService, PaymentService payHistoryService) {
 		this.reservationService = reservationService;
 		this.payHistoryService = payHistoryService;
 	}

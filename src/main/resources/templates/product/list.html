@@ -1,0 +1,43 @@
+<div class="manage-info-area" th:fragment="list">
+    <div class="manage-info-header">
+        <span class="manage-info-title">프리 목록</span>
+    </div>
+    <div class="manage-info-frame profile-frame">
+        <div class="manage-info-table profile-area">
+            <div class="manage-info-profile-step">
+                <span class="registed-free-text" th:text="'등록된 프리 : '+ ${productCount}+ '개'">등록된 프리 : ? 개</span>
+                <div class="registed-container">
+                    <div class="registed-free-area" th:each="product : ${products}" th:if="${products != null}">
+                        <div class="registed-free-frame">
+                            <div class="registed-free-img-area">
+                                <img class="registed-free-img" th:src="${product.thumnail}"/>
+                            </div>
+                            <div class="registed-free-text">
+                                <span th:text="${product.title}">프리 제목</span>
+                            </div>
+                            <div class="registed-free-action-area">
+                                <a class="action-btn registed-free-modify" th:href="'/product/modify/'+${product.producNum}">수정</a>
+                                <a class="action-btn registed-free-delete" th:href="'/product/delete/'+${product.producNum}">삭제</a>
+                                <a class="action-btn registed-free-move" th:href="'/product/'+${product.producNum}">바로가기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="registed-free-null" th:if="${productCount == 0}">
+                        <span class="registed-free-null-text">등록된 프리가 없습니다.</span>
+                    </div>
+                </div>
+                <div class="paging-container">
+                    <div class="paging-area">
+                        <div class="paging-frame">
+                            <button class="paging-btn">&lt;&lt;</button>
+                            <button class="paging-btn">&lt;</button>
+                            <button class="paging-btn">??</button>
+                            <button class="paging-btn">&gt;</button>
+                            <button class="paging-btn">&gt;&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

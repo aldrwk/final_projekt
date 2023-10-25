@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductOptionServiceImpl implements ProductOptionService {
@@ -88,8 +89,9 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	}
 	@Override
 	@Transactional
-	public int restDown(int optionId) {
-		return productOptionMapper.restDown(optionId);
+	public int restDown(Map<String, Object> restDownMap) {
+		return productOptionMapper.restDown(restDownMap);
 	}
+
 }
 

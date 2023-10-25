@@ -75,6 +75,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
+	public int countByHostNum(int hostNum) {
+		return productMapper.countByHostNum(hostNum);
+	}
+
+	@Override
+	@Transactional
 	public int countInThisMonth(Map<String, Object> map) {
 		return productMapper.countInThisMonth(map);
 	}
@@ -98,6 +104,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
+	public List<ProductDomain> findForHostInfo(int hostNum) {
+		return productMapper.findForHostInfo(hostNum);
+	}
+
+	@Override
+	public List<ProductDomain> findPerCategory(String firstCategoryName) {
+		return productMapper.findPerCategory(firstCategoryName);
+	}
+
+	@Override
 	public ProductDomain productSet(ProductDomain product, int hostNum, String addressDetail, int SecondCategoryNum) {
 		String[] addressArray = product.getAddress().split(" ");
 		product.setHostNum(hostNum);
@@ -109,6 +126,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setProducUpdateDate(LocalToDayTime());
 		return product;
 	}
+
 
 	@Override
 	public List<Map<String, Object>>  setProductPack(List<ProductDomain> products) {
