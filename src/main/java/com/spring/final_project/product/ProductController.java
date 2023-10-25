@@ -92,8 +92,19 @@ public class ProductController {
 
 	@GetMapping("/search")
 	public String search(String search_data, Model model) {
+
 		model.addAttribute("search_data", search_data);
+
+
 		return "product/search";
+	}
+
+	@GetMapping("/category/{categoryName}")
+	public String category(@PathVariable("categoryName") String categoryName, Model model) {
+		List<Map<String, Object>> productList = productService.setProductPack(productService.findPerCategory(categoryName));
+
+		model.addAttribute("productList", productList);
+		return "product/category";
 	}
 
 	@PostMapping("/product/regist")
@@ -102,6 +113,28 @@ public class ProductController {
 		model.addAttribute("firstcategory", firtCategory);
 		return "/product/regist ::regist";
 	}
+
+	@PostMapping("/product/list")
+	public String list(HttpSession session,HostDomain host, Model model) {
+		host = (HostDomain) session.getAttribute("host_info");
+		List<ProductDomain> productList = new ArrayList<>();
+		productList = productService.findByHostNum(host.getHostNum());
+		int productCount = productService.countByHostNum(host.getHostNum());
+		model.addAttribute("productCount", productCount);
+		model.addAttribute("products", productList);
+
+		return "/product/list ::list";
+	}
+
+	@PostMapping("/product/modify/{productNum}")
+	public String modify(@PathVariable("productNum") int productNum, Model model) {
+		List<FirstCategoryDomain> firtCategory = firstCategoryService.findAll();
+
+
+		
+		return "/product/modify ::modify";
+	}
+
 
 	@GetMapping("/product/secondcategory")
 	public String secondCategory(String name, Model model) {

@@ -23,6 +23,21 @@ $(function () {
     $(".btn-free-regist").click(function () {
         $("#free-regist").click();
     });
+    $(document).on("click", ".action-btn", function () {
+        if ($(this).hasClass("registed-free-move")) {
+            return true;
+        }
+        getPage($(this).attr("href"));
+        return false;
+    });
+
+    $(document).on("click", ".action-btn", function () {
+        if ($(this).hasClass("registed-free-move")) {
+            return true;
+        }
+        getPage($(this).attr("href"));
+        return false;
+    });
 
     function getPage(url) {
         $.ajax({
@@ -151,4 +166,10 @@ $(function () {
                 options.success(data)
             });
     }
+
+    totalProfit = totalProfit.toLocaleString();
+    $("#totalprofit").text(totalProfit + " 원");
+    profitInThisMonth = profitInThisMonth.toLocaleString();
+    $("#profitInThisMonth").text(profitInThisMonth + " 원");
+
 });

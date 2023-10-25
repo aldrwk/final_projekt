@@ -20,9 +20,10 @@ public interface ProductService {
 
 	public int findProductNum(int hostNum);
 
+	public int countByHostNum(int hostNum);
+
 	public int countInThisMonth(Map<String, Object> map);
 
-	public ProductDomain productSet(ProductDomain product, int hostNum, String addressDetail, int SecondCategoryNum);
 
 	public int viewCountUp(int productNum);
 
@@ -31,6 +32,12 @@ public interface ProductService {
 	public List<ProductDomain> findPopular();
 
 	public List<ProductDomain> findNew();
+
+	public List<ProductDomain> findForHostInfo(int hostNum);
+
+	public List<ProductDomain> findPerCategory(String firstCategoryName);
+
+	public ProductDomain productSet(ProductDomain product, int hostNum, String addressDetail, int SecondCategoryNum);
 
 	List<Map<String, Object>>  setProductPack(List<ProductDomain> products);
 }

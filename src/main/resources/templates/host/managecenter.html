@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="/css/common_util.css">
     <link rel="stylesheet" href="/css/host/center.css">
     <link rel="stylesheet" href="/css/calender.css">
+    <script th:inline="javascript">
+        var totalProfit = /*[[${totalProfit}]]*/ null
+        var profitInThisMonth = /*[[${profitInThisMonth}]]*/ null
+    </script>
     <script src="/js/hostcenter.js"></script>
     <script src="/js/productregist.js"></script>
     <meta charset="UTF-8">
@@ -56,7 +60,7 @@
                     <a href="/product/regist" class="nav-left-frame" id="free-regist">
                         <span class="navbar-left-title">프리 등록</span>
                     </a>
-                    <a href="/" class="nav-left-frame">
+                    <a href="/product/list" class="nav-left-frame" id="list">
                         <span class="navbar-left-title">프리 목록</span>
                     </a>
                     <a href="/" class="nav-left-frame">
@@ -98,16 +102,16 @@
                 <div class="manage-info-table">
                     <div class="manage-info-line">
                         <div class="manage-info-totalsale">전체 판매 금액
-                            <span class="manage-info-value"> 1,000,000,000 원</span>
+                            <span class="manage-info-value" id="totalprofit"> 0 원</span>
                         </div>
                         <div class="manage-info-totalsale">이달 판매 금액
-                            <span class="manage-info-value"> 1,000,000 원</span>
+                            <span class="manage-info-value" id="profitInThisMonth"> 0 원</span>
                         </div>
                         <div class="manage-info-totalsale">이달 진행 프리
                             <span class="manage-info-value" th:text="${freeCountInThisMonth}+ ' 개'"> 0 개</span>
                         </div>
                         <div class="manage-info-totalsale">전체 결제 건수
-                            <span class="manage-info-value"> 10 건</span>
+                            <span class="manage-info-value" th:text="${countPay}+' 개'"> 0 건</span>
                         </div>
                     </div>
                 </div>

@@ -11,8 +11,8 @@ public class ApiConfig {
 	public static final String cid = "TC0ONETIME"; // 가맹점 테스트 코드
 	public static final String ADMIN_KEY = "6e0bb1b64847c937a7f4ad3a6414b04e";
 	public static final String APPROVAL_URL = "http://localhost/api/pay/success"; // 성공 시 redirect url
-	public static final String CANCEL_URL = "http://localhost/api/pay/cancel"; // 취소 시 redirect url
-	public static final String FAIL_URL = "http://localhost/api/pay/fail";
+	public static final String CANCEL_URL = "http://localhost/pay/cancel"; // 취소 시 redirect url
+	public static final String FAIL_URL = "http://localhost/pay/fail";
 
 
 	//NAVER

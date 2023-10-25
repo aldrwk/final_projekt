@@ -676,3 +676,81 @@ input:focus {
     width: 850px;
     height: 600px;
 }
+
+.registed-free-text {
+    padding-left: 29px;
+    font-weight: bold;
+    height: 45px;
+    width: 271px;
+}
+.registed-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 45px
+}
+.registed-free-area {
+    margin: 20px 35px;
+    width: 300px;
+    height: 400px;
+
+}
+.registed-free-frame {
+    height: inherit;
+    border: 1px solid #c6c6c6;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.registed-free-img-area {
+    margin: 15px 29px;
+    width: 240px;
+    height: 240px;
+
+}
+.registed-free-img {
+    width: inherit;
+    height: inherit;
+    border-radius: 5px;
+}
+.registed-free-endday {
+    margin-top: 15px;
+    padding-left: 29px;
+}
+.registed-free-action-area {
+    width: 225px;
+    margin: 30px 36px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.action-btn {
+    color: #a6a6a6!important;
+    border: 1px solid #EEEEEE;
+    width: fit-content;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.action-btn:hover, .paging-btn:hover {
+    border: 1px solid #61C7FF;
+    color: #61C7FF!important;
+}
+
+.paging-container {
+    margin: 30px;
+}
+.paging-area {
+    display: flex;
+    justify-content: center;
+}
+.paging-btn {
+    background-color: #ffffff;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+}
+
+.registed-free-null {
+    margin: 20px auto;
+    color: #a6a6a6;
+}

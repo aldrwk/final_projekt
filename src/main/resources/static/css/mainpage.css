@@ -115,7 +115,7 @@
     border: 1px solid #EEEEEE;
 }
 
-.beliebt-cards:nth-child(4n+1) > .produkt-wrapper, .newfree-list > :nth-child(4n) {
+.beliebt-cards:nth-child(4n+1) > .produkt-wrapper, .newfree-list > :nth-child(4n), .bereich-list > :nth-child(4) {
     margin-right: 0px;
 }
 
@@ -215,5 +215,18 @@
     margin: 20px 10px;
 }
 
+.magazine-area {
+    width: inherit;
+    height: 350px;
+    margin-right: 20px;
+}
 
+.magazine-frame {
+    width: 255px;
+    height: inherit;
+}
+.magazine-img {
+    width: inherit;
+
+}
 

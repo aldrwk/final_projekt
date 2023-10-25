@@ -7,6 +7,7 @@ import com.spring.final_project.bank.BankService;
 import com.spring.final_project.category_first.FirstCategoryDomain;
 import com.spring.final_project.category_first.FirstCategoryService;
 import com.spring.final_project.member.*;
+import com.spring.final_project.payment.PaymentService;
 import com.spring.final_project.product.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static com.spring.final_project.util.DateService.*;
 import static com.spring.final_project.util.FileUploadService.imageUpload;
@@ -39,6 +42,7 @@ public class HostController {
 	private AccountService accountService;
 
 	private ProductService productService;
+	private PaymentService paymentService;
 	private ProductOptionService productOptionService;
 	private FirstCategoryService firstCategoryService;
 
@@ -46,7 +50,7 @@ public class HostController {
 
 	@Autowired
 	public HostController(MemberService memberService, PasswordEncoder passwordEncoder, HostService hostService, BankService bankService, AccountService accountService, ProductService productService,
-						  FirstCategoryService firstCategoryService, ProductOptionService productOptionService) {
+						  FirstCategoryService firstCategoryService, ProductOptionService productOptionService, PaymentService paymentService) {
 		this.memberService = memberService;
 		this.passwordEncoder = passwordEncoder;
 		this.hostService = hostService;
@@ -55,6 +59,7 @@ public class HostController {
 		this.productService = productService;
 		this.firstCategoryService = firstCategoryService;
 		this.productOptionService = productOptionService;
+		this.paymentService = paymentService;
 	}
 
 	@GetMapping("/regist")
@@ -105,9 +110,30 @@ public class HostController {
 		HostDomain host = (HostDomain) session.getAttribute("host_info");
 		Map<String, Object> freeInThisMonth = new HashMap<>();
 		freeInThisMonth.put("hostNum", host.getHostNum());
-		freeInThisMonth.put("thisMoth", thisMonth()+"%");
-		int freeCountInThisMonth = productService.countInThisMonth(freeInThisMonth);
-		model.addAttribute("freeCountInThisMonth", freeCountInThisMonth);
+		freeInThisMonth.put("thisMonth", thisMonth() + "%");
+
+		CompletableFuture<Integer> freeCountInThisMonth = CompletableFuture.supplyAsync(() ->
+				productService.countInThisMonth(freeInThisMonth));
+		CompletableFuture<Integer> totalProfit = CompletableFuture.supplyAsync(() ->
+				paymentService.totalProfit(host.getHostNum()));
+		CompletableFuture<Integer> profitInThisMonth = CompletableFuture.supplyAsync(() ->
+				paymentService.profitInThisMonth(freeInThisMonth));
+		CompletableFuture<Integer> countPay = CompletableFuture.supplyAsync(() ->
+				paymentService.countPay(host.getHostNum()));
+
+		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(freeCountInThisMonth, totalProfit, profitInThisMonth, countPay);
+		combinedFutureAllof.thenRun(() -> {
+			try {
+				model.addAttribute("countPay", countPay.get());
+				model.addAttribute("totalProfit", totalProfit.get());
+				model.addAttribute("profitInThisMonth", profitInThisMonth.get());
+				model.addAttribute("freeCountInThisMonth", freeCountInThisMonth.get());
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			} catch (ExecutionException e) {
+				throw new RuntimeException(e);
+			}
+		}).join();
 		return "host/managecenter";
 	}
 
@@ -115,16 +141,16 @@ public class HostController {
 	public String hostInfo(@PathVariable("hostNum") int hostNum, Model model) {
 		HostDomain host = hostService.findByHostNum(hostNum);
 		List<FirstCategoryDomain> firstCategory = firstCategoryService.findAll();
-		List<ProductDomain> products = productService.findPopular();
-		List<Map<String, Object>> productpacks = new ArrayList<>();
-		for (ProductDomain product : products) {
-			Map<String, Object> productpack = new HashMap<>();
-			int productNum = product.getProducNum();
-			ProductOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
-			productpack.put("product", product);
-			productpack.put("productoption", productOption);
-			productpacks.add(productpack);
-		}
+		List<Map<String, Object>> productpacks =productService.setProductPack(productService.findForHostInfo(hostNum));
+//		List<Map<String, Object>> productpacks = new ArrayList<>();
+//		for (ProductDomain product : products) {
+//			Map<String, Object> productpack = new HashMap<>();
+//			int productNum = product.getProducNum();
+//			ProductOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
+//			productpack.put("product", product);
+//			productpack.put("productoption", productOption);
+//			productpacks.add(productpack);
+//		}
 		model.addAttribute("categorys", firstCategory);
 		model.addAttribute("productpacks", productpacks);
 		model.addAttribute("host", host);
@@ -142,10 +168,10 @@ public class HostController {
 		MemberDomain member = memberService.findByNum(originHost.memberNum);
 
 		if (hostprofile != null && !hostprofile.isEmpty()) {
-				// 이미지를 저장할 경로 설정
-				String saveFolder = "/image/host/" + toDay();
+			// 이미지를 저장할 경로 설정
+			String saveFolder = "/image/host/" + toDay();
 			String saveName = imageUpload(saveFolder, hostprofile);
-				host.setHostProfile(saveName);
+			host.setHostProfile(saveName);
 		}
 		if (email.equals(member.getEmail())) {
 			host.setMemberNum(originHost.getMemberNum());
