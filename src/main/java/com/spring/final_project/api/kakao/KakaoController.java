@@ -102,7 +102,7 @@ public class KakaoController {
 			session.setAttribute("payInfo", kakaoApprove);
 		}
 		log.info(session.getAttribute("payInfo").toString());
-		return "redirect:/reservation/result";
+		return "redirect:/pay/result";
 	}
 
 

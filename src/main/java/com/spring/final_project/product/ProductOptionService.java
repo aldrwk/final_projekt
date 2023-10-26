@@ -16,6 +16,7 @@ public interface ProductOptionService {
 	public int delete(ProductOptionDomain option);
 
 	public ProductOptionDomain OneOptionByProduct(int productNum);
+	public List<ProductOptionDomain> optionsByDay(int productNum);
 
 	public List<ProductOptionDomain> optionsByProduct(int productNum);
 

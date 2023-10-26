@@ -8,7 +8,7 @@
         insert into product
         values (null, #{hostNum}, #{title}, #{content}, #{address}, #{addressDetail}, #{area}, #{areaDetail},
                 #{secCateNum},
-                #{thumnail}, #{viewCount},#{producRegitDate}, #{producUpdateDate})
+                #{thumnail}, #{viewCount}, #{producRegitDate}, #{producUpdateDate})
     </insert>
     <select id="findProductNum" resultType="int">
         select produc_num
@@ -56,7 +56,6 @@
         from product
         where host_num = #{hostNum};
     </select>
-
     <select id="countInThisMonth" resultType="int" parameterType="Map">
         select count(distinct rd.produc_num)
         from product p
@@ -68,9 +67,6 @@
         select produc_num,
                host_num,
                title,
-               content,
-               address,
-               address_detail,
                area,
                area_detail,
                sec_cate_num,
@@ -96,9 +92,6 @@
         select produc_num,
                host_num,
                title,
-               content,
-               address,
-               address_detail,
                area,
                area_detail,
                sec_cate_num,
@@ -106,14 +99,10 @@
         from product
         order by produc_regit_date desc limit 8;
     </select>
-    
     <select id="findPerCategory" resultMap="productMap">
         select produc_num,
                host_num,
                title,
-               content,
-               address,
-               address_detail,
                area,
                area_detail,
                sec_cate_num,
@@ -124,6 +113,26 @@
                                where first_cate_num = (select first_cate_num
                                                        from first_category
                                                        where first_cate_name = #{firstCategoryName}));
+    </select>
+    <select id="findByRecentSearch" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where title like #{search} or content like #{search} order by produc_regit_date desc;
+    </select>
+    <select id="findByPopularSearch" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where title like #{search} or content like #{search} order by view_count desc;
     </select>
     <update id="viewCountUp" parameterType="int">
         update product

@@ -68,6 +68,11 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	public ProductOptionDomain OneOptionByProduct(int productNum) {
 		return productOptionMapper.OneOptionByProduct(productNum);
 	}
+	@Override
+	@Transactional
+	public List<ProductOptionDomain> optionsByDay(int productNum) {
+		return productOptionMapper.optionsByDay(productNum);
+	}
 
 	@Override
 	@Transactional

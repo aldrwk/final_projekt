@@ -1,5 +1,6 @@
 package com.spring.final_project.reservation_dates;
 
+import com.spring.final_project.util.CalendarVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,12 @@ public class reservationDatesServiceImpl implements reservationDatesService {
 	@Transactional
 	public List<reservationDatesDomain> findByProductNum(int productNum) {
 		return reservationDatesMapper.findByProductNum(productNum);
+	}
+
+	@Override
+	@Transactional
+	public List<CalendarVo> findByCalendarVo(int productNum) {
+		return reservationDatesMapper.findByCalendarVo(productNum);
 	}
 
 	@Override

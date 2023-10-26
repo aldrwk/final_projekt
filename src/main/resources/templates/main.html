@@ -36,7 +36,7 @@
 
         <div class="category-container">
             <div class="category-main">
-                <a href="/" class="category-item" th:each="category: ${categorys}">
+                <a th:href="@{'/category/'+${category.firstCateName}}" class="category-item" th:each="category: ${categorys}">
                     <img class="category-image" th:src="${category.image}">
                     <span class="category-text" th:text="${category.firstCateName}"></span>
                 </a>

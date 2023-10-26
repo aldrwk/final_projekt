@@ -36,6 +36,8 @@ public interface ProductMapper {
 	public List<ProductDomain> findForHostInfo(int hostNum);
 	public List<ProductDomain> findPerCategory(String firstCategoryName);
 
+	public List<ProductDomain> findByRecentSearch(String search);
+
 
 
 

@@ -16,8 +16,8 @@ $(function () {
         }
         $(".nav-left-frame").children().removeClass("on");
         $(this).children().addClass("on");
-            getPage($("#"+menu).attr("href"));
-            return false;
+        getPage($("#" + menu).attr("href"));
+        return false;
     });
 
     $(".btn-free-regist").click(function () {
@@ -28,14 +28,9 @@ $(function () {
             return true;
         }
         getPage($(this).attr("href"));
-        return false;
-    });
-
-    $(document).on("click", ".action-btn", function () {
-        if ($(this).hasClass("registed-free-move")) {
-            return true;
-        }
-        getPage($(this).attr("href"));
+        // if (firstCategoryName == "" || firstCategoryName == null) {
+        //     getSecondCategory(firstCategoryName);
+        // }
         return false;
     });
 

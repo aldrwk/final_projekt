@@ -10,6 +10,8 @@ public interface FirstCategoryMapper {
 	public int findByName(String firstCateName);
 	public List<FirstCategoryDomain> findAll();
 
+	public String findCategoryName(int productNum);
+
 
 
 }

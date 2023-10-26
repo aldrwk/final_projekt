@@ -9,6 +9,7 @@ import com.spring.final_project.host.HostService;
 import com.spring.final_project.member.MemberController;
 import com.spring.final_project.reservation_dates.reservationDatesDomain;
 import com.spring.final_project.reservation_dates.reservationDatesService;
+import com.spring.final_project.util.CalendarVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,10 +80,12 @@ public class ProductController {
 	}
 
 	@GetMapping("product/{productNum}/participate")
-	public String productparticipate(@PathVariable("productNum") int productNum, Model model, HttpSession session) {
+	public String productparticipate(@PathVariable("productNum") int productNum, Model model, HttpSession session, CalendarVo calendarVo) {
 		List<reservationDatesDomain> reservationDates = reservationDatesService.findByProductNum(productNum);
 		String productTitle = productService.getTitleByProductNum(productNum);
-		List<ProductOptionDomain> productOption = productOptionService.optionsByProduct(productNum);
+		List<ProductOptionDomain> productOption = productOptionService.optionsByDay(productNum);
+
+
 		model.addAttribute("dates", reservationDates);
 		model.addAttribute("productTitle", productTitle);
 		model.addAttribute("productoption", productOption);
@@ -92,18 +95,22 @@ public class ProductController {
 
 	@GetMapping("/search")
 	public String search(String search_data, Model model) {
-
+		String search = "%" + search_data + "%";
+		List<ProductDomain> productList = productService.findByRecentSearch(search);
+		List<Map<String, Object>> productpacks = productService.setProductPack(productList);
+		int listCount = productList.size();
 		model.addAttribute("search_data", search_data);
-
+		model.addAttribute("searchCount", listCount);
+		model.addAttribute("productpacks", productpacks);
 
 		return "product/search";
 	}
 
 	@GetMapping("/category/{categoryName}")
 	public String category(@PathVariable("categoryName") String categoryName, Model model) {
-		List<Map<String, Object>> productList = productService.setProductPack(productService.findPerCategory(categoryName));
-
-		model.addAttribute("productList", productList);
+		List<Map<String, Object>> productpacks = productService.setProductPack(productService.findPerCategory(categoryName));
+		model.addAttribute("categoryName", categoryName);
+		model.addAttribute("productpacks", productpacks);
 		return "product/category";
 	}
 
@@ -129,9 +136,19 @@ public class ProductController {
 	@PostMapping("/product/modify/{productNum}")
 	public String modify(@PathVariable("productNum") int productNum, Model model) {
 		List<FirstCategoryDomain> firtCategory = firstCategoryService.findAll();
+		String firstCategoryName = firstCategoryService.findCategoryName(productNum);
+		String secondCategoryName = secondCategoryService.findCategoryName(productNum);
+		ProductDomain product = productService.findByProductNum(productNum);
+		List<ProductOptionDomain> productOptions = productOptionService.optionsByProduct(productNum);
+		List<CalendarVo> reservationDates = reservationDatesService.findByCalendarVo(productNum);
 
+		model.addAttribute("firstcategory", firtCategory);
+		model.addAttribute("firstCategoryName", firstCategoryName);
+		model.addAttribute("secondCategoryName", secondCategoryName);
+		model.addAttribute("product", product);
+		model.addAttribute("productoptions", productOptions);
+		model.addAttribute("dates", reservationDates);
 
-		
 		return "/product/modify ::modify";
 	}
 

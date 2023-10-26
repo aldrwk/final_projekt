@@ -37,7 +37,9 @@ public interface ProductService {
 
 	public List<ProductDomain> findPerCategory(String firstCategoryName);
 
+	public List<ProductDomain> findByRecentSearch(String search);
+
 	public ProductDomain productSet(ProductDomain product, int hostNum, String addressDetail, int SecondCategoryNum);
 
-	List<Map<String, Object>>  setProductPack(List<ProductDomain> products);
+	public List<Map<String, Object>>  setProductPack(List<ProductDomain> products);
 }

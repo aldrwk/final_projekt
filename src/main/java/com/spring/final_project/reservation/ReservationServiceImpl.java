@@ -1,10 +1,15 @@
 package com.spring.final_project.reservation;
 
+import com.spring.final_project.product.ProductDomain;
+import com.spring.final_project.product.ProductOptionDomain;
+import com.spring.final_project.reservation_dates.reservationDatesDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -43,5 +48,24 @@ public class ReservationServiceImpl implements ReservationService {
 	public int getReservNum(int memberNum) {
 		return reservationMapper.getReservNum(memberNum);
 	}
+
+//	@Override
+//	public List<Map<String, Object>> setReservationPack(List<reservationDatesDomain> reservationDates) {
+//		List<Map<String, Object>> productpacks = new ArrayList<>();
+//		for (ProductDomain product : products) {
+//			Map<String, Object> productpack = new HashMap<>();
+//			int productNum = product.getProducNum();
+//			ProductOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
+//			Locale locale = new Locale("ko", "KR"); // 한국 로케일 (한국어, 대한민국)
+//			NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+//			String newPrice = String.valueOf(numberFormat.format(Integer.parseInt(productOption.getPrice())));
+//			productOption.setPrice(newPrice);
+//			productpack.put("product", product);
+//			productpack.put("productoption", productOption);
+//			productpacks.add(productpack);
+//		}
+//		return productpacks;
+//	}
+
 
 }
