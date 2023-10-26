@@ -10,7 +10,14 @@
     <select id="findByName" resultType="int" parameterType="String">
         select first_cate_num from first_category where first_cate_name = #{firstCateName};
     </select>
-
+    <select id="findCategoryName" resultType="String" parameterType="int">
+        select first_cate_name
+        from first_category
+        where first_cate_num = (select first_cate_num
+                                from second_category
+                                where sec_cate_num =
+                                      (select sec_cate_num from product where produc_num = #{productNum}));
+    </select>
 
 
     <resultMap id="categoryMap" type="FirstCategoryDomain">

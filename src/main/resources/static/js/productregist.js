@@ -1,5 +1,4 @@
 $(function () {
-
     $(document).on("click", ".regist-menu", function () {
         $(".checked").removeClass("checked");
         $(this).addClass("checked");
@@ -12,6 +11,21 @@ $(function () {
             $(".sales-info").addClass("clicked");
             if (!$("#calendar").hasClass("fc")) {
                 callCalendar();
+            }
+            if (options != "" || options != null) {
+                for (option of options) {
+                    if ($(".optionName:last").val() == "" && $(".price:last").val() == "") {
+                        $(".optionName:last").attr("value", option.optionName);
+                        $(".price:last").attr("value", option.price);
+                    }
+                    if (options.length == 1) {
+                        break;
+                    }
+                    if ($(".option-row").length == options.length) {
+                        break;
+                    }
+                    option_add();
+                }
             }
         }
         if ($(".checked").text() == "프리 설명") {
@@ -33,7 +47,6 @@ $(function () {
             }
         }).open();
     });
-
     $(document).on("change", "#thumnail", function (e) {
         const inputfile = $(this).val().split('\\');
         const filename = inputfile[inputfile.length - 1];
@@ -58,6 +71,10 @@ $(function () {
     });
 
     $(document).on("click", ".option.add", function () {
+        option_add();
+    });
+
+    function option_add() {
         const option_add = "<div class=\"option-row\">" +
             "<div class=\"option-box\">\n" +
             "<span class=\"option-name\">옵션명</span>\n" +
@@ -78,10 +95,9 @@ $(function () {
 
         if ($(".option-row").length == 5) {
             return false;
-        }
-        ;
+        };
         $(".option-row:last").after(option_add);
-    });
+    }
 
     $(document).on("click", ".option.delete", function () {
         $(this).parent().parent().remove();
@@ -132,7 +148,7 @@ $(function () {
                 id = data.event._def.publicId;
                 startTime = start[1].split(".");
                 endTime = end[1].split(".");
-                $("#reserv").val(start[0]);
+                $("#reserv_date").val(start[0]);
                 $("#start").val(startTime[0]);
                 $("#end").val(endTime[0]);
                 $(".maxPerson").val(maxPerson);
@@ -143,6 +159,21 @@ $(function () {
             },
         })
         calendar.render();
+
+        console.log(dates)
+        if (dates != null) {
+            for (date of dates) {
+                calendar.addEvent({
+                    id: date.reservationId,
+                    start: date.reservDate,
+                    end: date.endDate,
+                    allDay: false,
+                    extendedProps: {
+                        maxPeople: date.maxPeople, maxPerson: date.maxPerson
+                    }
+                });
+            }
+        }
     }
 
 
@@ -174,5 +205,7 @@ $(function () {
         $("#options").val(optionJson);
         $("#product_regist").submit();
     });
+
+
 
 });

@@ -16,7 +16,11 @@
     <select id="findByFirstCategory" resultType="SecondCategoryDomain" resultMap="categoryMap">
         select sec_cate_num, sec_cate_name from second_category where first_cate_num = #{num};
     </select>
-
+    <select id="findCategoryName" resultType="String" parameterType="int">
+        select sec_cate_name
+        from second_category
+        where sec_cate_num = (select sec_cate_num from product where produc_num = #{productNum});
+    </select>
 
 
     <resultMap id="categoryMap" type="SecondCategoryDomain">

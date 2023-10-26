@@ -20,35 +20,35 @@ public class ReservationController {
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
 	ReservationService reservationService;
-	PaymentService payHistoryService;
+	PaymentService paymentService;
 
 	@Autowired
-	public ReservationController(ReservationService reservationService, PaymentService payHistoryService) {
+	public ReservationController(ReservationService reservationService, PaymentService paymentService) {
 		this.reservationService = reservationService;
-		this.payHistoryService = payHistoryService;
+		this.paymentService = paymentService;
 	}
 
-	@GetMapping("/result")
-	public String reservationResult(HttpSession session, ReservationDomain reservationDomain, PayHistoryDomain payHistoryDomain) {
-		KakaoApproveResponse payInfo = (KakaoApproveResponse) session.getAttribute("payInfo");
-		String[] idArray = payInfo.getPartner_order_id().split("_");
-		int memberNum = Integer.parseInt(idArray[0]);
-		int productNum = Integer.parseInt(idArray[1]);
-		int optionNum = Integer.parseInt(idArray[2]);
-		int quantity = (int) payInfo.getQuantity();
-
-		String payMethod = payInfo.getPayment_method_type();
-		String payPrice = String.valueOf(payInfo.getAmount().getTotal());
-		String payDate = String.valueOf(payInfo.getApproved_at());
-		reservationDomain = reservationService.setReservation(productNum, memberNum, optionNum, quantity);
-		if (1 == reservationService.insert(reservationDomain)) {
-			int reservNum = reservationService.getReservNum(memberNum);
-			log.info(String.valueOf(reservNum));
-			payHistoryDomain = payHistoryService.setPayHistroy(memberNum, reservNum, payMethod, payPrice, payDate);
-			payHistoryService.insert(payHistoryDomain);
-		}
-		return "/test";
-	}
+//	@GetMapping("/result")
+//	public String reservationResult(HttpSession session, ReservationDomain reservationDomain, PayHistoryDomain payHistoryDomain) {
+//		KakaoApproveResponse payInfo = (KakaoApproveResponse) session.getAttribute("payInfo");
+//		String[] idArray = payInfo.getPartner_order_id().split("_");
+//		int memberNum = Integer.parseInt(idArray[0]);
+//		int productNum = Integer.parseInt(idArray[1]);
+//		int optionNum = Integer.parseInt(idArray[2]);
+//		int quantity = (int) payInfo.getQuantity();
+//
+//		String payMethod = payInfo.getPayment_method_type();
+//		String payPrice = String.valueOf(payInfo.getAmount().getTotal());
+//		String payDate = String.valueOf(payInfo.getApproved_at());
+//		reservationDomain = reservationService.setReservation(productNum, memberNum, optionNum, quantity);
+//		if (1 == reservationService.insert(reservationDomain)) {
+//			int reservNum = reservationService.getReservNum(memberNum);
+//			log.info(String.valueOf(reservNum));
+//			payHistoryDomain = payHistoryService.setPayHistroy(memberNum, reservNum, payMethod, payPrice, payDate);
+//			payHistoryService.insert(payHistoryDomain);
+//		}
+//		return "/payment/result";
+//	}
 
 
 }

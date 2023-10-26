@@ -40,4 +40,8 @@ public class SecondCategoryServiceImpl implements SecondCategoryService {
 		return secondCategoryMapper.findByName(data);
 	}
 
+	@Override
+	public String findCategoryName(int productNum) {
+		return secondCategoryMapper.findCategoryName(productNum);
+	}
 }

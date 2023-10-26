@@ -13,9 +13,13 @@
         from product_option
         where produc_num = #{producNum} limit 1;
     </select>
-
-    <select id="optionsByProduct" resultMap="productOptionMap">
+    <select id="optionsByDay" resultMap="productOptionMap">
         select option_id, reservation_id, option_name, price, valid_person, max_register_per_one
+        from product_option
+        where produc_num = #{producNum};
+    </select>
+    <select id="optionsByProduct" resultMap="productOptionMap">
+        select distinct option_name, price
         from product_option
         where produc_num = #{producNum};
     </select>

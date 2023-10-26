@@ -2,6 +2,11 @@
   <script src="/js/ckeditor5/build/ckeditor.js"></script>
   <script type="module" src="/js/ckeditorcreate.js"></script>
   <script src="/js/calendar.js"></script>
+  <script th:inline="javascript">
+    var dates = /*[[${dates}]]*/ null
+    var options = /*[[${productoptions}]]*/ null
+    var firstCategoryName = /*[[${firstCategoryName}]]*/ null
+  </script>
   <div class="manage-info-header">
     <span class="manage-info-title">프리 수정</span>
   </div>
@@ -21,11 +26,11 @@
               <span class="manage-info-text">카테고리</span>
               <div class="manage-info-input-area manage-info-dropbox-area">
                 <input type="text" readonly class="category-input catef" name="categoryf" id="categoryf"
-                       th:value="1차카테고리">
+                       th:value="${firstCategoryName}">
                 <span class="icon-arrow"></span>
               </div>
               <div class="manage-info-input-area manage-info-dropbox-area">
-                <input type="text" readonly class="category-input cates category-disable"
+                <input type="text" readonly class="category-input cates"
                        name="categorys"
                        id="categorys" th:value="2차카테고리">
                 <span class="icon-arrow"></span>

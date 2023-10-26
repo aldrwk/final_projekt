@@ -110,8 +110,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public List<ProductDomain> findPerCategory(String firstCategoryName) {
 		return productMapper.findPerCategory(firstCategoryName);
+	}
+
+	@Override
+	public List<ProductDomain> findByRecentSearch(String search) {
+		return productMapper.findByRecentSearch(search);
 	}
 
 	@Override

@@ -8,4 +8,5 @@ public interface ReservationMapper {
 	public int insert(ReservationDomain reservationDomain);
 
 	public int getReservNum(int memberNum);
+
 }

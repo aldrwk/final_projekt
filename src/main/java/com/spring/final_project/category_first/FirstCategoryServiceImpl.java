@@ -28,4 +28,10 @@ public class FirstCategoryServiceImpl implements FirstCategoryService {
 	public List<FirstCategoryDomain> findAll() {
 		return firstCategoryMapper.findAll();
 	}
+
+	@Override
+	public String findCategoryName(int productNum) {
+		return firstCategoryMapper.findCategoryName(productNum);
+	}
 }
+

@@ -12,4 +12,7 @@ public interface SecondCategoryService {
 
 	public int findByName(Map<String, Object> data);
 
+	public String findCategoryName(int productNum);
+
+
 }
