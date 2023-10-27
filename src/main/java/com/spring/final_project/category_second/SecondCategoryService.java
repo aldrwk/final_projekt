@@ -1,5 +1,7 @@
 package com.spring.final_project.category_second;
 
+import com.spring.final_project.category_first.FirstCategoryDomain;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,5 +16,6 @@ public interface SecondCategoryService {
 
 	public String findCategoryName(int productNum);
 
+	public Map<String, List<String>> setCategoryPerFirstCategory(List<FirstCategoryDomain> firtCategory);
 
 }

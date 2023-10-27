@@ -5,6 +5,7 @@ $(function () {
         if ($(".checked").text() == "기본 정보") {
             $(".clicked").removeClass("clicked");
             $(".default-info").addClass("clicked");
+
         }
         if ($(".checked").text() == "판매 정보") {
             $(".clicked").removeClass("clicked");
@@ -31,6 +32,7 @@ $(function () {
         if ($(".checked").text() == "프리 설명") {
             $(".clicked").removeClass("clicked");
             $(".content-info").addClass("clicked");
+
         }
     });
 
@@ -95,7 +97,8 @@ $(function () {
 
         if ($(".option-row").length == 5) {
             return false;
-        };
+        }
+        ;
         $(".option-row:last").after(option_add);
     }
 
@@ -206,6 +209,24 @@ $(function () {
         $("#product_regist").submit();
     });
 
+    function getSecondCategory(name) {
+        secondCategoryjson = JSON.parse(secondCategory);
+        const keywords = Object.keys(secondCategoryjson);
+        console.log(keywords)
+        console.log(secondCategoryjson[name]);
+        console.log(secondCategoryjson[name][0]);
+        categorys = "";
+        for (categoryname of secondCategoryjson[name]) {
+            categorys += "<li class=\"category categorys\">" +
+                "<span>" + categoryname + "</span></li>"
+        }
+        $(".cates").removeClass("category-disable");
+        closeList("categorys");
+        $(".categorys-list").children().remove();
+        $(".cates").val("2차카테고리");
+        $(".categorys-list").append(categorys);
+    }
 
 
-});
+})
+;

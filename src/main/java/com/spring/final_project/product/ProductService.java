@@ -1,12 +1,14 @@
 package com.spring.final_project.product;
 
+import com.spring.final_project.host.HostDomain;
+
 import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
 
-	public int insert(ProductDomain product);
-	public int update(ProductDomain product);
+	public int insert(ProductDomain product, HostDomain host, String events, String options);
+	public int update(ProductDomain product, HostDomain host, String events, String options);
 
 	public int delete(ProductDomain product);
 

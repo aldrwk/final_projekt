@@ -119,6 +119,7 @@ $(function () {
         closeList("categoryf")
     });
 
+
     $(document).on("click", ".cates", function () {
         if ($(this).hasClass("selected") || $(this).hasClass("category-disable")) {
             closeList("categorys");
@@ -135,36 +136,27 @@ $(function () {
     });
 
     function getSecondCategory(name) {
-        const options = {
-            type: "GET", // HTTP 요청 메서드 (기본값: "GET")
-            url: "/product/secondcategory", // 요청할 URL
-            data: {name: name}, // 전송할 데이터
-            success: function (data) {
-                console.log(data)
-                $(".cates").removeClass("category-disable");
-                closeList("categorys");
-                $(".categorys-list").children().remove();
-                $(".cates").val("2차카테고리");
-                $(".categorys-list").append(data);
-            }
+        secondCategoryjson = JSON.parse(secondCategory);
+        const keywords = Object.keys(secondCategoryjson);
+        console.log(keywords)
+        console.log(secondCategoryjson[name]);
+        console.log(secondCategoryjson[name][0]);
+        categorys = "";
+        for (categoryname of secondCategoryjson[name]) {
+            categorys += "<li class=\"category categorys\">" +
+                "<span>"+categoryname+"</span></li>"
         }
-        ajaxRequest(options);
-    }
-
-    function ajaxRequest(options) {
-        $.ajax({
-            type: options.type || "GET",
-            url: options.url || "",
-            data: options.data || {},
-        })
-            .done(function (data) {
-                options.success(data)
-            });
+        $(".cates").removeClass("category-disable");
+        closeList("categorys");
+        $(".categorys-list").children().remove();
+        $(".cates").val("2차카테고리");
+        $(".categorys-list").append(categorys);
     }
 
     totalProfit = totalProfit.toLocaleString();
     $("#totalprofit").text(totalProfit + " 원");
     profitInThisMonth = profitInThisMonth.toLocaleString();
     $("#profitInThisMonth").text(profitInThisMonth + " 원");
+
 
 });
