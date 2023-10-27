@@ -2,14 +2,14 @@ package com.spring.final_project.product;
 
 import com.spring.final_project.category_first.FirstCategoryDomain;
 import com.spring.final_project.category_first.FirstCategoryService;
-import com.spring.final_project.category_second.SecondCategoryDomain;
 import com.spring.final_project.category_second.SecondCategoryService;
 import com.spring.final_project.host.HostDomain;
 import com.spring.final_project.host.HostService;
 import com.spring.final_project.member.MemberController;
-import com.spring.final_project.reservation_dates.reservationDatesDomain;
-import com.spring.final_project.reservation_dates.reservationDatesService;
+import com.spring.final_project.reservation_dates.ReservationDatesDomain;
+import com.spring.final_project.reservation_dates.ReservationDatesService;
 import com.spring.final_project.util.CalendarVo;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,8 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import static com.spring.final_project.util.DateService.LocalToDayTime;
 import static com.spring.final_project.util.DateService.toDay;
@@ -42,11 +44,11 @@ public class ProductController {
 	ProductService productService;
 	ProductOptionService productOptionService;
 
-	reservationDatesService reservationDatesService;
+	ReservationDatesService reservationDatesService;
 
 
 	@Autowired
-	public ProductController(FirstCategoryService firstCategoryService, SecondCategoryService secondCategoryService, ProductService productService, ProductOptionService productOptionService, reservationDatesService reservationDatesService, HostService hostService) {
+	public ProductController(FirstCategoryService firstCategoryService, SecondCategoryService secondCategoryService, ProductService productService, ProductOptionService productOptionService, ReservationDatesService reservationDatesService, HostService hostService) {
 		this.hostService = hostService;
 		this.firstCategoryService = firstCategoryService;
 		this.secondCategoryService = secondCategoryService;
@@ -64,7 +66,7 @@ public class ProductController {
 		HostDomain host = hostService.findByHostNum(product.getHostNum());
 		ProductOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
 		products.add(product);
-		productpack= productService.setProductPack(products);
+		productpack = productService.setProductPack(products);
 		model.addAttribute("product", product);
 		model.addAttribute("host", host);
 		model.addAttribute("productOption", productOption);
@@ -81,7 +83,7 @@ public class ProductController {
 
 	@GetMapping("product/{productNum}/participate")
 	public String productparticipate(@PathVariable("productNum") int productNum, Model model, HttpSession session, CalendarVo calendarVo) {
-		List<reservationDatesDomain> reservationDates = reservationDatesService.findByProductNum(productNum);
+		List<ReservationDatesDomain> reservationDates = reservationDatesService.findByProductNum(productNum);
 		String productTitle = productService.getTitleByProductNum(productNum);
 		List<ProductOptionDomain> productOption = productOptionService.optionsByDay(productNum);
 
@@ -118,11 +120,15 @@ public class ProductController {
 	public String regist(Model model) {
 		List<FirstCategoryDomain> firtCategory = firstCategoryService.findAll();
 		model.addAttribute("firstcategory", firtCategory);
+		Map<String, List<String>> secondCategoryMap = new HashMap<>();
+		secondCategoryMap = secondCategoryService.setCategoryPerFirstCategory(firtCategory);
+		JSONObject secondCategoryJson = new JSONObject(secondCategoryMap);
+		model.addAttribute("secondCategory", secondCategoryJson.toString());
 		return "/product/regist ::regist";
 	}
 
 	@PostMapping("/product/list")
-	public String list(HttpSession session,HostDomain host, Model model) {
+	public String list(HttpSession session, HostDomain host, Model model) {
 		host = (HostDomain) session.getAttribute("host_info");
 		List<ProductDomain> productList = new ArrayList<>();
 		productList = productService.findByHostNum(host.getHostNum());
@@ -134,36 +140,57 @@ public class ProductController {
 	}
 
 	@PostMapping("/product/modify/{productNum}")
-	public String modify(@PathVariable("productNum") int productNum, Model model) {
-		List<FirstCategoryDomain> firtCategory = firstCategoryService.findAll();
-		String firstCategoryName = firstCategoryService.findCategoryName(productNum);
-		String secondCategoryName = secondCategoryService.findCategoryName(productNum);
-		ProductDomain product = productService.findByProductNum(productNum);
-		List<ProductOptionDomain> productOptions = productOptionService.optionsByProduct(productNum);
-		List<CalendarVo> reservationDates = reservationDatesService.findByCalendarVo(productNum);
+	public String modify(@PathVariable("productNum") int productNum, Model model, HttpSession session) {
 
-		model.addAttribute("firstcategory", firtCategory);
-		model.addAttribute("firstCategoryName", firstCategoryName);
-		model.addAttribute("secondCategoryName", secondCategoryName);
-		model.addAttribute("product", product);
-		model.addAttribute("productoptions", productOptions);
-		model.addAttribute("dates", reservationDates);
+		CompletableFuture<List<FirstCategoryDomain>> firstCategorys = CompletableFuture.supplyAsync(() ->
+				firstCategoryService.findAll());
+		CompletableFuture<String> firstCategoryName = CompletableFuture.supplyAsync(() ->
+				firstCategoryService.findCategoryName(productNum));
+		CompletableFuture<String> secondCategoryName = CompletableFuture.supplyAsync(() ->
+				secondCategoryService.findCategoryName(productNum));
+		CompletableFuture<ProductDomain> product = CompletableFuture.supplyAsync(() ->
+				productService.findByProductNum(productNum));
+		CompletableFuture<List<ProductOptionDomain>> productOptions = CompletableFuture.supplyAsync(() ->
+				productOptionService.optionsByProduct(productNum));
+		CompletableFuture<List<CalendarVo>> reservationDates = CompletableFuture.supplyAsync(() ->
+				reservationDatesService.findByCalendarVo(productNum));
 
+		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(firstCategorys, firstCategoryName, secondCategoryName, product, productOptions, reservationDates);
+		combinedFutureAllof.thenRun(() -> {
+			try {
+				Map<String, List<String>> secondCategoryMap = new HashMap<>();
+				secondCategoryMap = secondCategoryService.setCategoryPerFirstCategory(firstCategorys.get());
+				JSONObject secondCategoryJson = new JSONObject(secondCategoryMap);
+
+				model.addAttribute("categorys", firstCategorys.get());
+				model.addAttribute("firstCategoryName", firstCategoryName.get());
+				model.addAttribute("secondCategoryName", secondCategoryName.get());
+				model.addAttribute("product", product.get());
+				model.addAttribute("productoptions", productOptions.get());
+				model.addAttribute("dates", reservationDates.get());
+				model.addAttribute("secondCategory", secondCategoryJson.toString());
+			} catch (InterruptedException e) {
+				throw new RuntimeException(e);
+			} catch (ExecutionException e) {
+				throw new RuntimeException(e);
+			}
+		}).join();
+		session.setAttribute("productNum", productNum);
 		return "/product/modify ::modify";
 	}
 
 
-	@GetMapping("/product/secondcategory")
-	public String secondCategory(String name, Model model) {
-		int firstCategoryNum = firstCategoryService.findByName(name);
-		List<SecondCategoryDomain> secondCategory = secondCategoryService.findByFirstCategory(firstCategoryNum);
-
-		model.addAttribute("secondCategory", secondCategory);
-		String secondCate = "<li class=\"category categorys\" th:each=\"category: ${secondCategory}\">\n" +
-				"<span th:text=\"${category.secCateName}\"></span>" +
-				"</li>";
-		return "/product/regist ::secondcategorys";
-	}
+//	@GetMapping("/product/secondcategory")
+//	public String secondCategory(String name, Model model) {
+//		int firstCategoryNum = firstCategoryService.findByName(name);
+//		List<SecondCategoryDomain> secondCategory = secondCategoryService.findByFirstCategory(firstCategoryNum);
+//
+//		model.addAttribute("secondCategory", secondCategory);
+////		String secondCate = "<li class=\"category categorys\" th:each=\"category: ${secondCategory}\">\n" +
+////				"<span th:text=\"${category.secCateName}\"></span>" +
+////				"</li>";
+//		return "/product/regist ::secondcategorys";
+//	}
 
 	@PostMapping("/product/productregist")
 	@Transactional
@@ -178,29 +205,76 @@ public class ProductController {
 		}
 
 		int firstCategoryNum = firstCategoryService.findByName(categoryf);
+
 		Map<String, Object> data = new HashMap<>();
 		data.put("firstCategoryNum", firstCategoryNum);
 		data.put("categoryName", categorys);
 		int secondCategoryNum = secondCategoryService.findByName(data);
 
 		product = productService.productSet(product, host.getHostNum(), addressDetail, secondCategoryNum);
-		productService.insert(product);
+		productService.insert(product, host, events, options);
+//
+//		int productNum = productService.findProductNum(host.getHostNum());
+//		List<ReservationDatesDomain> dates = DatesRetouch(events);
+//		log.info(dates.toString());
+//
+//		for (ReservationDatesDomain date : dates) {
+//			date.setProducNum(productNum);
+//			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
+//			date.setCloseDate(closeDate);
+//			date.setRegistDate(LocalToDayTime());
+//			date.setUpdateDate(LocalToDayTime());
+//			if (1 == reservationDatesService.insert(date)) {
+//				int reservationDateId = reservationDatesService.getId(productNum);
+//				productOptionService.listInsert(productNum, reservationDateId, options);
+//				log.info("등록");
+//			}
+//		}
+		return "redirect:/host/center";
+	}
 
-		int productNum = productService.findProductNum(host.getHostNum());
-		List<reservationDatesDomain> dates = DatesRetouch(events);
-		log.info(dates.toString());
-		for (reservationDatesDomain date : dates) {
-			date.setProducNum(productNum);
-			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
-			date.setCloseDate(closeDate);
-			date.setRegistDate(LocalToDayTime());
-			date.setUpdateDate(LocalToDayTime());
-			if (1 == reservationDatesService.insert(date)) {
-				int reservationDateId = reservationDatesService.getId(productNum);
-				productOptionService.listInsert(productNum, reservationDateId, options);
-				log.info("등록");
-			}
+	@PostMapping("/product/productupdate")
+	@Transactional
+	public String productUpdate (ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
+								@RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
+		HostDomain host = (HostDomain) session.getAttribute("host_info");
+
+		int productNum = (int) session.getAttribute("productNum");
+
+
+		if (file != null && !file.isEmpty()) {
+			String saveFolder = "/image/product/" + toDay() + File.separator + host.getHostNum();
+			String saveName = imageUpload(saveFolder, file);
+			product.setThumnail(saveName);
 		}
+
+		int firstCategoryNum = firstCategoryService.findByName(categoryf);
+
+		Map<String, Object> data = new HashMap<>();
+		data.put("firstCategoryNum", firstCategoryNum);
+		data.put("categoryName", categorys);
+		int secondCategoryNum = secondCategoryService.findByName(data);
+		product.setProducNum(productNum);
+		product = productService.productSet(product, host.getHostNum(), addressDetail, secondCategoryNum);
+		productService.update(product, host, events, options);
+//
+//		int productNum = productService.findProductNum(host.getHostNum());
+//		List<ReservationDatesDomain> dates = DatesRetouch(events);
+//		log.info(dates.toString());
+//
+//		for (ReservationDatesDomain date : dates) {
+//			date.setProducNum(productNum);
+//			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
+//			date.setCloseDate(closeDate);
+//			date.setRegistDate(LocalToDayTime());
+//			date.setUpdateDate(LocalToDayTime());
+//			if (1 == reservationDatesService.insert(date)) {
+//				int reservationDateId = reservationDatesService.getId(productNum);
+//				productOptionService.listInsert(productNum, reservationDateId, options);
+//				log.info("등록");
+//			}
+//		}
+		session.removeAttribute("productNum");
 		return "redirect:/host/center";
 	}
 
@@ -222,11 +296,11 @@ public class ProductController {
 	@PostMapping("/pay/pay-method")
 	public String payment(Model model, HttpSession session, String totalPrice, int reservId, int optionId, int productNum, int quantity) {
 		if (session.getAttribute("user_info") == null) {
-			return "redirect:/login?redirectPath=/product/"+productNum+"/participate";
+			return "redirect:/login?redirectPath=/product/" + productNum + "/participate";
 		}
 		ProductDomain product = productService.forPayByProductNum(productNum);
 		ProductOptionDomain productOptions = productOptionService.optionsById(optionId);
-		reservationDatesDomain reservationDate = reservationDatesService.findById(reservId);
+		ReservationDatesDomain reservationDate = reservationDatesService.findById(reservId);
 		session.setAttribute("product", product);
 		model.addAttribute("productNum", productNum);
 		model.addAttribute("quantity", quantity);
@@ -237,7 +311,6 @@ public class ProductController {
 		model.addAttribute("reservationDate", reservationDate);
 		return "/payment/pay-method";
 	}
-
 
 
 }

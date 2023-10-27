@@ -1,11 +1,11 @@
 package com.spring.final_project.category_second;
 
+import com.spring.final_project.category_first.FirstCategoryDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class SecondCategoryServiceImpl implements SecondCategoryService {
@@ -28,6 +28,7 @@ public class SecondCategoryServiceImpl implements SecondCategoryService {
 	public List<SecondCategoryDomain> findAll() {
 		return secondCategoryMapper.findAll();
 	}
+
 	@Override
 	@Transactional
 	public List<SecondCategoryDomain> findByFirstCategory(int num) {
@@ -43,5 +44,24 @@ public class SecondCategoryServiceImpl implements SecondCategoryService {
 	@Override
 	public String findCategoryName(int productNum) {
 		return secondCategoryMapper.findCategoryName(productNum);
+	}
+
+	@Override
+	@Transactional
+	public Map<String, List<String>> setCategoryPerFirstCategory(List<FirstCategoryDomain> firtCategory) {
+		Map<String, List<String>> categoryMap = new HashMap<>();
+		List<SecondCategoryDomain> secondCategory = secondCategoryMapper.findAll();
+		int j = 0;
+		while (j < firtCategory.size()) {
+			List<String> categoryList = new ArrayList<>();
+			for (SecondCategoryDomain category : secondCategory) {
+				if (category.getFirstCateNum() == j + 1) {
+					categoryList.add(category.getSecCateName());
+				}
+				categoryMap.put(firtCategory.get(j).getFirstCateName(), categoryList);
+			}
+			j++;
+		}
+		return categoryMap;
 	}
 }

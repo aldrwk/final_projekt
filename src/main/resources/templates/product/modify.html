@@ -1,152 +1,158 @@
 <div class="manage-info-area" th:fragment="modify" xmlns:th="http://www.w3.org/1999/html">
-  <script src="/js/ckeditor5/build/ckeditor.js"></script>
-  <script type="module" src="/js/ckeditorcreate.js"></script>
-  <script src="/js/calendar.js"></script>
-  <script th:inline="javascript">
-    var dates = /*[[${dates}]]*/ null
-    var options = /*[[${productoptions}]]*/ null
-    var firstCategoryName = /*[[${firstCategoryName}]]*/ null
-  </script>
-  <div class="manage-info-header">
-    <span class="manage-info-title">프리 수정</span>
-  </div>
-  <div class="manage-info-frame profile-frame">
-    <div class="manage-info-table profile-area">
-      <div class="manage-info-profile-step">
-        <div class="regist-menu-area">
-          <div class="regist-menu-list">
-            <div class="regist-menu menu-text checked">기본 정보</div>
-            <div class="regist-menu menu-text">판매 정보</div>
-            <div class="regist-menu menu-text">프리 설명</div>
-          </div>
-        </div>
-        <form id="product_regist" method="post" action="/product/productregist" enctype="multipart/form-data">
-          <div class="default-info clicked">
-            <div class="manage-info-profile-area">
-              <span class="manage-info-text">카테고리</span>
-              <div class="manage-info-input-area manage-info-dropbox-area">
-                <input type="text" readonly class="category-input catef" name="categoryf" id="categoryf"
-                       th:value="${firstCategoryName}">
-                <span class="icon-arrow"></span>
-              </div>
-              <div class="manage-info-input-area manage-info-dropbox-area">
-                <input type="text" readonly class="category-input cates"
-                       name="categorys"
-                       id="categorys" th:value="2차카테고리">
-                <span class="icon-arrow"></span>
-              </div>
-            </div>
-            <div style="position: absolute">
-              <div class="category-list-area categoryf-list-area">
-                <div class="category-list-frame">
-                  <div class="category-list-scroll">
-                    <ul class="category-list">
-                      <li class="category categoryf" th:each="category: ${firstcategory}">
-                        <span th:text="${category.firstCateName}"></span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div style="position: absolute">
-              <div class="category-list-area categorys-list-area">
-                <div class="category-list-frame">
-                  <div class="category-list-scroll">
-                    <ul class="category-list categorys-list">
-
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="manage-info-profile-area">
-              <span class="manage-info-text">프리 제목</span>
-              <div class="manage-info-input-area">
-                <input type="text" class="manage-info-input" name="title" id="title" maxlength="40">
-                <span class="input-sub-text text-length">0/40</span>
-              </div>
-            </div>
-            <div class="manage-info-profile-area">
-              <span class="manage-info-text">장소</span>
-              <div class="manage-info-input-area address-area">
-                <input type="text" class="manage-info-input address" name="address" readonly>
-                <button type="button" class="address-search btn-address-search">주소 검색</button>
-                <input type="text" class="manage-info-input address_detail" name="address_detail"><br>
-                <span class="manage-info-subtext">상세 주소까지 입력해주세요.</span>
-              </div>
-            </div>
-            <div class="manage-info-profile-area thumnailarea">
-              <span class="manage-info-text">대표 이미지</span>
-              <div class="manage-info-input-area ">
-
-                <label class="product-thumnail-area" for="thumnail">
-                  <img class="thumnail-img" src="/image/util/add.85e31315.svg"/>
-                  <div>이미지 추가하기</div>
-                </label>
-                <input type="file" accept="image/*" name="file" id="thumnail" style="display: none">
-              </div>
-            </div>
-          </div>
-          <div class="sales-info">
-            <div class="manage-info-profile-area option-area">
-              <span class="manage-info-text">상품 옵션</span>
-              <div class=" manage-info-dropbox-area option-frame">
-                <div class="option-row">
-                  <div class="option-box">
-                    <span class="option-name">옵션명</span>
-                    <input type="text" class="manage-info-input option-input optionName" maxlength="20"
-                           id="optionName" name="optionName">
-                  </div>
-                  <div class="option-box">
-                    <span class="option-name">판매가</span>
-                    <input type="text" class="manage-info-input option-input preis price" maxlength="12"
-                           id="price" name="price">
-                    <span class="preis-won">원</span>
-                  </div>
-                  <div class="option-box option-btn-frame">
-                    <button class="option add" type="button">
-                      <img class="option-add-img" src="/image/util/add.85e31315.svg">
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="manage-info-profile-area schadule-container">
-              <span class="manage-info-text">일정</span>
-              <div class="manage-info-input-area calendar-area">
-                <div th:replace="/product/calendar"></div>
-                <input type="hidden" name="events" id="events">
-                <input type="hidden" name="options" id="options">
-                <input type="hidden" name="validPerson" id="validPerson">
-                <input type="hidden" name="maxRegisterPerOne" id="maxRegisterPerOne">
-              </div>
-            </div>
-          </div>
-
-          <div class="content-info">
-            <div class="manage-info-profile-area content-area">
-              <span class="manage-info-text">상세 설명</span>
-              <div class="manage-info-input-area manage-info-dropbox-area">
-                <div class="product_content_wrap">
-                  <div class="editor_group">
-                    <textarea name="content" id="editor"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </form>
-      </div>
-      <button class="btn-submit btn-center product-submit">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button>
+    <script src="/js/ckeditor5/build/ckeditor.js"></script>
+    <script type="module" src="/js/ckeditorcreate.js"></script>
+    <script src="/js/calendar.js"></script>
+    <script th:inline="javascript">
+        var dates = /*[[${dates}]]*/ null
+        var options = /*[[${productoptions}]]*/ null
+        var firstCategoryName = /*[[${firstCategoryName}]]*/ null
+        var secondCategory = /*[[${secondCategory}]]*/ null
+        var product = /*[[${product.content}]]*/ null
+    </script>
+    <div class="manage-info-header">
+        <span class="manage-info-title">프리 수정</span>
     </div>
-  </div>
+    <div class="manage-info-frame profile-frame">
+        <div class="manage-info-table profile-area">
+            <div class="manage-info-profile-step">
+                <div class="regist-menu-area">
+                    <div class="regist-menu-list">
+                        <div class="regist-menu menu-text checked">기본 정보</div>
+                        <div class="regist-menu menu-text">판매 정보</div>
+                        <div class="regist-menu menu-text">프리 설명</div>
+                    </div>
+                </div>
+                <form id="product_regist" method="post" action="/product/productupdate" enctype="multipart/form-data">
+                    <div class="default-info clicked">
+                        <div class="manage-info-profile-area">
+                            <span class="manage-info-text">카테고리</span>
+                            <div class="manage-info-input-area manage-info-dropbox-area">
+                                <input type="text" readonly class="category-input catef" name="categoryf" id="categoryf"
+                                       th:value="${firstCategoryName}">
+                                <span class="icon-arrow"></span>
+                            </div>
+                            <div class="manage-info-input-area manage-info-dropbox-area">
+                                <input type="text" readonly class="category-input cates category-disable"
+                                       name="categorys"
+                                       id="categorys" th:value="${secondCategoryName}">
+                                <span class="icon-arrow"></span>
+                            </div>
+                        </div>
+                        <div style="position: absolute">
+                            <div class="category-list-area categoryf-list-area">
+                                <div class="category-list-frame">
+                                    <div class="category-list-scroll">
+                                        <ul class="category-list">
+                                            <li class="category categoryf" th:each="category: ${firstcategory}">
+                                                <span th:text="${category.firstCateName}"></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position: absolute">
+                            <div class="category-list-area categorys-list-area">
+                                <div class="category-list-frame">
+                                    <div class="category-list-scroll">
+                                        <ul class="category-list categorys-list">
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="manage-info-profile-area">
+                            <span class="manage-info-text">프리 제목</span>
+                            <div class="manage-info-input-area">
+                                <input type="text" class="manage-info-input" name="title" id="title" maxlength="40"
+                                       th:value="${product.title}">
+                                <span class="input-sub-text text-length">0/40</span>
+                            </div>
+                        </div>
+                        <div class="manage-info-profile-area">
+                            <span class="manage-info-text">장소</span>
+                            <div class="manage-info-input-area address-area">
+                                <input type="text" class="manage-info-input address" name="address" readonly
+                                       th:value="${product.address}">
+                                <button type="button" class="address-search btn-address-search">주소 검색</button>
+                                <input type="text" class="manage-info-input address_detail" name="address_detail"
+                                       th:value="${product.addressDetail}"><br>
+                                <span class="manage-info-subtext">상세 주소까지 입력해주세요.</span>
+                            </div>
+                        </div>
+                        <div class="manage-info-profile-area thumnailarea">
+                            <span class="manage-info-text">대표 이미지</span>
+                            <div class="manage-info-input-area ">
+
+                                <label class="product-thumnail-area" for="thumnail">
+                                    <img class="thumnail-img addImg" src="/image/util/add.85e31315.svg"
+                                         th:if="${product.thumnail}" th:src="${product.thumnail}">
+                                </label>
+                                <input type="file" accept="image/*" name="file" id="thumnail" style="display: none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sales-info">
+                        <div class="manage-info-profile-area option-area">
+                            <span class="manage-info-text">상품 옵션</span>
+                            <div class=" manage-info-dropbox-area option-frame">
+                                <div class="option-row">
+                                    <div class="option-box">
+                                        <span class="option-name">옵션명</span>
+                                        <input type="text" class="manage-info-input option-input optionName"
+                                               maxlength="20"
+                                               id="optionName" name="optionName">
+                                    </div>
+                                    <div class="option-box">
+                                        <span class="option-name">판매가</span>
+                                        <input type="text" class="manage-info-input option-input preis price"
+                                               maxlength="12"
+                                               id="price" name="price">
+                                        <span class="preis-won">원</span>
+                                    </div>
+                                    <div class="option-box option-btn-frame">
+                                        <button class="option add" type="button">
+                                            <img class="option-add-img" src="/image/util/add.85e31315.svg">
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="manage-info-profile-area schadule-container">
+                            <span class="manage-info-text">일정</span>
+                            <div class="manage-info-input-area calendar-area">
+                                <div th:replace="/product/calendar"></div>
+                                <input type="hidden" name="events" id="events">
+                                <input type="hidden" name="options" id="options">
+                                <input type="hidden" name="validPerson" id="validPerson">
+                                <input type="hidden" name="maxRegisterPerOne" id="maxRegisterPerOne">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-info">
+                        <div class="manage-info-profile-area content-area">
+                            <span class="manage-info-text">상세 설명</span>
+                            <div class="manage-info-input-area editor-area">
+                                <div class="product_content_wrap">
+                                    <div class="editor_group">
+                                        <textarea name="content" id="editor"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <button class="btn-submit btn-center product-submit">등&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;록</button>
+        </div>
+    </div>
 </div>
 </div>
 
 <th:block th:fragment="secondcategorys">
-  <li class="category categorys" th:each="category: ${secondCategory}">
-    <span th:text="${category.secCateName}"></span>
-  </li>
+    <li class="category categorys" th:each="category: ${secondCategory}">
+        <span th:text="${category.secCateName}"></span>
+    </li>
 </th:block>

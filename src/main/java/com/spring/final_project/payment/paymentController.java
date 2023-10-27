@@ -5,8 +5,7 @@ import com.spring.final_project.member.MemberController;
 import com.spring.final_project.product.*;
 import com.spring.final_project.reservation.ReservationDomain;
 import com.spring.final_project.reservation.ReservationService;
-import com.spring.final_project.reservation_dates.reservationDatesDomain;
-import com.spring.final_project.reservation_dates.reservationDatesService;
+import com.spring.final_project.reservation_dates.ReservationDatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +27,11 @@ public class paymentController {
 
 	private ProductService productService;
 	private ProductOptionService productOptionService;
-	private reservationDatesService reservationDatesService;
+	private ReservationDatesService reservationDatesService;
 
 	@Autowired
-	public paymentController(ProductService productService, ProductOptionService productOptionService, reservationDatesService reservationDatesService,	ReservationService reservationService,
-	PaymentService paymentService) {
+	public paymentController(ProductService productService, ProductOptionService productOptionService, ReservationDatesService reservationDatesService, ReservationService reservationService,
+							 PaymentService paymentService) {
 		this.productService = productService;
 		this.productOptionService = productOptionService;
 		this.reservationDatesService = reservationDatesService;

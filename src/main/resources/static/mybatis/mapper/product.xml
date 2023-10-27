@@ -10,6 +10,20 @@
                 #{secCateNum},
                 #{thumnail}, #{viewCount}, #{producRegitDate}, #{producUpdateDate})
     </insert>
+    <update id="update" parameterType="productDomain">
+        update product
+        set title            = #{title},
+            content          = #{content},
+            address          = #{address},
+            addressDetail    = #{addressDetail},
+            area             = #{area},
+            areaDetail       = #{areaDetail},
+            secCateNum       = #{secCateNum},
+            thumnail         = #{thumnail},
+            viewCount        = #{viewCount},
+            producUpdateDate = #{producUpdateDate}
+        where produc_num = #{producNum}
+    </update>
     <select id="findProductNum" resultType="int">
         select produc_num
         from product
@@ -122,7 +136,9 @@
                area_detail,
                thumnail
         from product
-        where title like #{search} or content like #{search} order by produc_regit_date desc;
+        where title like #{search}
+           or content like #{search}
+        order by produc_regit_date desc;
     </select>
     <select id="findByPopularSearch" resultMap="productMap">
         select produc_num,
@@ -132,7 +148,9 @@
                area_detail,
                thumnail
         from product
-        where title like #{search} or content like #{search} order by view_count desc;
+        where title like #{search}
+           or content like #{search}
+        order by view_count desc;
     </select>
     <update id="viewCountUp" parameterType="int">
         update product

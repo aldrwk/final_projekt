@@ -2,6 +2,9 @@
     <script src="/js/ckeditor5/build/ckeditor.js"></script>
     <script type="module" src="/js/ckeditorcreate.js"></script>
     <script src="/js/calendar.js"></script>
+    <script th:inline="javascript">
+        secondCategory = /*[[${secondCategory}]]*/ null
+    </script>
     <div class="manage-info-header">
         <span class="manage-info-title">프리 등록</span>
     </div>
@@ -122,7 +125,7 @@
                     <div class="content-info">
                         <div class="manage-info-profile-area content-area">
                             <span class="manage-info-text">상세 설명</span>
-                            <div class="manage-info-input-area manage-info-dropbox-area">
+                            <div class="manage-info-input-area editor-area">
                                 <div class="product_content_wrap">
                                     <div class="editor_group">
                                         <textarea name="content" id="editor"></textarea>
@@ -139,9 +142,3 @@
     </div>
 </div>
 </div>
-
-<th:block th:fragment="secondcategorys">
-    <li class="category categorys" th:each="category: ${secondCategory}">
-        <span th:text="${category.secCateName}"></span>
-    </li>
-</th:block>

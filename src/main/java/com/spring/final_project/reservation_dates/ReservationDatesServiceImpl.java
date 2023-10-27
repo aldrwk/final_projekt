@@ -8,36 +8,36 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class reservationDatesServiceImpl implements reservationDatesService {
+public class ReservationDatesServiceImpl implements ReservationDatesService {
 
-	reservationDatesMapper reservationDatesMapper;
+	ReservationDatesMapper reservationDatesMapper;
 
 	@Autowired
-	public reservationDatesServiceImpl(reservationDatesMapper reservationDatesMapper) {
+	public ReservationDatesServiceImpl(ReservationDatesMapper reservationDatesMapper) {
 		this.reservationDatesMapper = reservationDatesMapper;
 	}
 
 	@Override
 	@Transactional
-	public int insert(reservationDatesDomain reservationDates) {
+	public int insert(ReservationDatesDomain reservationDates) {
 		return reservationDatesMapper.insert(reservationDates);
 	}
 
 	@Override
 	@Transactional
-	public int update(reservationDatesDomain reservationDates) {
+	public int update(ReservationDatesDomain reservationDates) {
 		return reservationDatesMapper.update(reservationDates);
 	}
 
 	@Override
 	@Transactional
-	public int delete(reservationDatesDomain reservationDates) {
+	public int delete(ReservationDatesDomain reservationDates) {
 		return reservationDatesMapper.delete(reservationDates);
 	}
 
 	@Override
 	@Transactional
-	public List<reservationDatesDomain> findByProductNum(int productNum) {
+	public List<ReservationDatesDomain> findByProductNum(int productNum) {
 		return reservationDatesMapper.findByProductNum(productNum);
 	}
 
@@ -49,7 +49,7 @@ public class reservationDatesServiceImpl implements reservationDatesService {
 
 	@Override
 	@Transactional
-	public reservationDatesDomain findById(int reservationId) {
+	public ReservationDatesDomain findById(int reservationId) {
 		return reservationDatesMapper.findById(reservationId);
 	}
 
