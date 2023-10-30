@@ -24,20 +24,28 @@
         where produc_num = #{producNum};
     </select>
     <select id="optionsById" resultMap="productOptionMap">
-        select option_id, option_name, price
+        select option_id, reservation_id ,option_name, price
         from product_option
         where option_id = #{optionId};
     </select>
-    <select id="getRestById" resultType="int">
-        select rest
+    <select id="getRestById" resultType="Integer">
+        select ifnull(rest, 0)
         from product_option
         where option_id = #{optionId} for update;
+    </select>
+    <select id="findByReservationId" resultType="Integer">
+        select reservation_id
+        from product_option
+        where reservation_id = #{reservationId};
     </select>
     <update id="restDown" parameterType="Map">
         update product_option
         set rest = rest - #{quantity}
         where option_id = #{optionId}
     </update>
+    <delete id="deleteByReservationId" parameterType="int">
+        delete from product_option where reservation_id = #{reservationId};
+    </delete>
 
 
     <resultMap id="productOptionMap" type="productOptionDomain">

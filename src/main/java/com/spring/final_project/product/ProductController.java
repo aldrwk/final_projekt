@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
@@ -36,6 +37,7 @@ import static com.spring.final_project.util.SchaduleService.DatesRetouch;
 public class ProductController {
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
+	private static final String DB_UPDATE_FAIL = "fail";
 
 	FirstCategoryService firstCategoryService;
 	SecondCategoryService secondCategoryService;
@@ -193,7 +195,6 @@ public class ProductController {
 //	}
 
 	@PostMapping("/product/productregist")
-	@Transactional
 	public String productRegist(ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
 								@RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
 		HostDomain host = (HostDomain) session.getAttribute("host_info");
@@ -234,15 +235,14 @@ public class ProductController {
 	}
 
 	@PostMapping("/product/productupdate")
-	@Transactional
-	public String productUpdate (ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
-								@RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
+	public String productUpdate (RedirectAttributes redirectAttributes, ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
+								 @RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
 		HostDomain host = (HostDomain) session.getAttribute("host_info");
 
 		int productNum = (int) session.getAttribute("productNum");
-
-
-		if (file != null && !file.isEmpty()) {
+		log.info(String.valueOf(productNum));
+		log.info(file.getOriginalFilename());
+		if (file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
 			String saveFolder = "/image/product/" + toDay() + File.separator + host.getHostNum();
 			String saveName = imageUpload(saveFolder, file);
 			product.setThumnail(saveName);
@@ -256,24 +256,10 @@ public class ProductController {
 		int secondCategoryNum = secondCategoryService.findByName(data);
 		product.setProducNum(productNum);
 		product = productService.productSet(product, host.getHostNum(), addressDetail, secondCategoryNum);
-		productService.update(product, host, events, options);
-//
-//		int productNum = productService.findProductNum(host.getHostNum());
-//		List<ReservationDatesDomain> dates = DatesRetouch(events);
-//		log.info(dates.toString());
-//
-//		for (ReservationDatesDomain date : dates) {
-//			date.setProducNum(productNum);
-//			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
-//			date.setCloseDate(closeDate);
-//			date.setRegistDate(LocalToDayTime());
-//			date.setUpdateDate(LocalToDayTime());
-//			if (1 == reservationDatesService.insert(date)) {
-//				int reservationDateId = reservationDatesService.getId(productNum);
-//				productOptionService.listInsert(productNum, reservationDateId, options);
-//				log.info("등록");
-//			}
-//		}
+		if (productService.update(product, host, events, options) == 0) {
+			redirectAttributes.addFlashAttribute("result", DB_UPDATE_FAIL);
+		}
+
 		session.removeAttribute("productNum");
 		return "redirect:/host/center";
 	}

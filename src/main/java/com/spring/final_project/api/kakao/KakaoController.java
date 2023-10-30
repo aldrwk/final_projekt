@@ -78,7 +78,7 @@ public class KakaoController {
 		ProductOptionDomain option = productOptionService.optionsById(optionId);
 		ProductDomain product = (ProductDomain) session.getAttribute("product");
 		MemberDomain member = (MemberDomain) session.getAttribute("user_info");
-		String partnerOrderId = member.getNum() + "_" + product.getProducNum() + "_" + option.getOptionId();
+		String partnerOrderId = member.getNum() + "_" + product.getProducNum() + "_" + option.getReservationId();
 		log.info(quantity+ "요청 수량확인!!!!!!!!!!!!!!!!!!!!");
 		KakaoPayReadyDto kakaoPayReadyDto = kakaoPayService.kakaoPayReady(product, option, quantity, totalPrice, partnerOrderId);
 		if (kakaoPayReadyDto == null) {

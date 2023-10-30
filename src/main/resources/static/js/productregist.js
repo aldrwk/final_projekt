@@ -203,6 +203,8 @@ $(function () {
             options.push(obj);
         }
         var optionJson = JSON.stringify(options);
+        console.log($("#validPerson").val());
+        console.log($("#maxRegisterPerOne").val());
         console.log(optionJson);
         $("#events").val(jsondata);
         $("#options").val(optionJson);

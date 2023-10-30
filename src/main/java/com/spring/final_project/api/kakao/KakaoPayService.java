@@ -35,15 +35,15 @@ public class KakaoPayService {
 	@Transactional
 	public KakaoPayReadyDto kakaoPayReady(ProductDomain product, ProductOptionDomain option, String quantity, String totalPrice, String partnerOrderId) {
 		int optionId = option.getOptionId();
-		int restCheckResult = paymentService.restCheck(optionId, quantity);
-		int intQuantity = Integer.parseInt(quantity);
+		int restCheckResult = productOptionService.restCheck(optionId, quantity);
+//		int intQuantity = Integer.parseInt(quantity);
 		log.info("재고 체크 : "+ restCheckResult);
 
 		if (restCheckResult > 0) {
-			Map<String, Object> restDownMap = new HashMap<>();
-			restDownMap.put("optionId", optionId);
-			restDownMap.put("quantity", intQuantity);
-			productOptionService.restDown(restDownMap);
+//			Map<String, Object> restDownMap = new HashMap<>();
+//			restDownMap.put("optionId", optionId);
+//			restDownMap.put("quantity", intQuantity);
+//			productOptionService.restDown(restDownMap);
 			// 카카오페이 요청 양식
 			MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 			parameters = setPayReadyParmeter(parameters, product, option, quantity, totalPrice, partnerOrderId);

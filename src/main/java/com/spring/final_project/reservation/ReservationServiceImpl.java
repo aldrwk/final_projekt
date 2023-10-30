@@ -18,14 +18,14 @@ public class ReservationServiceImpl implements ReservationService {
 
 
 	@Override
-	public  ReservationDomain setReservation(int productNum, int memberNum, int optionNum, int quantity) {
+	public ReservationDomain setReservation(int productNum, int memberNum, int reservationDateId,String optionName, int quantity) {
 
 		LocalDateTime now = LocalDateTime.now();
-
 		ReservationDomain reservation = new ReservationDomain();
 		reservation.setProducNum(productNum);
 		reservation.setMemberNum(memberNum);
-		reservation.setOptionId(optionNum);
+		reservation.setReservationId(reservationDateId);
+		reservation.setOptionName(optionName);
 		reservation.setQuantity(quantity);
 		reservation.setReservDate(now);
 		return reservation;
@@ -44,7 +44,13 @@ public class ReservationServiceImpl implements ReservationService {
 		return reservationMapper.getReservNum(memberNum);
 	}
 
-//	@Override
+	@Override
+	public Integer findByReservationDateId(int reservationDateId) {
+		return reservationMapper.findByReservationDateId(reservationDateId);
+	}
+
+
+	//	@Override
 //	public List<Map<String, Object>> setReservationPack(List<reservationDatesDomain> reservationDates) {
 //		List<Map<String, Object>> productpacks = new ArrayList<>();
 //		for (ProductDomain product : products) {

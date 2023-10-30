@@ -7,12 +7,15 @@
     <insert id="insert" parameterType="ReservationDomain">
         insert into reservation
         values (null, #{producNum}, #{memberNum},
-                (select reservation_id from product_option where option_id = #{optionId}),
-                #{optionId}, #{quantity}, #{reservDate})
+                #{reservationId}, #{optionName}, #{quantity}, #{reservDate})
     </insert>
 
     <select id="getReservNum" resultType="int">
         select reserv_num from reservation where member_num = #{memberNum} order by reserv_num desc limit 1
+    </select>
+    
+    <select id="findByReservationDateId" parameterType="int" resultType="Integer">
+        select reserv_num from reservation where reservation_id = #{reservationId}
     </select>
 
 
@@ -21,7 +24,7 @@
         <result column="produc_num" property="producNum"/>
         <result column="member_num" property="memberNum"/>
         <result column="reservation_id" property="reservationId"/>
-        <result column="option_id" property="optionId"/>
+        <result column="option_name" property="optionName"/>
         <result column="reserv_date" property="reservDate"/>
         <result column="update_date" property="updateDate"/>
     </resultMap>

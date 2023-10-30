@@ -11,7 +11,7 @@ public interface ReservationDatesMapper {
 	public int insert(ReservationDatesDomain reservationDates);
 	public int update(ReservationDatesDomain reservationDates);
 
-	public int delete(ReservationDatesDomain reservationDates);
+	public int delete(int productNum);
 
 	public List<ReservationDatesDomain> findByProduct();
 

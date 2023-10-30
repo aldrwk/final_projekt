@@ -34,10 +34,10 @@ public class SchaduleService {
 		LocalDateTime startDate = instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
 		instant = Instant.parse(data.getEnd());
 		LocalDateTime endDate = instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
-		//		int validPerson = Integer.parseInt(data.getMaxPeople());
-		//		int MaxRegisterPerOne = Integer.parseInt(data.getMaxPerson());
-		//		reservationDate.setValidPerson(validPerson);
-		//		reservationDate.setMaxRegisterPerOne(MaxRegisterPerOne);
+		System.out.println(data.getId().length() + " setfd");
+		if (data.getId().length() <= 3 || !data.getId().substring(0, 3).equals("new")) {
+			reservationDate.setReservationId(Integer.parseInt(data.getId()));
+		}
 		reservationDate.setReservDate(startDate);
 		reservationDate.setEndDate(endDate);
 		return reservationDate;

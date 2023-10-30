@@ -45,9 +45,10 @@ public class paymentController {
 		String[] idArray = payInfo.getPartner_order_id().split("_");
 		int memberNum = Integer.parseInt(idArray[0]);
 		int productNum = Integer.parseInt(idArray[1]);
-		int optionNum = Integer.parseInt(idArray[2]);
+		int reservationDateId = Integer.parseInt(idArray[2]);
 		int quantity = (int) payInfo.getQuantity();
 		String productName = payInfo.getItem_name();
+		String optionName = productName.split(" ")[1];
 		String payMethod = payInfo.getPayment_method_type();
 		String payPrice = String.valueOf(payInfo.getAmount().getTotal());
 		String payDate = String.valueOf(payInfo.getApproved_at());
@@ -59,7 +60,7 @@ public class paymentController {
 		paymentMap.put("payPrice", payPrice);
 		paymentMap.put("quantity", String.valueOf(quantity));
 
-		reservationDomain = reservationService.setReservation(productNum, memberNum, optionNum, quantity);
+		reservationDomain = reservationService.setReservation(productNum, memberNum, reservationDateId, optionName, quantity);
 		if (1 == reservationService.insert(reservationDomain)) {
 			int reservNum = reservationService.getReservNum(memberNum);
 			log.info(String.valueOf(reservNum));
