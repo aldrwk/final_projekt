@@ -1,15 +1,12 @@
 package com.spring.final_project.payment;
 
-import com.spring.final_project.api.kakao.KakaoApproveResponse;
-import com.spring.final_project.api.kakao.KakaoPayService;
 import com.spring.final_project.product.ProductOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Map;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -18,6 +15,10 @@ public class PaymentServiceImpl implements PaymentService {
 	ProductOptionService productOptionService;
 	final static int NO_REST = 0;
 	final static int REST = 1;
+
+	public PaymentServiceImpl(ProductOptionService productOptionService) {
+		this.productOptionService = productOptionService;
+	}
 
 	@Autowired
 	public PaymentServiceImpl(PayHistoryMapper payHistoryMapper, ProductOptionService productOptionService) {
@@ -36,14 +37,6 @@ public class PaymentServiceImpl implements PaymentService {
 		payHistoryDomain.setPayDate(payTime);
 
 		return payHistoryDomain;
-	}
-
-
-	@Override
-	public int restCheck(int optionId, String quantity) {
-		int rest = productOptionService.getRestById(optionId);
-		int intQuantity = Integer.parseInt(quantity);
-		return rest - intQuantity >= 0? REST:NO_REST;
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class ReservationDomain {
 
-	int reservNum, producNum, memberNum, reservationId, optionId, quantity;
+	int reservNum, producNum, memberNum, reservationId, quantity;
+	String optionName;
 	LocalDateTime reservDate;
 }

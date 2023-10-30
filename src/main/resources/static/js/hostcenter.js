@@ -6,6 +6,10 @@ $(function () {
         slidesToScroll: 1,
     });
 
+    if (result == "fail") {
+        alert("예약 변경에 실패하였습니다. 이미 예약된 일정이 있는지 확인바랍니다.");
+    }
+
     $(".nav-left-frame").hover(function () {
 
     });

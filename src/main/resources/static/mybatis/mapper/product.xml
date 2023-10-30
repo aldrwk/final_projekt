@@ -15,13 +15,12 @@
         set title            = #{title},
             content          = #{content},
             address          = #{address},
-            addressDetail    = #{addressDetail},
+            address_detail    = #{addressDetail},
             area             = #{area},
-            areaDetail       = #{areaDetail},
-            secCateNum       = #{secCateNum},
+            area_detail       = #{areaDetail},
+            sec_cate_num       = #{secCateNum},
             thumnail         = #{thumnail},
-            viewCount        = #{viewCount},
-            producUpdateDate = #{producUpdateDate}
+            produc_update_date = #{producUpdateDate}
         where produc_num = #{producNum}
     </update>
     <select id="findProductNum" resultType="int">

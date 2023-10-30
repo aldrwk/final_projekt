@@ -9,4 +9,5 @@ public interface ReservationMapper {
 
 	public int getReservNum(int memberNum);
 
+	public Integer findByReservationDateId(int reservationDateId);
 }

@@ -163,7 +163,7 @@ $(function () {
         }
         console.log(date + "+" + start + "+" + end + "+" + maxPerson + "+" + maxPeople);
         calendar.addEvent({
-            id: date + " " + start,
+            id: "new " + date + " " + start,
             start: date + "T" + start,
             end: date + "T" + end,
             allDay: false,
@@ -183,7 +183,7 @@ $(function () {
         const end = date + "T" + $("#end").val();
         const maxPeople = $("#maxPeople").val();
         const maxPerson = $("#maxPerson").val();
-        console.log(start, end);
+        console.log(maxPeople, maxPerson);
         if (!person_check(maxPeople, maxPerson)) {
             return false;
         }
@@ -194,6 +194,8 @@ $(function () {
         calendar_update.setDates(start, end);
         calendar_update.setExtendedProp("maxPeople", maxPeople);
         calendar_update.setExtendedProp("maxPerson", maxPerson);
+        $("#validPerson").val(maxPeople);
+        $("#maxRegisterPerOne").val(maxPerson)
         console.log(calendar_update);
         $(".close").click();
     });

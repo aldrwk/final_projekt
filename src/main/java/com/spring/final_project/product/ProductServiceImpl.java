@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
 	final static int SUCCESS = 1;
 	final static int Fail = 0;
+	final static int NOTHING = 0;
 
 	@Autowired
 	public ProductServiceImpl(ProductMapper productMapper, ProductOptionService productOptionService, ReservationDatesService reservationDatesService) {
@@ -53,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
 			date.setCloseDate(closeDate);
 			date.setRegistDate(LocalToDayTime());
 			date.setUpdateDate(LocalToDayTime());
-			if (1 == reservationDatesService.insert(date)) {
+			if (reservationDatesService.insert(date) == SUCCESS) {
 				int reservationDateId = reservationDatesService.getId(productNum);
 				productOptionService.listInsert(productNum, reservationDateId, options);
 				log.info("등록");
@@ -67,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 	public int update(ProductDomain product, HostDomain host, String events, String options) {
 		product.setProducUpdateDate(LocalToDayTime());
 		int result = productMapper.update(product);
-		int productNum = findProductNum(host.getHostNum());
+		int productNum = product.getProducNum();
 		List<ReservationDatesDomain> dates = DatesRetouch(events);
 		log.info(dates.toString());
 
@@ -76,12 +77,19 @@ public class ProductServiceImpl implements ProductService {
 			LocalDateTime closeDate = date.getReservDate().minus(1, ChronoUnit.DAYS).withHour(23).withMinute(59);
 			date.setCloseDate(closeDate);
 			date.setUpdateDate(LocalToDayTime());
-
+			int reservationDateId = date.getReservationId();
 			//업데이트로 바꾸기
-			if (1 == reservationDatesService.insert(date)) {
-				int reservationDateId = reservationDatesService.getId(productNum);
+			if (reservationDateId == NOTHING) {
+				date.setRegistDate(LocalToDayTime());
+				if (reservationDatesService.insert(date) == SUCCESS) {
+					reservationDateId = reservationDatesService.getId(productNum);
+					productOptionService.listInsert(productNum, reservationDateId, options);
+					log.info("등록");
+				}
+			} else {
+				reservationDatesService.update(date, reservationDateId);
 				productOptionService.listInsert(productNum, reservationDateId, options);
-				log.info("등록");
+				log.info("업데이트");
 			}
 		}
 		return result == SUCCESS ? SUCCESS : Fail;
@@ -183,6 +191,7 @@ public class ProductServiceImpl implements ProductService {
 		product.setArea(addressArray[0]);
 		product.setAreaDetail(addressArray[1]);
 		product.setSecCateNum(SecondCategoryNum);
+		log.info(product.toString());
 		if (product.getProducNum() == 0) {
 			product.setProducRegitDate(LocalToDayTime());
 		}

@@ -9,6 +9,16 @@
         values (null, #{producNum}, #{reservDate}, #{endDate}, #{closeDate}, #{registDate},
                 #{updateDate})
     </insert>
+    <update id="update" parameterType="reservationDatesDomain">
+        update reservation_dates
+        set produc_num     = #{producNum},
+            reserv_date    = #{reservDate},
+            end_date       = #{endDate},
+            close_date     = #{closeDate},
+            update_date    = #{updateDate}
+        where reservation_id = #{reservationId}
+    </update>
+
     <select id="findByProductNum" resultMap="reservationDatesMap">
         select reservation_id, reserv_date, end_date, close_date
         from reservation_dates
@@ -34,6 +44,9 @@
         order by reservation_id desc limit 1
     </select>
 
+    <delete id="delete" parameterType="int">
+        delete from reservation_dates where produc_num = #{producNum}
+    </delete>
 
     <resultMap id="reservationDatesMap" type="reservationDatesDomain">
         <result column="reservation_id" property="reservationId"/>
