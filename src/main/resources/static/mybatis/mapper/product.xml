@@ -43,6 +43,24 @@
         from product
         where produc_num = #{productNum};
     </select>
+<!--    <select id="unitedFindByProductNum" resultMap="ProductIncludingOptionVoMap">-->
+<!--        select distinct option_name,-->
+<!--                        price,-->
+<!--                        produc_num,-->
+<!--                        host_num,-->
+<!--                        title,-->
+<!--                        content,-->
+<!--                        address,-->
+<!--                        address_detail,-->
+<!--                        area,-->
+<!--                        area_detail,-->
+<!--                        sec_cate_num,-->
+<!--                        thumnail-->
+<!--        from product-->
+<!--                 natural join product_option-->
+<!--        where produc_num = #{productNum};-->
+<!--    </select>-->
+
     <select id="getTitleByProductNum" resultType="String">
         select title
         from product
@@ -168,4 +186,18 @@
         <result column="produc_regit_date" property="producRegitDate"/>
         <result column="produc_update_date" property="producUpdateDate"/>
     </resultMap>
+
+    <resultMap id="ProductIncludingOptionVoMap" type="ProductIncludingOptionVo">
+        <result column="option_name" property="optionName"/>
+        <result column="price" property="price"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="host_num" property="hostNum"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="area_detail" property="areaDetail"/>
+        <result column="sec_cate_num" property="secCateNum"/>
+        <result column="thumnail" property="thumnail"/>
+        <result column="conntent" property="conntent"/>
+    </resultMap>
+
+
 </mapper>

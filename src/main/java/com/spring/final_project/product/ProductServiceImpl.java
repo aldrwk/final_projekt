@@ -115,6 +115,12 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
+	public List<ProductIncludingOptionVo> unitedFindByProductNum(int productNum) {
+		return productMapper.unitedFindByProductNum(productNum);
+	}
+
+	@Override
+	@Transactional
 	public ProductDomain forPayByProductNum(int productNum) {
 		return productMapper.forPayByProductNum(productNum);
 	}

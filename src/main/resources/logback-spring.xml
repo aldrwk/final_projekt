@@ -22,7 +22,7 @@
     </logger>
 
     <root>
-        <level value="debug" />
+        <level value="INFO" />
         <appender-ref ref="STOUT"/>
     </root>
 </configuration>

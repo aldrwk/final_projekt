@@ -22,10 +22,13 @@ public interface ProductMapper {
 
 	public List<ProductDomain> findByHostNum(int hostNum);
 
+	public List<ProductIncludingOptionVo> unitedFindByProductNum(int hostNum);
+
+
+
 	public int countByHostNum(int hostNum);
 
 	public int countInThisMonth(Map<String, Object> map);
-
 
 
 	public int viewCountUp(int productNum);

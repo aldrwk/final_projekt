@@ -156,7 +156,7 @@ $(function () {
         $(".cates").val("2차카테고리");
         $(".categorys-list").append(categorys);
     }
-
+    console.log(totalProfit)
     totalProfit = totalProfit.toLocaleString();
     $("#totalprofit").text(totalProfit + " 원");
     profitInThisMonth = profitInThisMonth.toLocaleString();

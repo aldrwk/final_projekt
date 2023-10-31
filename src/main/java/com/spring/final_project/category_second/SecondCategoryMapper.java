@@ -16,4 +16,6 @@ public interface SecondCategoryMapper {
 
 	public String findCategoryName(int productNum);
 
+	public UnitedCategoryVo findCategorysName(int productNum);
+
 }

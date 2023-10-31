@@ -28,13 +28,13 @@
                             <span class="manage-info-text">카테고리</span>
                             <div class="manage-info-input-area manage-info-dropbox-area">
                                 <input type="text" readonly class="category-input catef" name="categoryf" id="categoryf"
-                                       th:value="${firstCategoryName}">
+                                       th:value="${unitedCategoryName.firstCateName}">
                                 <span class="icon-arrow"></span>
                             </div>
                             <div class="manage-info-input-area manage-info-dropbox-area">
                                 <input type="text" readonly class="category-input cates category-disable"
                                        name="categorys"
-                                       id="categorys" th:value="${secondCategoryName}">
+                                       id="categorys" th:value="${unitedCategoryName.secCateName}">
                                 <span class="icon-arrow"></span>
                             </div>
                         </div>
@@ -90,6 +90,7 @@
                                          th:if="${product.thumnail}" th:src="${product.thumnail}">
                                 </label>
                                 <input type="file" accept="image/*" name="file" id="thumnail" style="display: none">
+                                <input type="hidden"name="thumnail" style="display: none" th:if="${product.thumnail}" th:value="${product.thumnail}">
                             </div>
                         </div>
                     </div>

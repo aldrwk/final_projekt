@@ -11,6 +11,10 @@
     margin-bottom: 20px;
     border-bottom: 1px solid #e5e5e5;
 }
+.pay-product {
+    display: flex;
+}
+
 .pay-title, .pay-main-title {
     width: 800px;
     font-size: 20px;
@@ -28,8 +32,6 @@
     display: inline-block;
     width: 465px;
     font-weight: bold;
-    position: relative;
-    bottom: 46px;
     padding-left: 20px;
     font-size: 20px;
 }

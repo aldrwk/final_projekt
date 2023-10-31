@@ -67,23 +67,18 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	@Override
 	@Transactional
 	public int restCheck(int optionId, String quantity) {
-		System.out.println(quantity);
-		int rest = 0;
-
-//		rest = getRestById(optionId, rest, quantity);
-		rest = productOptionMapper.getRestById(optionId);
-		System.out.println("testtest");
 		int intQuantity = Integer.parseInt(quantity);
-		Map<String, Object> restDownMap = new HashMap<>();
-		restDownMap.put("optionId", optionId);
-		restDownMap.put("quantity", intQuantity);
-		if (productOptionMapper.restDown(restDownMap) == 1) {
-			rest--;
-			System.out.println("남은 재고 : " + rest);
-		}
+		int rest = productOptionMapper.getRestById(optionId);
+		System.out.println("현 재고 : " + rest);
 
-		return rest;
-//		return rest - intQuantity >= 0 ? REST : NO_REST;
+		int restResult = rest - intQuantity;
+		if (restResult >= NO_REST) {
+			Map<String, Object> restDownMap = new HashMap<>();
+			restDownMap.put("optionId", optionId);
+			restDownMap.put("quantity", intQuantity);
+			productOptionMapper.restDown(restDownMap);
+		}
+		return restResult;
 	}
 
 	@Override
@@ -116,27 +111,17 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	}
 
 
-	@Override
-	@Transactional
-	public Integer getRestById(int optionId, int rest, String quantity) {
-		productOptionMapper.getRestById(optionId);
-		System.out.println("testtest");
-		int intQuantity = Integer.parseInt(quantity);
-		Map<String, Object> restDownMap = new HashMap<>();
-		restDownMap.put("optionId", optionId);
-		restDownMap.put("quantity", intQuantity);
-		if (productOptionMapper.restDown(restDownMap) == 1) {
-			rest--;
-			System.out.println("남은 재고 : " + rest);
-		}
-		return rest;
-	}
-
-	@Override
-	@Transactional
-	public int restDown(Map<String, Object> restDownMap) {
-		return productOptionMapper.restDown(restDownMap);
-	}
+//	@Override
+//	@Transactional
+//	public Integer getRestById(int optionId, String quantity) {
+//		return productOptionMapper.getRestById(optionId);
+//	}
+//
+//	@Override
+//	@Transactional
+//	public int restDown(Map<String, Object> restDownMap) {
+//		return productOptionMapper.restDown(restDownMap);
+//	}
 
 	@Override
 	@Transactional

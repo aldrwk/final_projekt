@@ -3,6 +3,7 @@ package com.spring.final_project.product;
 import com.spring.final_project.category_first.FirstCategoryDomain;
 import com.spring.final_project.category_first.FirstCategoryService;
 import com.spring.final_project.category_second.SecondCategoryService;
+import com.spring.final_project.category_second.UnitedCategoryVo;
 import com.spring.final_project.host.HostDomain;
 import com.spring.final_project.host.HostService;
 import com.spring.final_project.member.MemberController;
@@ -14,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,16 +22,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-import static com.spring.final_project.util.DateService.LocalToDayTime;
 import static com.spring.final_project.util.DateService.toDay;
 import static com.spring.final_project.util.FileUploadService.imageUpload;
-import static com.spring.final_project.util.SchaduleService.DatesRetouch;
 
 @Controller
 public class ProductController {
@@ -146,10 +142,8 @@ public class ProductController {
 
 		CompletableFuture<List<FirstCategoryDomain>> firstCategorys = CompletableFuture.supplyAsync(() ->
 				firstCategoryService.findAll());
-		CompletableFuture<String> firstCategoryName = CompletableFuture.supplyAsync(() ->
-				firstCategoryService.findCategoryName(productNum));
-		CompletableFuture<String> secondCategoryName = CompletableFuture.supplyAsync(() ->
-				secondCategoryService.findCategoryName(productNum));
+		CompletableFuture<UnitedCategoryVo> unitedCategoryName = CompletableFuture.supplyAsync(() ->
+				secondCategoryService.findCategorysName(productNum));
 		CompletableFuture<ProductDomain> product = CompletableFuture.supplyAsync(() ->
 				productService.findByProductNum(productNum));
 		CompletableFuture<List<ProductOptionDomain>> productOptions = CompletableFuture.supplyAsync(() ->
@@ -157,20 +151,21 @@ public class ProductController {
 		CompletableFuture<List<CalendarVo>> reservationDates = CompletableFuture.supplyAsync(() ->
 				reservationDatesService.findByCalendarVo(productNum));
 
-		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(firstCategorys, firstCategoryName, secondCategoryName, product, productOptions, reservationDates);
+		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(firstCategorys, unitedCategoryName, product, productOptions, reservationDates);
 		combinedFutureAllof.thenRun(() -> {
 			try {
+				log.info(String.valueOf(unitedCategoryName.get()));
+
 				Map<String, List<String>> secondCategoryMap = new HashMap<>();
 				secondCategoryMap = secondCategoryService.setCategoryPerFirstCategory(firstCategorys.get());
 				JSONObject secondCategoryJson = new JSONObject(secondCategoryMap);
+				model.addAttribute("secondCategory", secondCategoryJson.toString());
 
-				model.addAttribute("categorys", firstCategorys.get());
-				model.addAttribute("firstCategoryName", firstCategoryName.get());
-				model.addAttribute("secondCategoryName", secondCategoryName.get());
+				model.addAttribute("firstcategory", firstCategorys.get());
+				model.addAttribute("unitedCategoryName", unitedCategoryName.get());
 				model.addAttribute("product", product.get());
 				model.addAttribute("productoptions", productOptions.get());
 				model.addAttribute("dates", reservationDates.get());
-				model.addAttribute("secondCategory", secondCategoryJson.toString());
 			} catch (InterruptedException e) {
 				throw new RuntimeException(e);
 			} catch (ExecutionException e) {
@@ -180,19 +175,6 @@ public class ProductController {
 		session.setAttribute("productNum", productNum);
 		return "/product/modify ::modify";
 	}
-
-
-//	@GetMapping("/product/secondcategory")
-//	public String secondCategory(String name, Model model) {
-//		int firstCategoryNum = firstCategoryService.findByName(name);
-//		List<SecondCategoryDomain> secondCategory = secondCategoryService.findByFirstCategory(firstCategoryNum);
-//
-//		model.addAttribute("secondCategory", secondCategory);
-////		String secondCate = "<li class=\"category categorys\" th:each=\"category: ${secondCategory}\">\n" +
-////				"<span th:text=\"${category.secCateName}\"></span>" +
-////				"</li>";
-//		return "/product/regist ::secondcategorys";
-//	}
 
 	@PostMapping("/product/productregist")
 	public String productRegist(ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
@@ -235,8 +217,8 @@ public class ProductController {
 	}
 
 	@PostMapping("/product/productupdate")
-	public String productUpdate (RedirectAttributes redirectAttributes, ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
-								 @RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
+	public String productUpdate(RedirectAttributes redirectAttributes, ProductDomain product, ProductOptionDomain productOption, HttpSession session, String categoryf, String categorys,
+								@RequestParam(name = "address_detail") String addressDetail, MultipartFile file, String events, String options) {
 		HostDomain host = (HostDomain) session.getAttribute("host_info");
 
 		int productNum = (int) session.getAttribute("productNum");

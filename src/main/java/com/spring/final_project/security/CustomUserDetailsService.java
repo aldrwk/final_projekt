@@ -19,13 +19,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 //	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Autowired
-	private MemberMapper member;
+	private MemberMapper memberMapper;
 
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("username = " + username);
-		MemberDomain user = member.login(username);
+		MemberDomain user = memberMapper.login(username);
 		if (user == null) {
 			logger.info("username" + username + " not found");
 			throw new UsernameNotFoundException("username" + username + " not found");
@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //		SimpleGrantedAuthority : GrantedAuthority의 구현체
 		Collection<SimpleGrantedAuthority> roles = new ArrayList<>();
 
-//		roles.add(new SimpleGrantedAuthority(user.getAuth()));
+		roles.add(new SimpleGrantedAuthority(user.getAuthorization()));
 
 		UserDetails userDetails = new User(username, user.getPassword(), roles);
 

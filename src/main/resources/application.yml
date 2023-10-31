@@ -50,5 +50,9 @@ logging:
         jdbc:
           datasource:
             DataSourceTransactionManager: DEBUG
+      mybatis: INFO
+      apache:
+        ibatis:
+          logging: INFO
 
 
