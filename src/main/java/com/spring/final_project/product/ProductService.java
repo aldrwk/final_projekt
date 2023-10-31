@@ -15,6 +15,9 @@ public interface ProductService {
 	public List<ProductDomain> findByCategory();
 
 	public ProductDomain findByProductNum(int productNum);
+
+	public List<ProductIncludingOptionVo> unitedFindByProductNum(int productNum);
+
 	public ProductDomain forPayByProductNum(int productNum);
 
 	public String getTitleByProductNum(int productNum);

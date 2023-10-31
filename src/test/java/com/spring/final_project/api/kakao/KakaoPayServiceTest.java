@@ -8,11 +8,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest
@@ -31,40 +31,26 @@ class KakaoPayServiceTest {
 
 
 	@Test
-	void 동시성테스트() {
+	void 동시성테스트() throws InterruptedException {
 
 		int optionId = 208;
 		String quantity = "1";
-		AtomicInteger rest = new AtomicInteger(10);
-
+		CountDownLatch latch = new CountDownLatch(10);
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {
+			int finalI = i;
 			executorService.execute(() -> {
-				System.out.println("동시성 테스트");
-				ConcurrencyTest(optionId, quantity, rest, productOptionService);
+				System.out.println("동시성 테스트" + finalI);
+				ConcurrencyTest(finalI,optionId, quantity, productOptionService);
+				latch.countDown();
 			});
 		}
-
+		latch.await();
 	}
 
-	void ConcurrencyTest(int optionId, String quantity, AtomicInteger rest, ProductOptionService productOptionService) {
-		int result = productOptionService.restCheck(optionId, quantity);
-		System.out.println(result);
-
-
-//		int restCheckResult = productOptionService.restCheck(optionId, quantity);
-//		System.out.println("testtest");
-//		int intQuantity = Integer.parseInt(quantity);
-//		System.out.println("재고 체크 : " + restCheckResult);
-//		if (restCheckResult > 0) {
-//			Map<String, Object> restDownMap = new HashMap<>();
-//			restDownMap.put("optionId", optionId);
-//			restDownMap.put("quantity", intQuantity);
-//			if (productOptionService.restDown(restDownMap) == 1) {
-//				rest.set(rest.get() - 1);
-//				System.out.println("남은 재고 : " + rest);
-//			}
-//		}
+	void ConcurrencyTest(int finalI,int optionId, String quantity, ProductOptionService productOptionService) {
+		int restCheckResult = productOptionService.restCheck(optionId, quantity);
+		System.out.println(finalI+"번의 재고 - 요청 수량 : "+ restCheckResult);
 	}
 }
 

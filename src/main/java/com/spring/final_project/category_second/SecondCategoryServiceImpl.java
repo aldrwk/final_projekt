@@ -47,6 +47,11 @@ public class SecondCategoryServiceImpl implements SecondCategoryService {
 	}
 
 	@Override
+	public UnitedCategoryVo findCategorysName(int productNum) {
+		return secondCategoryMapper.findCategorysName(productNum);
+	}
+
+	@Override
 	@Transactional
 	public Map<String, List<String>> setCategoryPerFirstCategory(List<FirstCategoryDomain> firtCategory) {
 		Map<String, List<String>> categoryMap = new HashMap<>();
@@ -62,6 +67,7 @@ public class SecondCategoryServiceImpl implements SecondCategoryService {
 			}
 			j++;
 		}
+
 		return categoryMap;
 	}
 }

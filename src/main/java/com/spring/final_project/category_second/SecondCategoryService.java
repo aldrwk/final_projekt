@@ -16,6 +16,8 @@ public interface SecondCategoryService {
 
 	public String findCategoryName(int productNum);
 
+	public UnitedCategoryVo findCategorysName(int productNum);
+
 	public Map<String, List<String>> setCategoryPerFirstCategory(List<FirstCategoryDomain> firtCategory);
 
 }

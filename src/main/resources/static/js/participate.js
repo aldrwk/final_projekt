@@ -13,7 +13,7 @@ $(function () {
                     end: endDate
                 }
             }
-        }, eventOverlap: false, editable: true, droppable: true,
+        }, eventOverlap: false, editable: true, droppable: false,
         initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
             start: new Date(),
         }, eventClick: function (data) {
@@ -41,15 +41,15 @@ $(function () {
     }
 
     function getEventOption(start, end, id) {
-        EventMonth = start.toLocaleString().split(".")[1];
-        EventDay = start.toLocaleString().split(".")[2];
-        EventDate = EventMonth + "월 " + EventDay + "일";
-        $(".date-selected").text("").text(EventDate);
         $(".option-list").remove();
         for (option of options) {
             if (option.reservationId == id) {
                 var startDate = new Date(start.getTime() - (9 * 60 * 60 * 1000)); // GMT+9
                 var endDate = new Date(end.getTime() - (9 * 60 * 60 * 1000)); // GMT+9
+                EventMonth = startDate.toLocaleString().split(".")[1];
+                EventDay = startDate.toLocaleString().split(".")[2];
+                EventDate = EventMonth + "월 " + EventDay + "일";
+                $(".date-selected").text("").text(EventDate);
                 startDate = startDate.toLocaleString().split(" ");
                 startTime = startDate[4].split(":");
                 startTime = startDate[3] + " " + startTime[0] + ":" + startTime[1];

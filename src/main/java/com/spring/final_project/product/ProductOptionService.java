@@ -23,8 +23,8 @@ public interface ProductOptionService {
 	public List<ProductOptionDomain> optionsByProduct(int productNum);
 
 	public ProductOptionDomain optionsById(int optionId);
-	public Integer getRestById(int optionId, int rest, String quantity);
-	public int restDown(Map<String, Object> restDownMap);
+//	public Integer getRestById(int optionId, String quantity);
+//	public int restDown(Map<String, Object> restDownMap);
 
 	public Integer findByReservationId(int reservation_id);
 
