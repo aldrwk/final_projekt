@@ -1,6 +1,7 @@
 package com.spring.final_project.category_second;
 
 import com.spring.final_project.category_first.FirstCategoryDomain;
+import com.spring.final_project.category_second.mapper.SecondCategoryMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

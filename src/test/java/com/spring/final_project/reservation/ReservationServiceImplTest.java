@@ -1,9 +1,7 @@
 package com.spring.final_project.reservation;
 
+import com.spring.final_project.reservation.mapper.ReservationMapper;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ReservationServiceImplTest {
 

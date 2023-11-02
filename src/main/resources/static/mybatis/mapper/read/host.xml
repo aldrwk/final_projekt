@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.host.mapper.HostReadMapper">
+
+    <select id="findById" resultMap="hostMap">
+        select host_num, member_num, hostname, intro, host_profile from host left join member m on host.member_num = m.num where m.email = #{email};
+    </select>
+    <select id="findByHostNum" resultMap="hostMap">
+        select hostname, host_profile, intro
+        from host
+        where host_num = #{hostNum};
+    </select>
+
+
+    <resultMap id="hostMap" type="hostDomain">
+        <result column="host_num" property="hostNum" javaType="int"/>
+        <result column="member_num" property="memberNum" javaType="int"/>
+        <result column="host_profile" property="hostProfile" javaType="String"/>
+        <result column="create_host_date" property="createHostDate" />
+        <result column="change_host_date" property="changeHostDate" />
+    </resultMap>
+</mapper>

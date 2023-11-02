@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.product.mapper.ProductOptionReadMapper">
+
+    <select id="OneOptionByProduct" resultMap="productOptionMap">
+        select option_name, price
+        from product_option
+        where produc_num = #{producNum} limit 1;
+    </select>
+    <select id="optionsByDay" resultMap="productOptionMap">
+        select option_id, reservation_id, option_name, price, valid_person, max_register_per_one
+        from product_option
+        where produc_num = #{producNum};
+    </select>
+    <select id="optionsByProduct" resultMap="productOptionMap">
+        select distinct option_name, price
+        from product_option
+        where produc_num = #{producNum};
+    </select>
+    <select id="optionsById" resultMap="productOptionMap">
+        select option_id, reservation_id ,option_name, price
+        from product_option
+        where option_id = #{optionId};
+    </select>
+    <select id="getRestById" resultType="Integer">
+        select ifnull(rest, 0)
+        from product_option
+        where option_id = #{optionId} for update;
+    </select>
+    <select id="findByReservationId" resultType="Integer">
+        select reservation_id
+        from product_option
+        where reservation_id = #{reservationId};
+    </select>
+
+    <resultMap id="productOptionMap" type="productOptionDomain">
+        <result column="option_id" property="optionId"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="reservation_id" property="reservationId"/>
+        <result column="option_name" property="optionName"/>
+        <result column="price" property="price"/>
+        <result column="valid_person" property="validPerson"/>
+        <result column="max_register_per_one" property="maxRegisterPerOne"/>
+    </resultMap>
+</mapper>

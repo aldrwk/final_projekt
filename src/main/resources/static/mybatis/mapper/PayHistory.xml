@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.spring.final_project.payment.PayHistoryMapper">
+<mapper namespace="com.spring.final_project.payment.mapper.PayHistoryMapper">
 
     <insert id="insert" parameterType="PayHistoryDomain">
         insert into pay_history

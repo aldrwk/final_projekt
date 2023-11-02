@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.category_second.mapper.SecondCategoryWriteMapper">
+
+
+
+
+    <resultMap id="categoryMap" type="SecondCategoryDomain">
+        <result column="sec_cate_num" property="secCateNum"/>
+        <result column="first_cate_num" property="firstCateNum"/>
+        <result column="sec_cate_name" property="secCateName"/>
+    </resultMap>
+    <resultMap id="unitedCategoryVoMap" type="UnitedCategoryVo">
+        <result column="first_cate_num" property="firstCateNum"/>
+        <result column="first_cate_name" property="firstCateName"/>
+        <result column="sec_cate_num" property="secCateNum"/>
+        <result column="sec_cate_name" property="secCateName"/>
+    </resultMap>
+</mapper>

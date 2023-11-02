@@ -7,13 +7,20 @@ server:
       force: true
       enabled: true
 
+
+
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://175.192.130.123:3306/free?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
-    username: free
-    password: Admin123!
-    mapper-locations=classpath: /mybatis/**/*.xml
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://175.192.130.123:3306/free?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+      username: free
+      password: Admin123!
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://175.192.130.123:33306/free?&serverTimezone=UTC&autoReconnect=true&allowMultiQueries=true&characterEncoding=UTF-8
+      username: free
+      password: Admin123!
   devtools:
     livereload:
       enabled: true
@@ -29,7 +36,9 @@ spring:
       static-locations: file:src/main/resources/static/
 mybatis:
   type-aliases-package: com.spring.final_project
-  mapper-locations: static/mybatis/mapper/*.xml
+#  mapper-locations: static/mybatis/mapper/*.xml
+  mapper-locations: static/mybatis/mapper/**/*.xml
+
   config-location: classpath:/static/mybatis/config/mybatis-config.xml
 
 

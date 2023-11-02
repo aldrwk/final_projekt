@@ -1,19 +1,14 @@
 package com.spring.final_project.api.kakao;
 
 import com.spring.final_project.payment.PaymentService;
-import com.spring.final_project.product.ProductOptionMapper;
 import com.spring.final_project.product.ProductOptionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)

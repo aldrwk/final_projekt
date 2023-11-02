@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.reservation_dates.mapper.ReservationDatesReadMapper">
+
+    <select id="findByProductNum" resultMap="reservationDatesMap">
+        select reservation_id, reserv_date, end_date, close_date
+        from reservation_dates
+        where produc_num = #{producNum}
+    </select>
+    <select id="findByCalendarVo" resultMap="calendarVoMap">
+        select distinct reservation_id, valid_person, max_register_per_one, reserv_date, end_date
+        from product_option
+                 natural join reservation_dates
+        where produc_num = #{productNum};
+
+    </select>
+
+    <select id="findById" resultMap="reservationDatesMap">
+        select reservation_id, reserv_date, end_date
+        from reservation_dates
+        where reservation_id = #{reservationId}
+    </select>
+    <select id="getId" resultType="int">
+        select reservation_id
+        from reservation_dates
+        where produc_num = #{producNum}
+        order by reservation_id desc limit 1
+    </select>
+
+
+    <resultMap id="reservationDatesMap" type="reservationDatesDomain">
+        <result column="reservation_id" property="reservationId"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="reserv_date" property="reservDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="close_date" property="closeDate"/>
+        <result column="regist_date" property="registDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+    <resultMap id="calendarVoMap" type="calendarVo">
+        <result column="reservation_id" property="reservationId"/>
+        <result column="valid_person" property="maxPeople"/>
+        <result column="max_register_per_one" property="maxPerson"/>
+        <result column="reserv_date" property="reservDate"/>
+        <result column="end_date" property="endDate"/>
+    </resultMap>
+
+</mapper>

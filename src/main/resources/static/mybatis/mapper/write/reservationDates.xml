@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.reservation_dates.mapper.ReservationDatesWriteMapper">
+
+    <insert id="insert" parameterType="reservationDatesDomain">
+        insert into reservation_dates
+        values (null, #{producNum}, #{reservDate}, #{endDate}, #{closeDate}, #{registDate},
+                #{updateDate})
+    </insert>
+    <update id="update" parameterType="reservationDatesDomain">
+        update reservation_dates
+        set produc_num     = #{producNum},
+            reserv_date    = #{reservDate},
+            end_date       = #{endDate},
+            close_date     = #{closeDate},
+            update_date    = #{updateDate}
+        where reservation_id = #{reservationId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from reservation_dates where produc_num = #{producNum}
+    </delete>
+
+    <resultMap id="reservationDatesMap" type="reservationDatesDomain">
+        <result column="reservation_id" property="reservationId"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="reserv_date" property="reservDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="close_date" property="closeDate"/>
+        <result column="regist_date" property="registDate"/>
+        <result column="update_date" property="updateDate"/>
+    </resultMap>
+    <resultMap id="calendarVoMap" type="calendarVo">
+        <result column="reservation_id" property="reservationId"/>
+        <result column="valid_person" property="maxPeople"/>
+        <result column="max_register_per_one" property="maxPerson"/>
+        <result column="reserv_date" property="reservDate"/>
+        <result column="end_date" property="endDate"/>
+    </resultMap>
+
+</mapper>

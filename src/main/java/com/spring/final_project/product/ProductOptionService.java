@@ -24,7 +24,8 @@ public interface ProductOptionService {
 
 	public ProductOptionDomain optionsById(int optionId);
 //	public Integer getRestById(int optionId, String quantity);
-//	public int restDown(Map<String, Object> restDownMap);
+
+	public int restDown(Map<String, Object> restDownMap);
 
 	public Integer findByReservationId(int reservation_id);
 

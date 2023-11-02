@@ -16,8 +16,6 @@ public interface ProductService {
 
 	public ProductDomain findByProductNum(int productNum);
 
-	public List<ProductIncludingOptionVo> unitedFindByProductNum(int productNum);
-
 	public ProductDomain forPayByProductNum(int productNum);
 
 	public String getTitleByProductNum(int productNum);
@@ -31,7 +29,6 @@ public interface ProductService {
 
 
 	public int viewCountUp(int productNum);
-
 
 
 	public List<ProductDomain> findPopular();

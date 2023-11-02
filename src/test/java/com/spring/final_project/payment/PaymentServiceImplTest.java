@@ -1,8 +1,7 @@
 package com.spring.final_project.payment;
 
+import com.spring.final_project.payment.mapper.PayHistoryMapper;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PaymentServiceImplTest {
 

@@ -1,6 +1,9 @@
 package com.spring.final_project.category_first;
 
+import com.spring.final_project.category_first.mapper.FirstCategoryReadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,30 +11,33 @@ import java.util.List;
 
 
 @Service
+@CacheConfig(cacheNames = "layoutCaching")
 public class FirstCategoryServiceImpl implements FirstCategoryService {
 
-	FirstCategoryMapper firstCategoryMapper;
+	FirstCategoryReadMapper firstCategoryReadMapper;
 
 	@Autowired
-	public FirstCategoryServiceImpl(FirstCategoryMapper firstCategoryMapper) {
-		this.firstCategoryMapper = firstCategoryMapper;
+	public FirstCategoryServiceImpl(FirstCategoryReadMapper firstCategoryReadMapper) {
+		this.firstCategoryReadMapper = firstCategoryReadMapper;
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int findByName(String firstCateName) {
-		return firstCategoryMapper.findByName(firstCateName);
+		return firstCategoryReadMapper.findByName(firstCateName);
 	}
 
 	@Override
-	@Transactional
+	@Cacheable(key = "'allFirstCategory'")
+	@Transactional(readOnly = true)
 	public List<FirstCategoryDomain> findAll() {
-		return firstCategoryMapper.findAll();
+		return firstCategoryReadMapper.findAll();
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String findCategoryName(int productNum) {
-		return firstCategoryMapper.findCategoryName(productNum);
+		return firstCategoryReadMapper.findCategoryName(productNum);
 	}
 }
 

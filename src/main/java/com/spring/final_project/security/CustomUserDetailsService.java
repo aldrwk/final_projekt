@@ -1,6 +1,7 @@
 package com.spring.final_project.security;
 
 import com.spring.final_project.member.*;
+import com.spring.final_project.member.mapper.MemberReadMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 //	private SqlSessionTemplate sqlSessionTemplate;
 
 	@Autowired
-	private MemberMapper memberMapper;
+	private MemberReadMapper memberReadMapper;
 
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("username = " + username);
-		MemberDomain user = memberMapper.login(username);
+		MemberDomain user = memberReadMapper.login(username);
 		if (user == null) {
 			logger.info("username" + username + " not found");
 			throw new UsernameNotFoundException("username" + username + " not found");

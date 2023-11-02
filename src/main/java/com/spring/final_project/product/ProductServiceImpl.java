@@ -2,11 +2,14 @@ package com.spring.final_project.product;
 
 import com.spring.final_project.host.HostDomain;
 import com.spring.final_project.member.MemberController;
+import com.spring.final_project.product.mapper.*;
 import com.spring.final_project.reservation_dates.ReservationDatesDomain;
 import com.spring.final_project.reservation_dates.ReservationDatesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,12 +22,14 @@ import static com.spring.final_project.util.DateService.LocalToDayTime;
 import static com.spring.final_project.util.SchaduleService.DatesRetouch;
 
 @Service
+@CacheConfig(cacheNames = "layoutCaching")
 public class ProductServiceImpl implements ProductService {
 
 	private static final Logger log = LoggerFactory.getLogger(MemberController.class);
 
 
-	private ProductMapper productMapper;
+	private ProductWriteMapper productWriteMapper;
+	private ProductReadMapper productReadMapper;
 	private ProductOptionService productOptionService;
 
 	private ReservationDatesService reservationDatesService;
@@ -34,8 +39,9 @@ public class ProductServiceImpl implements ProductService {
 	final static int NOTHING = 0;
 
 	@Autowired
-	public ProductServiceImpl(ProductMapper productMapper, ProductOptionService productOptionService, ReservationDatesService reservationDatesService) {
-		this.productMapper = productMapper;
+	public ProductServiceImpl(ProductWriteMapper productWriteMapper,ProductReadMapper productReadMapper, ProductOptionService productOptionService, ReservationDatesService reservationDatesService) {
+		this.productWriteMapper = productWriteMapper;
+		this.productReadMapper = productReadMapper;
 		this.productOptionService = productOptionService;
 		this.reservationDatesService = reservationDatesService;
 	}
@@ -43,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int insert(ProductDomain product, HostDomain host, String events, String options) {
-		int result = productMapper.insert(product);
+		int result = productWriteMapper.insert(product);
 		int productNum = findProductNum(host.getHostNum());
 		List<ReservationDatesDomain> dates = DatesRetouch(events);
 		log.info(dates.toString());
@@ -67,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public int update(ProductDomain product, HostDomain host, String events, String options) {
 		product.setProducUpdateDate(LocalToDayTime());
-		int result = productMapper.update(product);
+		int result = productWriteMapper.update(product);
 		int productNum = product.getProducNum();
 		List<ReservationDatesDomain> dates = DatesRetouch(events);
 		log.info(dates.toString());
@@ -98,95 +104,93 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public int delete(ProductDomain product) {
-		return productMapper.delete(product);
+		return productWriteMapper.delete(product);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findByCategory() {
-		return productMapper.findByCategory();
+		return productReadMapper.findByCategory();
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProductDomain findByProductNum(int productNum) {
-		return productMapper.findByProductNum(productNum);
+		return productReadMapper.findByProductNum(productNum);
 	}
 
 	@Override
-	@Transactional
-	public List<ProductIncludingOptionVo> unitedFindByProductNum(int productNum) {
-		return productMapper.unitedFindByProductNum(productNum);
-	}
-
-	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProductDomain forPayByProductNum(int productNum) {
-		return productMapper.forPayByProductNum(productNum);
+		return productReadMapper.forPayByProductNum(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int findProductNum(int hostNum) {
-		return productMapper.findProductNum(hostNum);
+		return productReadMapper.findProductNum(hostNum);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public String getTitleByProductNum(int productNum) {
-		return productMapper.getTitleByProductNum(productNum);
+		return productReadMapper.getTitleByProductNum(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findByHostNum(int hostNum) {
-		return productMapper.findByHostNum(hostNum);
+		return productReadMapper.findByHostNum(hostNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int countByHostNum(int hostNum) {
-		return productMapper.countByHostNum(hostNum);
+		return productReadMapper.countByHostNum(hostNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int countInThisMonth(Map<String, Object> map) {
-		return productMapper.countInThisMonth(map);
+		return productReadMapper.countInThisMonth(map);
 	}
 
 	@Override
 	@Transactional
 	public int viewCountUp(int productNum) {
-		return productMapper.viewCountUp(productNum);
+		return productWriteMapper.viewCountUp(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Cacheable(key="'findPopular'")
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findPopular() {
-		return productMapper.findPopular();
+		return productReadMapper.findPopular();
 	}
 
 	@Override
-	@Transactional
+	@Cacheable(key="'findNew'")
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findNew() {
-		return productMapper.findNew();
+		return productReadMapper.findNew();
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findForHostInfo(int hostNum) {
-		return productMapper.findForHostInfo(hostNum);
+		return productReadMapper.findForHostInfo(hostNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findPerCategory(String firstCategoryName) {
-		return productMapper.findPerCategory(firstCategoryName);
+		return productReadMapper.findPerCategory(firstCategoryName);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ProductDomain> findByRecentSearch(String search) {
-		return productMapper.findByRecentSearch(search);
+		return productReadMapper.findByRecentSearch(search);
 	}
 
 	@Override
@@ -216,6 +220,7 @@ public class ProductServiceImpl implements ProductService {
 			Locale locale = new Locale("ko", "KR"); // 한국 로케일 (한국어, 대한민국)
 			NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 			String newPrice = String.valueOf(numberFormat.format(Integer.parseInt(productOption.getPrice())));
+//			String newPrice = String.valueOf(productOption.getPrice());
 			productOption.setPrice(newPrice);
 			productpack.put("product", product);
 			productpack.put("productoption", productOption);

@@ -1,5 +1,6 @@
 package com.spring.final_project.payment;
 
+import com.spring.final_project.payment.mapper.*;
 import com.spring.final_project.product.ProductOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,18 +12,17 @@ import java.util.Map;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-	PayHistoryMapper payHistoryMapper;
+	PayHistoryWriteMapper payHistoryWriteMapper;
+	PayHistoryReadMapper payHistoryReadMapper;
 	ProductOptionService productOptionService;
 	final static int NO_REST = 0;
 	final static int REST = 1;
 
-	public PaymentServiceImpl(ProductOptionService productOptionService) {
-		this.productOptionService = productOptionService;
-	}
 
 	@Autowired
-	public PaymentServiceImpl(PayHistoryMapper payHistoryMapper, ProductOptionService productOptionService) {
-		this.payHistoryMapper = payHistoryMapper;
+	public PaymentServiceImpl(PayHistoryWriteMapper payHistoryWriteMapper, PayHistoryReadMapper payHistoryReadMapper, ProductOptionService productOptionService) {
+		this.payHistoryWriteMapper = payHistoryWriteMapper;
+		this.payHistoryReadMapper = payHistoryReadMapper;
 		this.productOptionService = productOptionService;
 	}
 
@@ -42,24 +42,24 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	@Transactional
 	public int insert(PayHistoryDomain payHistoryDomain) {
-		return payHistoryMapper.insert(payHistoryDomain);
+		return payHistoryWriteMapper.insert(payHistoryDomain);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int totalProfit(int hostNum) {
-		return payHistoryMapper.totalProfit(hostNum);
+		return payHistoryReadMapper.totalProfit(hostNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int profitInThisMonth(Map<String, Object> map) {
-		return payHistoryMapper.profitInThisMonth(map);
+		return payHistoryReadMapper.profitInThisMonth(map);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Integer countPay(int hostNum) {
-		return payHistoryMapper.countPay(hostNum);
+		return payHistoryReadMapper.countPay(hostNum);
 	}
 }

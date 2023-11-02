@@ -108,6 +108,7 @@ public class MemberController {
 		String redirectPath = String.valueOf(session.getAttribute("redirectPath"));
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		UserDetails user = (UserDetails) principal;
+		log.info(user.getUsername()+ "stestsete");
 		MemberDomain member = memberService.findById(user.getUsername());
 		session.setAttribute("user_info", member);
 		return "redirect:" + redirectPath;
@@ -186,9 +187,7 @@ public class MemberController {
 		member.setChangeDate(LocalToDayTime());
 		System.out.println(member);
 		memberService.updateInfo(member);
-		member = memberService.findById(email);
 		session.setAttribute("user_info", member);
-
 		return "redirect:/mypage";
 	}
 
