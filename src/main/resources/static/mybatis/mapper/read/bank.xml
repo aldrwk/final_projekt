@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.bank.mapper.BankReadMapper">
+
+    <select id="findAll" resultType="BankDomain" resultMap="bankMap">
+        select bank_name from bank;
+    </select>
+    <select id="findByBank" resultType="BankDomain" resultMap="bankMap">
+        select bank_code, bank_name from bank where bank_name = '#{bankName}';
+    </select>
+
+    <resultMap id="bankMap" type="BankDomain">
+        <result column="bank_code" property="bankCode" />
+        <result column="bank_name" property="bankName" />
+    </resultMap>
+</mapper>

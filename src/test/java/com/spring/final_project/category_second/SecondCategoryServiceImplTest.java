@@ -1,9 +1,8 @@
 package com.spring.final_project.category_second;
 
-import org.apache.ibatis.annotations.Mapper;
+import com.spring.final_project.category_second.mapper.SecondCategoryMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 
 import java.util.*;
 

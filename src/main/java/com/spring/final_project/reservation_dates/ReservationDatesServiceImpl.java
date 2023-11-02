@@ -2,11 +2,11 @@ package com.spring.final_project.reservation_dates;
 
 import com.spring.final_project.product.ProductOptionService;
 import com.spring.final_project.reservation.ReservationService;
+import com.spring.final_project.reservation_dates.mapper.*;
 import com.spring.final_project.util.CalendarVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 
@@ -16,26 +16,29 @@ public class ReservationDatesServiceImpl implements ReservationDatesService {
 
 	final static int SUCCESS = 1;
 	final static int Fail = 0;
-	ReservationDatesMapper reservationDatesMapper;
+	ReservationDatesWriteMapper reservationDatesWriteMapper;
+	ReservationDatesReadMapper reservationDatesReadMapper;
 	ProductOptionService productOptionService;
 	ReservationService reservationService;
 
 	@Autowired
-	public ReservationDatesServiceImpl(ReservationDatesMapper reservationDatesMapper, ProductOptionService productOptionService, ReservationService reservationService) {
-		this.reservationDatesMapper = reservationDatesMapper;
+	public ReservationDatesServiceImpl(ReservationDatesWriteMapper reservationDatesWriteMapper, ReservationDatesReadMapper reservationDatesReadMapper, ProductOptionService productOptionService, ReservationService reservationService) {
+		this.reservationDatesWriteMapper = reservationDatesWriteMapper;
+		this.reservationDatesReadMapper = reservationDatesReadMapper;
 		this.productOptionService = productOptionService;
 		this.reservationService = reservationService;
 	}
 
+
 	@Override
 	@Transactional
 	public int insert(ReservationDatesDomain reservationDates) {
-		return reservationDatesMapper.insert(reservationDates);
+		return reservationDatesWriteMapper.insert(reservationDates);
 	}
 
 	@Override
 	public int update(ReservationDatesDomain reservationDates, int reservationDateId) {
-		if (reservationDatesMapper.update(reservationDates) == SUCCESS) {
+		if (reservationDatesWriteMapper.update(reservationDates) == SUCCESS) {
 //			try {
 				if (reservationService.findByReservationDateId(reservationDateId) == null) {
 					productOptionService.deleteByReservationId(reservationDateId);
@@ -51,31 +54,31 @@ public class ReservationDatesServiceImpl implements ReservationDatesService {
 	@Override
 	@Transactional
 	public int delete(int productNum) {
-		return reservationDatesMapper.delete(productNum);
+		return reservationDatesWriteMapper.delete(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ReservationDatesDomain> findByProductNum(int productNum) {
-		return reservationDatesMapper.findByProductNum(productNum);
+		return reservationDatesReadMapper.findByProductNum(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<CalendarVo> findByCalendarVo(int productNum) {
-		return reservationDatesMapper.findByCalendarVo(productNum);
+		return reservationDatesReadMapper.findByCalendarVo(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ReservationDatesDomain findById(int reservationId) {
-		return reservationDatesMapper.findById(reservationId);
+		return reservationDatesReadMapper.findById(reservationId);
 	}
 
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int getId(int productNum) {
-		return reservationDatesMapper.getId(productNum);
+		return reservationDatesReadMapper.getId(productNum);
 	}
 }

@@ -1,5 +1,8 @@
 package com.spring.final_project.bank;
 
+import com.spring.final_project.bank.mapper.BankMapper;
+import com.spring.final_project.bank.mapper.BankReadMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -7,19 +10,20 @@ import java.util.List;
 @Service
 public class BankServiceImpl implements BankService {
 
-	private BankMapper bankMapper;
+	private BankReadMapper bankReadMapper;
 
+	@Autowired
 	public BankServiceImpl(BankMapper bankMapper) {
-		this.bankMapper = bankMapper;
+		this.bankReadMapper = bankReadMapper;
 	}
 
 	@Override
 	public BankDomain findByBank(String bankName) {
-		return bankMapper.findByBank(bankName);
+		return bankReadMapper.findByBank(bankName);
 	}
 
 	@Override
 	public List<BankDomain> findAll() {
-		return bankMapper.findAll();
+		return bankReadMapper.findAll();
 	}
 }

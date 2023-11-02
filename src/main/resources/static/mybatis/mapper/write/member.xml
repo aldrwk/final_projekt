@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.member.mapper.MemberWriteMapper">
+    <insert id="insert" parameterType="memberDomain">
+        insert into member
+        values (null, #{email}, #{password}, #{name}, #{mobileNum}, #{profile}, #{authorization}, #{accountType},
+                #{createDate}, #{changeDate})
+    </insert>
+    <update id="updatePassword" parameterType="memberDomain">
+        update member
+        set password= #{password}, change_date = #{changeDate}
+        where email = #{email}
+    </update>
+    <update id="updateAuth" parameterType="memberDomain">
+        update member
+        set authorization= #{authorization}
+        where email = #{email}
+    </update>
+    <update id="updateInfo" parameterType="memberDomain">
+        update member
+        set name= #{name},
+            profile = #{profile},
+            change_date = #{changeDate}
+        where email = #{email}
+    </update>
+
+    <resultMap id="memberMap" type="memberDomain">
+        <result column="mobile_num" property="mobileNum" javaType="String"/>
+        <result column="account_type" property="accountType" javaType="String"/>
+        <result column="create_date" property="createDate"/>
+        <result column="change_date" property="changeDate"/>
+    </resultMap>
+
+</mapper>

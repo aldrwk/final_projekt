@@ -8,13 +8,11 @@ import java.time.LocalDateTime;
 public class MemberDomain {
 
 	int num;
-
 	String email, password, name, profile, mobileNum ;
 
 	String authorization = "member";
 
 	String accountType = "일반회원 계정";
-
 
 	LocalDateTime createDate, changeDate;
 

@@ -1,5 +1,6 @@
 package com.spring.final_project.reservation;
 
+import com.spring.final_project.reservation.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,13 +10,14 @@ import java.time.LocalDateTime;
 @Service
 public class ReservationServiceImpl implements ReservationService {
 
-	ReservationMapper reservationMapper;
+	ReservationWriteMapper reservationWriteMapper;
+	ReservationReadMapper reservationReadMapper;
 
 	@Autowired
-	public ReservationServiceImpl(ReservationMapper reservationMapper) {
-		this.reservationMapper = reservationMapper;
+	public ReservationServiceImpl(ReservationWriteMapper reservationWriteMapper, ReservationReadMapper reservationReadMapper) {
+		this.reservationWriteMapper = reservationWriteMapper;
+		this.reservationReadMapper = reservationReadMapper;
 	}
-
 
 	@Override
 	public ReservationDomain setReservation(int productNum, int memberNum, int reservationDateId,String optionName, int quantity) {
@@ -34,19 +36,20 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	@Transactional
 	public int insert(ReservationDomain reservationDomain) {
-		return reservationMapper.insert(reservationDomain);
+		return reservationWriteMapper.insert(reservationDomain);
 	}
 
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public int getReservNum(int memberNum) {
-		return reservationMapper.getReservNum(memberNum);
+		return reservationReadMapper.getReservNum(memberNum);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Integer findByReservationDateId(int reservationDateId) {
-		return reservationMapper.findByReservationDateId(reservationDateId);
+		return reservationReadMapper.findByReservationDateId(reservationDateId);
 	}
 
 

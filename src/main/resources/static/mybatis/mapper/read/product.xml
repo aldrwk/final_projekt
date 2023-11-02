@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.final_project.product.mapper.ProductReadMapper">
+
+    <select id="findProductNum" resultType="int">
+        select produc_num
+        from product
+        where host_num = #{hostNum}
+        order by produc_num desc LIMIT 1;
+    </select>
+    <select id="findByProductNum" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               content,
+               address,
+               address_detail,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        where produc_num = #{productNum};
+    </select>
+
+    <select id="getTitleByProductNum" resultType="String">
+        select title
+        from product
+        where produc_num = #{productNum};
+    </select>
+    <select id="forPayByProductNum" resultMap="productMap">
+        select produc_num, title, thumnail
+        from product
+        where produc_num = #{productNum};
+    </select>
+
+    <select id="findByHostNum" resultMap="productMap">
+        select produc_num,
+               title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where host_num = #{hostNum};
+    </select>
+
+    <select id="countByHostNum" resultType="int">
+        select count(produc_num)
+        from product
+        where host_num = #{hostNum};
+    </select>
+    <select id="countInThisMonth" resultType="int" parameterType="Map">
+        select count(distinct rd.produc_num)
+        from product p
+                 natural join reservation_dates rd
+        where host_num = #{hostNum}
+          and reserv_date like #{thisMonth};
+    </select>
+    <select id="findPopular" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        order by view_count desc limit 8;
+    </select>
+    <select id="findForHostInfo" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               content,
+               address,
+               address_detail,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        where host_num = #{hostNum};
+    </select>
+    <select id="findNew" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        order by produc_regit_date desc limit 8;
+    </select>
+    <select id="findPerCategory" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               sec_cate_num,
+               thumnail
+        from product
+        where sec_cate_num in (select sec_cate_num
+                               from second_category
+                               where first_cate_num = (select first_cate_num
+                                                       from first_category
+                                                       where first_cate_name = #{firstCategoryName}));
+    </select>
+    <select id="findByRecentSearch" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where title like #{search}
+           or content like #{search}
+        order by produc_regit_date desc;
+    </select>
+    <select id="findByPopularSearch" resultMap="productMap">
+        select produc_num,
+               host_num,
+               title,
+               area,
+               area_detail,
+               thumnail
+        from product
+        where title like #{search}
+           or content like #{search}
+        order by view_count desc;
+    </select>
+
+
+    <resultMap id="productMap" type="productDomain">
+        <result column="produc_num" property="producNum"/>
+        <result column="host_num" property="hostNum"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="area_detail" property="areaDetail"/>
+        <result column="sec_cate_num" property="secCateNum"/>
+        <result column="thumnail" property="thumnail"/>
+        <result column="conntent" property="conntent"/>
+        <result column="produc_regit_date" property="producRegitDate"/>
+        <result column="produc_update_date" property="producUpdateDate"/>
+    </resultMap>
+
+    <resultMap id="ProductIncludingOptionVoMap" type="ProductIncludingOptionVo">
+        <result column="option_name" property="optionName"/>
+        <result column="price" property="price"/>
+        <result column="produc_num" property="producNum"/>
+        <result column="host_num" property="hostNum"/>
+        <result column="address_detail" property="addressDetail"/>
+        <result column="area_detail" property="areaDetail"/>
+        <result column="sec_cate_num" property="secCateNum"/>
+        <result column="thumnail" property="thumnail"/>
+        <result column="conntent" property="conntent"/>
+    </resultMap>
+
+
+</mapper>

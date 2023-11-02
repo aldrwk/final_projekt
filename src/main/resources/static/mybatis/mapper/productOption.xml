@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.spring.final_project.product.ProductOptionMapper">
+<mapper namespace="com.spring.final_project.product.mapper.ProductOptionMapper">
 
     <insert id="insert" parameterType="productOptionDomain">
         insert into product_option

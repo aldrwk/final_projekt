@@ -2,33 +2,35 @@ package com.spring.final_project.product;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.final_project.product.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 @Service
+@CacheConfig(cacheNames = "layoutCaching")
 public class ProductOptionServiceImpl implements ProductOptionService {
 
 	final static int SUCCESS = 1;
 	final static int NO_REST = 0;
 	final static int REST = 1;
-	ProductOptionMapper productOptionMapper;
+	ProductOptionWriteMapper productOptionWriteMapper;
+	ProductOptionReadMapper productOptionReadMapper;
 
 	@Autowired
-	public ProductOptionServiceImpl(ProductOptionMapper productOptionMapper) {
-		this.productOptionMapper = productOptionMapper;
-	}
-
-	public ProductOptionServiceImpl() {
-
+	public ProductOptionServiceImpl(ProductOptionWriteMapper productOptionWriteMapper, ProductOptionReadMapper productOptionReadMapper) {
+		this.productOptionWriteMapper = productOptionWriteMapper;
+		this.productOptionReadMapper = productOptionReadMapper;
 	}
 
 	@Override
 	@Transactional
 	public int insert(ProductOptionDomain option) {
-		return productOptionMapper.insert(option);
+		return productOptionWriteMapper.insert(option);
 	}
 
 	@Override
@@ -53,22 +55,22 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProductOptionDomain findByProduct(int num) {
-		return productOptionMapper.findByProduct(num);
+		return productOptionReadMapper.findByProduct(num);
 	}
 
 	@Override
 	@Transactional
 	public int update(ProductOptionDomain option) {
-		return productOptionMapper.update(option);
+		return productOptionWriteMapper.update(option);
 	}
 
 	@Override
 	@Transactional
 	public int restCheck(int optionId, String quantity) {
 		int intQuantity = Integer.parseInt(quantity);
-		int rest = productOptionMapper.getRestById(optionId);
+		int rest = productOptionReadMapper.getRestById(optionId);
 		System.out.println("현 재고 : " + rest);
 
 		int restResult = rest - intQuantity;
@@ -76,38 +78,40 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 			Map<String, Object> restDownMap = new HashMap<>();
 			restDownMap.put("optionId", optionId);
 			restDownMap.put("quantity", intQuantity);
-			productOptionMapper.restDown(restDownMap);
+			restDown(restDownMap);
 		}
 		return restResult;
 	}
 
 	@Override
+	@Transactional
 	public int deleteByReservationId(int reservationId) {
-		return productOptionMapper.deleteByReservationId(reservationId);
+		return productOptionWriteMapper.deleteByReservationId(reservationId);
 	}
 
 	@Override
-	@Transactional
+//	@Cacheable(key = "'OneOptionByProduct'")
+	@Transactional(readOnly = true)
 	public ProductOptionDomain OneOptionByProduct(int productNum) {
-		return productOptionMapper.OneOptionByProduct(productNum);
+		return productOptionReadMapper.OneOptionByProduct(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductOptionDomain> optionsByDay(int productNum) {
-		return productOptionMapper.optionsByDay(productNum);
+		return productOptionReadMapper.optionsByDay(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<ProductOptionDomain> optionsByProduct(int productNum) {
-		return productOptionMapper.optionsByProduct(productNum);
+		return productOptionReadMapper.optionsByProduct(productNum);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public ProductOptionDomain optionsById(int optionId) {
-		return productOptionMapper.optionsById(optionId);
+		return productOptionReadMapper.optionsById(optionId);
 	}
 
 
@@ -117,16 +121,16 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 //		return productOptionMapper.getRestById(optionId);
 //	}
 //
-//	@Override
-//	@Transactional
-//	public int restDown(Map<String, Object> restDownMap) {
-//		return productOptionMapper.restDown(restDownMap);
-//	}
+	@Override
+	@Transactional(readOnly = true)
+	public int restDown(Map<String, Object> restDownMap) {
+		return productOptionWriteMapper.restDown(restDownMap);
+	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Integer findByReservationId(int reservation_id) {
-		return productOptionMapper.findByReservationId(reservation_id);
+		return productOptionReadMapper.findByReservationId(reservation_id);
 	}
 }
 
