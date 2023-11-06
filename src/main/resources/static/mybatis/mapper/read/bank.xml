@@ -4,11 +4,11 @@
 
 <mapper namespace="com.spring.final_project.bank.mapper.BankReadMapper">
 
-    <select id="findAll" resultType="BankDomain" resultMap="bankMap">
-        select bank_name from bank;
+    <select id="findAll" resultMap="bankMap">
+        select bank_name, bank_code from bank;
     </select>
-    <select id="findByBank" resultType="BankDomain" resultMap="bankMap">
-        select bank_code, bank_name from bank where bank_name = '#{bankName}';
+    <select id="findByBank" resultMap="bankMap">
+        select bank_code, bank_name from bank where bank_name = #{bankName};
     </select>
 
     <resultMap id="bankMap" type="BankDomain">

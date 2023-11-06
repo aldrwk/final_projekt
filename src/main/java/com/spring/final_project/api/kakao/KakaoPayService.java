@@ -38,7 +38,7 @@ public class KakaoPayService {
 		int restCheckResult = productOptionService.restCheck(optionId, quantity);
 		log.info("재고 - 요청 수량 : "+ restCheckResult);
 
-		if (restCheckResult > 0) {
+		if (restCheckResult >= 0) {
 			// 카카오페이 요청 양식
 			MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
 			parameters = setPayReadyParmeter(parameters, product, option, quantity, totalPrice, partnerOrderId);

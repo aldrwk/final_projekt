@@ -13,7 +13,7 @@ $(function () {
                     end: endDate
                 }
             }
-        }, eventOverlap: false, editable: true, droppable: false,
+        }, eventOverlap: false, editable: false, droppable: false,
         initialView: 'dayGridMonth', selectMirror: true, locale: "ko", fixedWeekCount: false, validRange: {
             start: new Date(),
         }, eventClick: function (data) {

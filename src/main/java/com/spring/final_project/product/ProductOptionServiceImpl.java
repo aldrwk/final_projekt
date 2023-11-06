@@ -71,8 +71,6 @@ public class ProductOptionServiceImpl implements ProductOptionService {
 	public int restCheck(int optionId, String quantity) {
 		int intQuantity = Integer.parseInt(quantity);
 		int rest = productOptionReadMapper.getRestById(optionId);
-		System.out.println("현 재고 : " + rest);
-
 		int restResult = rest - intQuantity;
 		if (restResult >= NO_REST) {
 			Map<String, Object> restDownMap = new HashMap<>();

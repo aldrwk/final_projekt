@@ -140,6 +140,24 @@ public class ProductController {
 	@PostMapping("/product/modify/{productNum}")
 	public String modify(@PathVariable("productNum") int productNum, Model model, HttpSession session) {
 
+//		List<FirstCategoryDomain> firstCategorys = firstCategoryService.findAll();
+//		UnitedCategoryVo unitedCategoryName = secondCategoryService.findCategorysName(productNum);
+//		ProductDomain product = productService.findByProductNum(productNum);
+//		List<ProductOptionDomain> productOptions = productOptionService.optionsByProduct(productNum);
+//		List<CalendarVo> reservationDates = reservationDatesService.findByCalendarVo(productNum);
+//
+//		Map<String, List<String>> secondCategoryMap = new HashMap<>();
+//		secondCategoryMap = secondCategoryService.setCategoryPerFirstCategory(firstCategorys);
+//		JSONObject secondCategoryJson = new JSONObject(secondCategoryMap);
+//		model.addAttribute("secondCategory", secondCategoryJson.toString());
+//
+//		model.addAttribute("firstcategory", firstCategorys);
+//		model.addAttribute("unitedCategoryName", unitedCategoryName);
+//		model.addAttribute("product", product);
+//		model.addAttribute("productoptions", productOptions);
+//		model.addAttribute("dates", reservationDates);
+
+
 		CompletableFuture<List<FirstCategoryDomain>> firstCategorys = CompletableFuture.supplyAsync(() ->
 				firstCategoryService.findAll());
 		CompletableFuture<UnitedCategoryVo> unitedCategoryName = CompletableFuture.supplyAsync(() ->

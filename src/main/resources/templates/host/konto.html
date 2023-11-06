@@ -15,7 +15,7 @@
                     <div class="manage-info-konto-area">
                         <span class="manage-info-text">입금 은행</span>
                         <div class="manage-info-dropbox-area frame">
-                            <input type="text" readonly class="konto-input konto-bank" name="bankName" th:value="은행">
+                            <input type="text" readonly class="konto-input konto-bank" name="bankName" value="은행" th:if="${bank != null}" th:value="${bank}">
                             <span class="icon-arrow"></span>
                         </div>
                     </div>
@@ -35,13 +35,13 @@
                     <div class="manage-info-konto-area">
                         <span class="manage-info-text">예금주 명</span>
                         <div class="frame">
-                            <input type="text" class="konto-input konto-owner" name="accountOwner">
+                            <input type="text" class="konto-input konto-owner" name="accountOwner" th:if="${account != null}" th:value="${account.accountOwner}">
                         </div>
                     </div>
                     <div class="manage-info-konto-area">
                         <span class="manage-info-text">계좌 번호</span>
                         <div class="frame">
-                            <input type="text" class="konto-input konto-number" name="accountNum">
+                            <input type="text" class="konto-input konto-number" name="accountNum" th:if="${account != null}" th:value="${account.accountNum}">
                         </div>
                     </div>
                     <button class="btn-submit btn-center">저&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;장</button>

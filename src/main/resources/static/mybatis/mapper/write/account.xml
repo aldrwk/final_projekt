@@ -6,14 +6,14 @@
 
     <insert id="insert" parameterType="AccountDomain">
         insert into account
-        values (null, #{hostNum}, #{accountNum}, '#{bankCode}', '#{accountOwner}', #{changeDate})
+        values (null, #{hostNum}, #{accountNum}, #{bankCode}, #{accountOwner}, #{changeDate})
     </insert>
 
     <update id="update" parameterType="AccountDomain">
         update account
         set account_num   = #{accountNum},
-            bank_code     = '#{bankCode}',
-            account_owner = '#{accountOwner}',
+            bank_code     = #{bankCode},
+            account_owner = #{accountOwner},
             change_date   = #{changeDate}
         where host_num = #{hostNum}
     </update>
