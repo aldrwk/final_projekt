@@ -9,11 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RoutingDataSource extends AbstractRoutingDataSource {
-
 	@Override
 	protected Object determineCurrentLookupKey() { // (1)
 		return (TransactionSynchronizationManager.isCurrentTransactionReadOnly()) ? "slave" : "master"; //(2)
 	}
-
-
 }
