@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Objects;
 
-@EnableCaching
-@Configuration
+//@EnableCaching
+//@Configuration
 public class CachConfig{
 
 	// Eh 캐시 매니저 생성 도우미, 빈등록을 해놓으면 된다.

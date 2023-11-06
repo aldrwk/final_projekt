@@ -21,13 +21,13 @@ $(function () {
         $('.search-remove').remove();
         isCancleButton = false;
     });
-    $(".search").on('focus', '.search-data', function () {
-        $('.search-box').css("display", "block");
-        console.log("search box")
-    })
-    $(document).on('blur', '.search-data', function () {
-        $('.search-box').css("display", "none");
-    })
+    // $(".search").on('focus', '.search-data', function () {
+    //     $('.search-box').css("display", "block");
+    //     console.log("search box")
+    // })
+    // $(document).on('blur', '.search-data', function () {
+    //     $('.search-box').css("display", "none");
+    // })
 
     $(".search").submit(function () {
         if ($(".search-data").val() == "") {
