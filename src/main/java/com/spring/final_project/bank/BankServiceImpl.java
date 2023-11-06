@@ -13,7 +13,7 @@ public class BankServiceImpl implements BankService {
 	private BankReadMapper bankReadMapper;
 
 	@Autowired
-	public BankServiceImpl(BankMapper bankMapper) {
+	public BankServiceImpl(BankReadMapper bankReadMapper) {
 		this.bankReadMapper = bankReadMapper;
 	}
 

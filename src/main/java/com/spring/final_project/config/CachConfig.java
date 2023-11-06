@@ -41,5 +41,4 @@ public class CachConfig{
 		// 캐시 팩토리를 넘겨서 eh캐시 매니저 생성
 		return new EhCacheCacheManager(Objects.requireNonNull(cacheManagerFactoryBean().getObject()));
 	}
-
 }

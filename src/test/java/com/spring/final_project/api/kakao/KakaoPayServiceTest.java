@@ -28,24 +28,27 @@ class KakaoPayServiceTest {
 	@Test
 	void 동시성테스트() throws InterruptedException {
 
-		int optionId = 208;
+		int optionId = 257;
 		String quantity = "1";
-		CountDownLatch latch = new CountDownLatch(10);
-		ExecutorService executorService = Executors.newFixedThreadPool(10);
-		for (int i = 0; i < 10; i++) {
+		CountDownLatch latch = new CountDownLatch(15);
+		ExecutorService executorService = Executors.newFixedThreadPool(15);
+		for (int i = 1; i <= 15; i++) {
 			int finalI = i;
 			executorService.execute(() -> {
-				System.out.println("동시성 테스트" + finalI);
-				ConcurrencyTest(finalI,optionId, quantity, productOptionService);
+				ConcurrencyTest(finalI, optionId, quantity, productOptionService);
 				latch.countDown();
 			});
 		}
 		latch.await();
 	}
 
-	void ConcurrencyTest(int finalI,int optionId, String quantity, ProductOptionService productOptionService) {
+	void ConcurrencyTest(int finalI, int optionId, String quantity, ProductOptionService productOptionService) {
 		int restCheckResult = productOptionService.restCheck(optionId, quantity);
-		System.out.println(finalI+"번의 재고 - 요청 수량 : "+ restCheckResult);
+		if (restCheckResult == -1) {
+			System.out.println(finalI + "번의  요청전 재고 소진");
+		} else {
+			System.out.println(finalI + "번의 요청후 재고량 : " + restCheckResult);
+		}
 	}
 }
 

@@ -4,32 +4,32 @@
 
 <mapper namespace="com.spring.final_project.account.mapper.AccountMapper">
 
-    <select id="findById" resultType="AccountDomain" resultMap="accountMap">
+    <select id="findById" resultMap="accountMap">
         select host_num, account_num, bank_code, account_owner from account where host_num = #{hostNum}
     </select>
 
     <insert id="insert" parameterType="AccountDomain">
         insert into account
-        values (null, #{hostNum}, #{accountNum}, '#{bankCode}', '#{accountOwner}', #{changeDate})
+        values (null, #{hostNum}, #{accountNum}, #{bankCode}, #{accountOwner}, #{changeDate})
     </insert>
 
     <update id="update" parameterType="AccountDomain">
         update account
         set account_num   = #{accountNum},
-            bank_code     = '#{bankCode}',
-            account_owner = '#{accountOwner}',
+            bank_code     = #{bankCode},
+            account_owner = #{accountOwner},
             change_date   = #{changeDate}
         where host_num = #{hostNum}
     </update>
 
 
 
-    <resultMap id="accountMap" type="accountDomain">
+    <resultMap id="accountMap" type="AccountDomain">
         <result column="account_id" property="accountId" />
         <result column="host_num" property="hostNum" />
         <result column="account_num" property="accountNum" />
         <result column="bank_code" property="bankCode" />
-        <result column="account_owner" property="accountOwner" />
+        <result column="account_owner" property="accountOwner"/>
         <result column="change_date" property="changeDate" />
     </resultMap>
 </mapper>

@@ -58,7 +58,7 @@ logging:
             handler: INFO
         jdbc:
           datasource:
-            DataSourceTransactionManager: DEBUG
+            DataSourceTransactionManager: INFO
       mybatis: INFO
       apache:
         ibatis:

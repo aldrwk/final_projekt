@@ -31,7 +31,7 @@
     <select id="getRestById" resultType="Integer">
         select ifnull(rest, 0)
         from product_option
-        where option_id = #{optionId} for update;
+        where option_id = #{optionId} ;
     </select>
     <select id="findByReservationId" resultType="Integer">
         select reservation_id

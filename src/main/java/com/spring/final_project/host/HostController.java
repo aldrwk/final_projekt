@@ -121,7 +121,8 @@ public class HostController {
 		CompletableFuture<Integer> countPay = CompletableFuture.supplyAsync(() ->
 				paymentService.countPay(host.getHostNum()));
 
-		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(freeCountInThisMonth, totalProfit, profitInThisMonth, countPay);
+		CompletableFuture<Void> combinedFutureAllof = CompletableFuture.allOf(freeCountInThisMonth, totalProfit,
+				profitInThisMonth, countPay);
 		combinedFutureAllof.thenRun(() -> {
 			try {
 				model.addAttribute("countPay", countPay.get());
@@ -142,15 +143,6 @@ public class HostController {
 		HostDomain host = hostService.findByHostNum(hostNum);
 		List<FirstCategoryDomain> firstCategory = firstCategoryService.findAll();
 		List<Map<String, Object>> productpacks =productService.setProductPack(productService.findForHostInfo(hostNum));
-//		List<Map<String, Object>> productpacks = new ArrayList<>();
-//		for (ProductDomain product : products) {
-//			Map<String, Object> productpack = new HashMap<>();
-//			int productNum = product.getProducNum();
-//			ProductOptionDomain productOption = productOptionService.OneOptionByProduct(productNum);
-//			productpack.put("product", product);
-//			productpack.put("productoption", productOption);
-//			productpacks.add(productpack);
-//		}
 		model.addAttribute("categorys", firstCategory);
 		model.addAttribute("productpacks", productpacks);
 		model.addAttribute("host", host);
@@ -184,8 +176,20 @@ public class HostController {
 	}
 
 	@PostMapping("/konto")
-	public String hostKonto(Model model) {
+	public String hostKonto(Model model, HttpSession session) {
+		HostDomain host = (HostDomain) session.getAttribute("host_info");
+		int hostNum = host.getHostNum();
 		List<BankDomain> banks = bankService.findAll();
+		AccountDomain account = accountService.findById(hostNum);
+		if (account != null) {
+			model.addAttribute("account", account);
+			for (BankDomain bank : banks) {
+				if (bank.getBankCode().equals(account.getBankCode())) {
+					String bankName = bank.getBankName();
+					model.addAttribute("bank", bankName);
+				}
+			}
+		}
 		model.addAttribute("banks", banks);
 		return "/host/konto ::konto";
 	}
@@ -198,13 +202,14 @@ public class HostController {
 		HostDomain host = (HostDomain) session.getAttribute("host_info");
 		int hostNum = host.getHostNum();
 		account.setHostNum(hostNum);
+		log.info(account.toString());
 
 		if (accountService.findById(hostNum) != null) {
 			accountService.update(account);
 		} else {
 			accountService.insert(account);
 		}
-		return "/host/managecenter";
+		return "redirect:/host/center";
 	}
 
 

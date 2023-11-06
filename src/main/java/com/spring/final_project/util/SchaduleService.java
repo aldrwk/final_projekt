@@ -34,7 +34,6 @@ public class SchaduleService {
 		LocalDateTime startDate = instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
 		instant = Instant.parse(data.getEnd());
 		LocalDateTime endDate = instant.atZone(ZoneId.of("UTC")).toLocalDateTime();
-		System.out.println(data.getId().length() + " setfd");
 		if (data.getId().length() <= 3 || !data.getId().substring(0, 3).equals("new")) {
 			reservationDate.setReservationId(Integer.parseInt(data.getId()));
 		}
